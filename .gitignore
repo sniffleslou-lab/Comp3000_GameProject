@@ -39,3 +39,17 @@
 
 # debug information files
 *.dwo
+#clio
+.idea/
+*.iml
+
+#mac sustem
+.DS_Store
+
+#cmake
+
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+compile_comands.json
