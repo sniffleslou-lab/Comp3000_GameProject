@@ -2,8 +2,20 @@
 //using sdl2
 
 #include <SDL.h>
+#include "game.h"
 #include <iostream>
 
+
+int main(int argc, char* args[]){
+    Game game;
+    if(!game.init("Am I pretty Enough?",800,600)){
+        std::cerr<<"game failed to launch: " << std::endl;
+        return 1;
+    }
+    game.run();
+    return 0;
+}
+/*
 int main(int argc, char* args[]){
     SDL_Window* window = NULL;
     SDL_Surface* screenSurface = NULL;
@@ -28,5 +40,5 @@ int main(int argc, char* args[]){
     SDL_Delay(2000);
     SDL_DestroyWindow(window);
     return 0;
-}
+}*/
 

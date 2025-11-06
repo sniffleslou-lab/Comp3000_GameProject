@@ -12,7 +12,10 @@ add_executable(${PROJECT_NAME}
         src/main.cpp
         src/controls.cpp
         src/game.h
-        src/game.cpp)
+        src/game.cpp
+        src/controls.h
+        src/character.h
+        src/character.cpp)
 
 #packages and links
 
