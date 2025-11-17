@@ -11,6 +11,7 @@ public:
     void run();
     void close();
 
+
     SDL_Renderer* getRenderer()const;
 
 private:

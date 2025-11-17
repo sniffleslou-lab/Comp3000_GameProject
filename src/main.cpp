@@ -6,15 +6,28 @@
 #include <iostream>
 
 
-int main(int argc, char* args[]){
+int main (int argc, char * argv[]) {
+    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "error", "Error initialising SDL", nullptr);
+        return 1;
+
+    }
+
     Game game;
-    if(!game.init("Am I pretty Enough?",800,600)){
+    if(!game.init("Am I Enough?",800,600)){
         std::cerr<<"game failed to launch: " << std::endl;
         return 1;
     }
     game.run();
     return 0;
+
+
 }
+
+
+
+
+
 /*
 int main(int argc, char* args[]){
     SDL_Window* window = NULL;
