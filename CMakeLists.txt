@@ -16,7 +16,9 @@ add_executable(${PROJECT_NAME}
         src/SceneManager.cpp
         src/InspectionSystem.cpp
         src/DialogueSystem.cpp
-        src/sceneManager.h)
+        src/sceneManager.h
+        src/startScene.cpp
+        src/StartScene.h)
 #packages and links
 find_package(SDL2 CONFIG REQUIRED)
 find_package(SDL2_image REQUIRED)
