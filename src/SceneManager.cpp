@@ -3,31 +3,44 @@
 //for scene control
 //
 #include "sceneManager.h"
-#include "iostream"
+#include <iostream>
+#include "StartScene.h"
 
-SceneManager::SceneManager() {
-    currentScene = SceneID::SCENE_START;
+SceneManager::SceneManager(SDL_Renderer *renderer)  {
+    currentSceneID = SceneID::SCENE_START;
+    currentScene = createScene(currentSceneID,renderer);
+    if (currentScene)currentScene->enter();
 }
-void SceneManager::changeScene(SceneID newScene) {
-    UnloadScene(currentScene);
-    currentScene = newScene;
-    loadScene(newScene);
+void SceneManager::changeScene(SceneID newScene, SDL_Renderer *renderer)  {
+    unloadScene();
+    currentSceneID = newScene;
+    currentScene = createScene(newScene, renderer);
 }
-void SceneManager::loadScene(SceneID scene) {
+std::unique_ptr<Scene>SceneManager::createScene(SceneID scene, SDL_Renderer *renderer)  {
     switch (scene) {
         case SceneID::SCENE_START:
             std::cout << "loaded the start scene\n";
+            return std::make_unique<StartScene>(renderer);
             break;
         default:
             break;
     }
 }
+void SceneManager::unloadScene() {
+    //delete scene
+    currentScene.reset();
+}
 
 
 void SceneManager::update(float dt) {
+    if (currentScene) currentScene->update(dt);
 
+}
+void SceneManager::handleEvents(SDL_Event &e) {
+    if (currentScene) currentScene->handleEvents(e);
 }
 
 void SceneManager::render(SDL_Renderer *renderer) {
+    if (currentScene) currentScene->render(renderer);
 
 }

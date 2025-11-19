@@ -4,6 +4,7 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
+#include "sceneManager.h"
 
 
 
@@ -37,7 +38,27 @@ bool Game::init(const char *title, int width, int height) {
 }
 void Game::run() {
     SDL_Event event;
-    Character player(renderer, "../assets/textures/testPlayer.png", 100, 100);
+    SceneManager sceneManager(renderer);
+
+    while (isRunning){
+        while (SDL_PollEvent(&event)){
+            if(event.type == SDL_QUIT){
+                isRunning = false;
+            }else{
+                sceneManager.handleEvents(event);
+            }
+        }
+        //framerate
+        sceneManager.update(0.016f);
+        SDL_SetRenderDrawColor(renderer,255,204,221,255);
+        SDL_RenderClear(renderer);
+
+        sceneManager.render(renderer);
+        SDL_RenderPresent(renderer);
+    }
+
+    //this is the old part that ran the controlls and displayed character
+    /*Character player(renderer, "../assets/textures/testPlayer.png", 100, 100);
     Controls controls;
 
     while (isRunning) {
@@ -54,7 +75,7 @@ void Game::run() {
 
     SDL_RenderPresent(renderer);
 
-}
+}*/
 }
 
 void Game::close() {

@@ -19,7 +19,9 @@ add_executable(${PROJECT_NAME}
         src/sceneManager.h
         src/startScene.cpp
         src/StartScene.h
-        src/scene.h)
+        src/scene.h
+        src/bedroom.h
+        src/bedroom.cpp)
 
 #packages and links
 find_package(SDL2 CONFIG REQUIRED)
