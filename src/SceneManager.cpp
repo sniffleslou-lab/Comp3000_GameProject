@@ -5,6 +5,7 @@
 #include "sceneManager.h"
 #include <iostream>
 #include "StartScene.h"
+#include "bedroom.h"
 
 SceneManager::SceneManager(SDL_Renderer *renderer)  {
     currentSceneID = SceneID::SCENE_START;
@@ -20,7 +21,11 @@ std::unique_ptr<Scene>SceneManager::createScene(SceneID scene, SDL_Renderer *ren
     switch (scene) {
         case SceneID::SCENE_START:
             std::cout << "loaded the start scene\n";
-            return std::make_unique<StartScene>(renderer);
+            return std::make_unique<StartScene>(renderer, *this);
+        case SceneID::SCENE_BEDROOM:
+            std::cout << "loaded the bedroom scene\n";
+
+            return std::make_unique<bedroom>(renderer);
             break;
         default:
             break;

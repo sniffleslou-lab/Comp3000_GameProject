@@ -5,7 +5,8 @@
 #include <SDL_image.h>
 #include <iostream>
 
-StartScene::StartScene(SDL_Renderer *renderer) {
+
+StartScene::StartScene(SDL_Renderer* renderer, SceneManager& manager): sceneManager(manager), renderer(renderer) {
     //below will load the textures
     startButtonTexture = IMG_LoadTexture(renderer, "../assets/textures/StartScene/startButton.png");
     quitButtonTexture = IMG_LoadTexture(renderer, "../assets/textures/StartScene/quitButton.png");
@@ -30,6 +31,8 @@ void StartScene::handleEvents(SDL_Event &e) {
         if (x>= startButtonRect.x && x<= startButtonRect.x + startButtonRect.w
         && y>= startButtonRect.y && y <= startButtonRect.y + startButtonRect.h) {
             std::cout << "start button was clicked!";
+            sceneManager.changeScene(SceneID::SCENE_BEDROOM,renderer);
+
         }
         if (x>= quitButtonRect.x && x<= quitButtonRect.x + quitButtonRect.w
             && y>= quitButtonRect.y && y <= quitButtonRect.y + quitButtonRect.h) {

@@ -7,10 +7,11 @@
 
 #include <SDL.h>
 #include "scene.h"
+#include "sceneManager.h"
 
 class StartScene: public Scene{
 public:
-    StartScene(SDL_Renderer* renderer);
+    StartScene(SDL_Renderer* renderer, SceneManager& manager);
     ~StartScene();
 
     void enter() override;
@@ -26,6 +27,9 @@ private:
 
     SDL_Texture* quitButtonTexture;
     SDL_Rect quitButtonRect;
+
+    SceneManager& sceneManager;
+    SDL_Renderer* renderer;
 
 
 

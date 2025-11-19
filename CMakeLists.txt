@@ -21,7 +21,8 @@ add_executable(${PROJECT_NAME}
         src/StartScene.h
         src/scene.h
         src/bedroom.h
-        src/bedroom.cpp)
+        src/bedroom.cpp
+        src/inspectionSystem.h)
 
 #packages and links
 find_package(SDL2 CONFIG REQUIRED)
