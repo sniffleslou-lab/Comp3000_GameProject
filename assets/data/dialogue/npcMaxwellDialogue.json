@@ -1,0 +1,10 @@
+{
+  "npc" : "Maxwell",
+  "dialogue": [
+    {
+      "id": 1,
+      "text": ".....",
+      "condition": "introduction == true"
+    }
+  ]
+}

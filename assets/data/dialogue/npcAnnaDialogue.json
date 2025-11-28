@@ -1,0 +1,10 @@
+{
+  "npc" : "Anna",
+  "dialogue": [
+    {
+      "id": 1,
+      "text": "dude, what's up? Watching the dust bunnies??",
+      "condition": "introduction == true"
+    }
+  ]
+}

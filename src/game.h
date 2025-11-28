@@ -1,6 +1,11 @@
 #pragma once
+#include <memory>
+
 #include "SDL.h"
 #include "SDL_image.h"
+
+#include "storyFlags.h"
+#include "dialogueSystem.h"
 
 class Game {
 public:
@@ -18,4 +23,7 @@ private:
     SDL_Window* window;
     SDL_Renderer *renderer;
     bool isRunning;
+
+    StoryFlags storyFlags;
+    std::unique_ptr<DialogueSystem> dialogueSystem;
 };

@@ -5,6 +5,8 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "sceneManager.h"
+#include "storyFlags.h"
+#include "dialogueSystem.h"
 
 
 
@@ -33,6 +35,13 @@ bool Game::init(const char *title, int width, int height) {
     if(!(IMG_Init(IMG_INIT_PNG)& IMG_INIT_PNG)){
         std::cerr<<" img init failed : " << IMG_GetError()<<std::endl;
         return false;}
+
+    //loads dialoge
+dialogueSystem = std::make_unique<DialogueSystem>(storyFlags);
+dialogueSystem->loadAllDialogue("../assets/data/dialogue/");
+dialogueSystem->startDialogue("Garret");
+
+
     isRunning = true;
     return true;
 }

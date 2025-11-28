@@ -1,0 +1,10 @@
+{
+  "npc" : "Garret",
+  "dialogue": [
+    {
+      "id": 1,
+      "text": "Hey, you shouldn't head out",
+      "condition": "introduction == true"
+    }
+  ]
+}

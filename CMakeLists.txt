@@ -15,14 +15,17 @@ add_executable(${PROJECT_NAME}
         src/character.cpp
         src/SceneManager.cpp
         src/InspectionSystem.cpp
-        src/DialogueSystem.cpp
+        src/dialogueSystem.cpp
         src/sceneManager.h
         src/startScene.cpp
         src/StartScene.h
         src/scene.h
         src/bedroom.h
         src/bedroom.cpp
-        src/inspectionSystem.h)
+        src/inspectionSystem.h
+        src/storyFlags.cpp
+        src/storyFlags.h
+        src/dialogueSystem.h)
 
 #packages and links
 find_package(SDL2 CONFIG REQUIRED)
