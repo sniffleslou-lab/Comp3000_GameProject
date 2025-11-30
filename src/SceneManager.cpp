@@ -43,6 +43,7 @@ void SceneManager::update(float dt) {
 }
 void SceneManager::handleEvents(SDL_Event &e) {
     if (currentScene) currentScene->handleEvents(e);
+
 }
 
 void SceneManager::render(SDL_Renderer *renderer) {

@@ -16,12 +16,21 @@ void bedroom::enter() {
 }
 void bedroom::handleEvents(SDL_Event &e) {
     controls.handleInput(e, *player, *inspector);
+
+    if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_f){
+        dialogueSystem->startDialogue("Garret");
+    }
+    if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE){
+        dialogueSystem->nextLine();
+    }
 }
 void bedroom::update(float dt) {}
 
 void bedroom::render(SDL_Renderer *renderer) {
     inspector->render(renderer);
     player->draw();
+
+    dialogueSystem->render(renderer);
 }
 void bedroom::exit() {
     std::cout<<"exited bedroom scene";

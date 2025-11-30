@@ -10,6 +10,7 @@
 #include "character.h"//going to load character into bedroom for testing
 #include "controls.h"
 #include "inspectionSystem.h"
+#include "dialogueSystem.h"
 
 class bedroom: public Scene{
 public:
@@ -27,5 +28,6 @@ private:
     std::unique_ptr<Character> player;
     Controls controls;
     std::unique_ptr<inspectionSystem> inspector;
+    std::unique_ptr<DialogueSystem> dialogueSystem;
 };
 #endif //AMIPRETTY_BEDROOM_H

@@ -35,6 +35,10 @@ bool Game::init(const char *title, int width, int height) {
     if(!(IMG_Init(IMG_INIT_PNG)& IMG_INIT_PNG)){
         std::cerr<<" img init failed : " << IMG_GetError()<<std::endl;
         return false;}
+    if (TTF_Init()==-1){
+        std::cerr<<"TTF_init failed: " << TTF_GetError()<<std::endl;
+        return false;
+    }
 
     //loads dialoge
 dialogueSystem = std::make_unique<DialogueSystem>(storyFlags);
@@ -92,6 +96,7 @@ void Game::close() {
     if(window) SDL_DestroyWindow(window);
     IMG_Quit();
     SDL_Quit();
+    TTF_Quit()
 }
 SDL_Renderer* Game::getRenderer() const {
     return renderer;

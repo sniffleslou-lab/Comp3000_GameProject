@@ -8,7 +8,12 @@
 #include "filesystem"
 
 DialogueSystem::DialogueSystem(StoryFlags &flags)
-: storyFlags(flags) {}
+: storyFlags(flags) {
+    font = TTF_OpenFont("../assets/font/Sunlight Dreams.otf",24);
+    if(!font){
+        std::cerr << "failed to load font: " << TTF_GetError()<<std::endl;
+    }
+}
 
 void DialogueSystem::loadDialogueFile(const std::string &jsonPath) {
     std::ifstream file(jsonPath);
@@ -64,8 +69,27 @@ void DialogueSystem::nextLine() {
     }
 }
 void DialogueSystem::render(SDL_Renderer *renderer) {
-    if (currentIndex<currentLines.size()){
+   /* if (currentIndex<currentLines.size()){
         std::cout<<currentLines[currentIndex].text<<std::endl;
-    }
+    }*/
+    if (currentLines.empty())return;
+
+    //now we are drawing
+    SDL_Rect box={50,400,700,150};
+    SDL_SetRenderDrawColor(renderer, 0,0,0,200);
+    SDL_RenderFillRect(renderer, &box);
+
+    //now we redner the lines
+    const dialogueLine& line = currentLines[currentIndex];
+    SDL_Color white = {255,255,255,255};
+    SDL_Surface* surface = TTF_RenderText_Blended(font,line.text.c_str(),white);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer,surface);
+
+    SDL_Rect dst = {70,420, surface->w, surface->h};
+    SDL_RenderCopy(renderer,texture, nullptr,&dst);
+    SDL_FreeSurface(surface);
+    SDL_DestroyTexture(texture);
+
+
 }
 
