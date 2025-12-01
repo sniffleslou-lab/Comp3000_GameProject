@@ -4,6 +4,7 @@
 #include <SDL.h>
 #include "scene.h"
 #include <memory>
+#include "storyFlags.h"
 
 
 enum SceneID{
@@ -13,7 +14,7 @@ enum SceneID{
 
 class SceneManager{
 public:
-    SceneManager(SDL_Renderer* renderer);
+    SceneManager(SDL_Renderer* renderer, StoryFlags& flags);
     //this will be used to switch scenes
     void changeScene(SceneID newScene, SDL_Renderer* renderer);
     void update(float dt);
@@ -27,6 +28,7 @@ private:
      std::unique_ptr<Scene> currentScene;
      std::unique_ptr<Scene> createScene(SceneID scene,SDL_Renderer* renderer);
      void unloadScene();
+     StoryFlags& storyFlags;
 
 };
 #endif

@@ -7,6 +7,7 @@
 #include <SDL.h>
 #include <string>
 #include <vector>
+#include <SDL_ttf.h>
 
 //same as json
 struct Item{
@@ -28,5 +29,7 @@ public:
 
 private:
     std::vector<Item> items;
+    std::string currentText;
+    TTF_Font* font = nullptr;
 };
 #endif //AMIPRETTY_INSPECTIONSYSTEM_H

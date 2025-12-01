@@ -4,10 +4,13 @@
 #include "bedroom.h"
 #include <iostream>
 
-bedroom::bedroom(SDL_Renderer *renderer) {
+bedroom::bedroom(SDL_Renderer *renderer, StoryFlags& flags) : storyFlags(flags) {
     player = std::make_unique<Character>(renderer,"../assets/textures/testPlayer.png",100,200);
     inspector= std::make_unique<inspectionSystem>(renderer);
     inspector->loadItems("../assets/data/item.json",renderer);
+
+    dialogueSystem = std::make_unique<DialogueSystem>(storyFlags);
+    dialogueSystem->loadAllDialogue("../assets/data/dialogue/");
 }
 bedroom::~bedroom()  {}
 

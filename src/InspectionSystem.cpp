@@ -7,8 +7,15 @@
 #include <iostream>
 #include <SDL_image.h>
 
-inspectionSystem::inspectionSystem(SDL_Renderer *renderer) {}
+inspectionSystem::inspectionSystem(SDL_Renderer *renderer) {
+    font = TTF_OpenFont("../assets/font/Sunlight Dreams.otf", 20);
+    if (!font){
+        std::cerr<<"failed to load inpsection font: " << TTF_GetError()<< std::endl;
+    }
+
+}
 inspectionSystem::~inspectionSystem() {
+    if (font) TTF_CloseFont(font);
 
 }
 
@@ -36,11 +43,28 @@ void inspectionSystem::render(SDL_Renderer *renderer) {
     for (auto& item:items) {
         SDL_RenderCopy(renderer,item.texture, nullptr, &item.rect);
     }
+
+    if (!currentText.empty()&&font){
+        SDL_Rect box = {50,300,700,100};
+        SDL_SetRenderDrawColor(renderer, 0,0,0,200);
+        SDL_RenderFillRect(renderer, &box);
+
+        SDL_Color white = {255,255,255,255};
+        SDL_Surface* surface = TTF_RenderText_Blended(font, currentText.c_str(),white);
+        SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer,surface);
+
+        SDL_Rect dst={70,320, surface->w,surface->h};
+        SDL_RenderCopy(renderer,texture, nullptr, &dst);
+
+        SDL_FreeSurface(surface);
+        SDL_DestroyTexture(texture);
+    }
 }
 void inspectionSystem::inspect(const SDL_Rect &playerPos) {
     for (auto& item:items) {
         if(SDL_HasIntersection(&playerPos,&item.rect)){
             //test
+            currentText = item.inspect;
             std::cout << "player says: "<< item.inspect << std::endl;
         }
     }

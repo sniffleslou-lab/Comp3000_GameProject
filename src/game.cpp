@@ -51,7 +51,7 @@ dialogueSystem->startDialogue("Garret");
 }
 void Game::run() {
     SDL_Event event;
-    SceneManager sceneManager(renderer);
+    SceneManager sceneManager(renderer,storyFlags);
 
     while (isRunning){
         while (SDL_PollEvent(&event)){
@@ -96,7 +96,7 @@ void Game::close() {
     if(window) SDL_DestroyWindow(window);
     IMG_Quit();
     SDL_Quit();
-    TTF_Quit()
+    TTF_Quit();
 }
 SDL_Renderer* Game::getRenderer() const {
     return renderer;

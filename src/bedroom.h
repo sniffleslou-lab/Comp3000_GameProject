@@ -14,7 +14,7 @@
 
 class bedroom: public Scene{
 public:
-    bedroom(SDL_Renderer* renderer);
+    bedroom(SDL_Renderer* renderer, StoryFlags& flags);
     ~bedroom();
 
     void enter() override;
@@ -25,6 +25,7 @@ public:
     void exit() override;
 
 private:
+    StoryFlags& storyFlags;
     std::unique_ptr<Character> player;
     Controls controls;
     std::unique_ptr<inspectionSystem> inspector;
