@@ -5,6 +5,7 @@
 #include <fstream>
 #include "inspectionSystem.h"
 #include <iostream>
+#include "sceneManager.h"
 #include <SDL_image.h>
 
 inspectionSystem::inspectionSystem(SDL_Renderer *renderer) {
@@ -60,12 +61,18 @@ void inspectionSystem::render(SDL_Renderer *renderer) {
         SDL_DestroyTexture(texture);
     }
 }
-void inspectionSystem::inspect(const SDL_Rect &playerPos) {
+void inspectionSystem::inspect(const SDL_Rect &playerPos, SceneManager &sceneManager, SDL_Renderer *renderer) {
     for (auto& item:items) {
         if(SDL_HasIntersection(&playerPos,&item.rect)){
-            //test
-            currentText = item.inspect;
-            std::cout << "player says: "<< item.inspect << std::endl;
+            if(item.type== "door"){
+                SceneID target = sceneManager.sceneIdFromString(item.targetScene);
+                std::cout<< "door to " << item.targetScene << " triggered\n";
+                sceneManager.changeScene(target,renderer);
+            }else {
+                //test
+                currentText = item.inspect;
+                std::cout << "player says: " << item.inspect << std::endl;
+            }
         }
     }
 }

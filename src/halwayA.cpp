@@ -1,14 +1,13 @@
 //
-// Created by Lou halpin on 19/11/2025.
+// Created by Lou halpin on 03/12/2025.
 //
-#include "bedroom.h"
+
+#include "hallwayA.h"
 #include <iostream>
-#include "sceneManager.h"
-#include "inspectionSystem.h"
 
-
-bedroom::bedroom(SDL_Renderer *renderer, StoryFlags& flags)
-: storyFlags(flags), renderer(renderer) {
+HallwayA::HallwayA(SDL_Renderer *renderer, StoryFlags &flags)
+:storyFlags(flags), renderer(renderer)
+{
     player = std::make_unique<Character>(renderer,"../assets/textures/testPlayer.png",100,200);
     inspector= std::make_unique<inspectionSystem>(renderer);
     inspector->loadItems("../assets/data/item.json",renderer);
@@ -16,16 +15,18 @@ bedroom::bedroom(SDL_Renderer *renderer, StoryFlags& flags)
     dialogueSystem = std::make_unique<DialogueSystem>(storyFlags);
     dialogueSystem->loadAllDialogue("../assets/data/dialogue/");
 }
-bedroom::~bedroom()  {}
 
-void bedroom::enter() {
-    std::cout<< "entered bedroom scene";
+HallwayA::~HallwayA() {}
+
+void HallwayA::enter() {
+    std::cout<<"entered hallway scene\n";
 }
-void bedroom::handleEvents(SDL_Event &e) {
+
+void HallwayA::handleEvents(SDL_Event &e) {
     controls.handleInput(e, *player, *inspector);
 
     if (e.type == SDL_KEYDOWN && e.key.keysym.sym==SDLK_e){
-        inspector->inspect(player->getPosition(),*sceneManager, renderer);
+       // inspector->inspect(player->getPosition(),*sceneManager, renderer);
     }
 
     if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_f){
@@ -35,14 +36,7 @@ void bedroom::handleEvents(SDL_Event &e) {
         dialogueSystem->nextLine();
     }
 }
-void bedroom::update(float dt) {}
 
-void bedroom::render(SDL_Renderer *renderer) {
-    inspector->render(renderer);
-    player->draw();
-
-    dialogueSystem->render(renderer);
-}
-void bedroom::exit() {
-    std::cout<<"exited bedroom scene";
-}
+void HallwayA::update(float dt) {}
+void HallwayA::render(SDL_Renderer *renderer) {}
+void HallwayA::exit() {}

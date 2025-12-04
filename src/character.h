@@ -12,6 +12,7 @@ public:
     void move(int dx, int dy);
     SDL_Rect getPosition()const;
 
+
 private:
     SDL_Renderer* renderer;
     SDL_Texture* texture;

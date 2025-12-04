@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 #include <SDL_ttf.h>
-
+#include "sceneManager.h"
 //same as json
 struct Item{
     int id;
@@ -16,6 +16,9 @@ struct Item{
     std::string inspect;
     SDL_Rect rect;
     SDL_Texture* texture;
+    std::string type;
+    std::string targetScene;
+
 };
 
 class inspectionSystem{
@@ -25,7 +28,7 @@ public:
 
     void loadItems(const std::string& jsonPath, SDL_Renderer* renderer);
     void render(SDL_Renderer* renderer);
-    void inspect(const SDL_Rect& playerPos);
+    void inspect(const SDL_Rect& playerPos, SceneManager& sceneManager, SDL_Renderer* renderer);
 
 private:
     std::vector<Item> items;

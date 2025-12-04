@@ -9,7 +9,9 @@
 
 enum SceneID{
     SCENE_START,
-    SCENE_BEDROOM
+    SCENE_BEDROOM,
+    SCENE_KITCHEN,
+    SCENE_HALLWAYA
 };
 
 class SceneManager{
@@ -20,6 +22,7 @@ public:
     void update(float dt);
     void handleEvents(SDL_Event& e);
     void render(SDL_Renderer* renderer);
+    SceneID sceneIdFromString(const std::string& name);
 
 private:
     SceneID currentSceneID;

@@ -1,6 +1,7 @@
 #include "controls.h"
 #include "character.h"
 #include "inspectionSystem.h"
+#include "sceneManager.h"
 
 void Controls::handleInput(SDL_Event &event, Character &player, inspectionSystem& inspector) {
 if (event.type == SDL_KEYDOWN) {
@@ -10,10 +11,6 @@ if (event.type == SDL_KEYDOWN) {
             case SDLK_UP: player.move(0,-5); break;
             case SDLK_DOWN: player.move(0, 5); break;
 
-            //for inspections
-            case SDLK_f:
-                inspector.inspect(player.getPosition());
-                break;
 
 
         }

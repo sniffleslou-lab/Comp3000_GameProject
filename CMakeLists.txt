@@ -25,7 +25,11 @@ add_executable(${PROJECT_NAME}
         src/inspectionSystem.h
         src/storyFlags.cpp
         src/storyFlags.h
-        src/dialogueSystem.h)
+        src/dialogueSystem.h
+        src/hallwayA.h
+        src/kitchen.h
+        src/Kitchen.cpp
+        src/halwayA.cpp)
 
 #packages and links
 find_package(SDL2 CONFIG REQUIRED)
