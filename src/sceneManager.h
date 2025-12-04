@@ -24,6 +24,7 @@ public:
     void render(SDL_Renderer* renderer);
     SceneID sceneIdFromString(const std::string& name);
 
+
 private:
     SceneID currentSceneID;
 

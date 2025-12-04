@@ -32,7 +32,7 @@ private:
     std::unique_ptr<DialogueSystem> dialogueSystem;
 
     SDL_Renderer* renderer;
-    SceneManager* sceneManager;
+    SceneManager* sceneManager= nullptr;
 
 };
 #endif //AMIPRETTY_BEDROOM_H

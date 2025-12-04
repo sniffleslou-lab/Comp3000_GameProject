@@ -26,7 +26,7 @@ void HallwayA::handleEvents(SDL_Event &e) {
     controls.handleInput(e, *player, *inspector);
 
     if (e.type == SDL_KEYDOWN && e.key.keysym.sym==SDLK_e){
-       // inspector->inspect(player->getPosition(),*sceneManager, renderer);
+        inspector->inspect(player->getPosition(),*sceneManager, renderer);
     }
 
     if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_f){
@@ -38,5 +38,11 @@ void HallwayA::handleEvents(SDL_Event &e) {
 }
 
 void HallwayA::update(float dt) {}
-void HallwayA::render(SDL_Renderer *renderer) {}
-void HallwayA::exit() {}
+void HallwayA::render(SDL_Renderer *renderer) {
+    inspector->render(renderer);
+    player->draw();
+    dialogueSystem->render(renderer);
+}
+void HallwayA::exit() {
+    std::cout<<"left hallway scene\n";
+}

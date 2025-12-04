@@ -25,13 +25,13 @@ public:
     void update(float dt) override;
     void render(SDL_Renderer* renderer) override;
     void exit() override;
-    //void setSceneManager(SceneManager* mgr) { sceneManager = mgr; }
+    void setSceneManager(SceneManager* mgr) { sceneManager = mgr; }
 
 private:
     StoryFlags& storyFlags;
 
     SDL_Renderer* renderer;
-    SceneManager* sceneManager;
+    SceneManager* sceneManager= nullptr;
 
     std::unique_ptr<Character> player;
     Controls controls;

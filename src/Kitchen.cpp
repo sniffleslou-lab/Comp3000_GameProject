@@ -14,8 +14,13 @@ Kitchen::Kitchen(SDL_Renderer *renderer, StoryFlags &flags):storyFlags(flags) {
 }
 
 Kitchen::~Kitchen() {}
-void Kitchen::enter() {}
+void Kitchen::enter() {
+    std::cout<< "entered kitchen scene";
+}
 void Kitchen::handleEvents(SDL_Event &e) {}
 void Kitchen::update(float dt) {}
 void Kitchen::render(SDL_Renderer *renderer) {}
-void Kitchen::exit() {}
+void Kitchen::exit() {
+    std::cout<< "left kitchen scene";
+
+}
