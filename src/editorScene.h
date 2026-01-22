@@ -1,0 +1,8 @@
+//
+// Created by Lou halpin on 22/01/2026.
+//
+
+#ifndef AMIPRETTY_EDITORSCENE_H
+#define AMIPRETTY_EDITORSCENE_H
+
+#endif //AMIPRETTY_EDITORSCENE_H
