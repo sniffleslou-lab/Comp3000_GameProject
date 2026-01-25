@@ -7,7 +7,7 @@
 Kitchen::Kitchen(SDL_Renderer *renderer, StoryFlags &flags):storyFlags(flags) {
     player = std::make_unique<Character>(renderer,"../assets/textures/testPlayer.png",100,200);
     inspector= std::make_unique<inspectionSystem>(renderer);
-    inspector->loadItems("../assets/data/item.json",renderer);
+    inspector->loadItems("../assets/data/kitchen.json",renderer);
 
     dialogueSystem = std::make_unique<DialogueSystem>(storyFlags);
     dialogueSystem->loadAllDialogue("../assets/data/dialogue/");
