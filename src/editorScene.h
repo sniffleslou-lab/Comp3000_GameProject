@@ -5,4 +5,9 @@
 #ifndef AMIPRETTY_EDITORSCENE_H
 #define AMIPRETTY_EDITORSCENE_H
 
+#include "scene.h"
+#include "storyFlags.h"
+#include <vector>
+
+
 #endif //AMIPRETTY_EDITORSCENE_H

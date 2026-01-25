@@ -7,6 +7,8 @@
 #define AMIPRETTY_SCENE_H
 #include <SDL.h>
 
+class SceneManager;
+
 class Scene {
 public:
     virtual ~Scene(){}
@@ -16,6 +18,10 @@ public:
     virtual void render(SDL_Renderer* renderer)=0;
     virtual void exit()=0;
 
+    virtual void setSceneManager(SceneManager* mgr) { sceneManager = mgr;}
+
+protected:
+    SceneManager* sceneManager = nullptr;
 };
 
 

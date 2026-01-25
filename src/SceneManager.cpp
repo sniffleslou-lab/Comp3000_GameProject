@@ -8,7 +8,6 @@
 #include "bedroom.h"
 #include "hallwayA.h"
 #include "kitchen.h"
-#include ""
 
 SceneManager::SceneManager(SDL_Renderer *renderer, StoryFlags& flags)  : storyFlags(flags) {
     currentSceneID = SceneID::SCENE_START;
@@ -22,18 +21,29 @@ void SceneManager::changeScene(SceneID newScene, SDL_Renderer *renderer)  {
 }
 std::unique_ptr<Scene>SceneManager::createScene(SceneID scene, SDL_Renderer *renderer)  {
     switch (scene) {
-        case SceneID::SCENE_START:
+        case SceneID::SCENE_START: {
             std::cout << "loaded the start scene\n";
-            return std::make_unique<StartScene>(renderer, *this);
-        case SceneID::SCENE_BEDROOM:
+            auto s =std::make_unique<StartScene>(renderer, *this);
+            s->setSceneManager(this);
+            return s;
+        }
+        case SceneID::SCENE_BEDROOM: {
             std::cout << "loaded the bedroom scene\n";
-            return std::make_unique<bedroom>(renderer, storyFlags);
-        case SceneID::SCENE_HALLWAYA:
-            std::cout<<"loaded the halway scene \n";
-            return  std::make_unique<HallwayA>(renderer, storyFlags);
-        case SceneID::SCENE_KITCHEN:
-            std::cout<<"loaded the kitchen scene\n";
-            return std::make_unique<Kitchen>(renderer, storyFlags);
+            auto s = std::make_unique<bedroom>(renderer, storyFlags);
+            return s;
+        }
+        case SceneID::SCENE_HALLWAYA: {
+            std::cout << "loaded the halway scene \n";
+            auto s= std::make_unique<HallwayA>(renderer, storyFlags);
+            s->setSceneManager(this);
+            return s;
+        }
+        case SceneID::SCENE_KITCHEN: {
+            std::cout << "loaded the kitchen scene\n";
+            auto s= std::make_unique<Kitchen>(renderer, storyFlags);
+            s->setSceneManager(this);
+            return s;
+        }
         default:
             return nullptr;
     }
