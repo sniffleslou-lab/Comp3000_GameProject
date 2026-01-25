@@ -16,7 +16,7 @@
 
 class Kitchen : public Scene{
 public:
-    Kitchen(SDL_Renderer* renderer, StoryFlags& flags);
+    Kitchen(SDL_Renderer* renderer, StoryFlags& flags, DialogueSystem* dialogue);
     ~Kitchen();
 
     void enter() override;
@@ -26,11 +26,12 @@ public:
     void exit() override;
 
 private:
+    SDL_Renderer* renderer;
     StoryFlags& storyFlags;
     std::unique_ptr<Character> player;
     Controls controls;
     std::unique_ptr<inspectionSystem> inspector;
-    std::unique_ptr<DialogueSystem> dialogueSystem;
+    DialogueSystem* dialogueSystem;
 
 };
 

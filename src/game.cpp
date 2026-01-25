@@ -51,7 +51,7 @@ dialogueSystem->startDialogue("Garret");
 }
 void Game::run() {
     SDL_Event event;
-    SceneManager sceneManager(renderer,storyFlags);
+    SceneManager sceneManager(renderer,storyFlags, dialogueSystem.get());
 
     while (isRunning){
         while (SDL_PollEvent(&event)){

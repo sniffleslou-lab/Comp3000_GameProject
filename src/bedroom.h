@@ -14,7 +14,7 @@
 
 class bedroom: public Scene{
 public:
-    bedroom(SDL_Renderer* renderer, StoryFlags& flags);
+    bedroom(SDL_Renderer* renderer, StoryFlags& flags, DialogueSystem* dialogue);
     ~bedroom();
 
     void enter() override;

@@ -17,7 +17,7 @@
 
 class HallwayA : public Scene{
 public:
-    HallwayA(SDL_Renderer* renderer, StoryFlags& flags);
+    HallwayA(SDL_Renderer* renderer, StoryFlags& flags, DialogueSystem* dialogue);
     ~HallwayA();
 
     void enter() override;

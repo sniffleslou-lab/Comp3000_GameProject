@@ -8,6 +8,8 @@
 #include <SDL.h>
 #include "scene.h"
 #include "sceneManager.h"
+#include "storyFlags.h"
+#include "dialogueSystem.h"
 
 class StartScene: public Scene{
 public:

@@ -64,7 +64,7 @@ void DialogueSystem::startDialogue(const std::string &npcId) {
     }
 }
 void DialogueSystem::nextLine() {
-    if (currentIndex < currentLines.size()){
+    if (currentIndex + 1 < currentLines.size()){
         currentIndex++;
     }
 }

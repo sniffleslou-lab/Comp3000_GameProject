@@ -5,15 +5,15 @@
 #include "hallwayA.h"
 #include <iostream>
 
-HallwayA::HallwayA(SDL_Renderer *renderer, StoryFlags &flags)
-:storyFlags(flags), renderer(renderer)
+HallwayA::HallwayA(SDL_Renderer *renderer, StoryFlags &flags, DialogueSystem* dialogue)
+:storyFlags(flags), renderer(renderer), dialogueSystem(dialogue)
 {
     player = std::make_unique<Character>(renderer,"../assets/textures/testPlayer.png",100,200);
     inspector= std::make_unique<inspectionSystem>(renderer);
     inspector->loadItems("../assets/data/hallwayA.json",renderer);
 
-    dialogueSystem = std::make_unique<DialogueSystem>(storyFlags);
-    dialogueSystem->loadAllDialogue("../assets/data/dialogue/");
+    //dialogueSystem = std::make_unique<DialogueSystem>(storyFlags);
+    //dialogueSystem->loadAllDialogue("../assets/data/dialogue/");
 }
 
 HallwayA::~HallwayA() {}
