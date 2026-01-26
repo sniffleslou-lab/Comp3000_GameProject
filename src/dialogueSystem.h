@@ -30,6 +30,7 @@ public:
     void startDialogue(const std::string& npcId);
     void nextLine();
     void render(SDL_Renderer* renderer);
+    void endDialogue();
 
 private:
     StoryFlags& storyFlags;
@@ -43,7 +44,7 @@ private:
     //loads file
     void loadDialogueFile(const std::string& jsonPath);
 
-
+    bool isActive = false;
 
 };
 

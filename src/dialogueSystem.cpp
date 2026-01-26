@@ -50,6 +50,8 @@ void DialogueSystem::loadAllDialogue(const std::string &folderPath) {
 void DialogueSystem::startDialogue(const std::string &npcId) {
     currentLines.clear();
     currentIndex = 0;
+    isActive = true;
+
     for (auto& npc : npcs) {
         if(npc.npcId == npcId){
             for (auto& line : npc.lines){
@@ -59,20 +61,31 @@ void DialogueSystem::startDialogue(const std::string &npcId) {
             }
             break;
         }
-
+        if (currentLines.empty()){
+            isActive = false;
+        }
 
     }
 }
 void DialogueSystem::nextLine() {
+    if (!isActive) return;
+
     if (currentIndex + 1 < currentLines.size()){
         currentIndex++;
+    } else{
+        endDialogue();
     }
+}
+void DialogueSystem::endDialogue() {
+    isActive = false;
+    currentLines.clear();
+    currentIndex = 0;
 }
 void DialogueSystem::render(SDL_Renderer *renderer) {
    /* if (currentIndex<currentLines.size()){
         std::cout<<currentLines[currentIndex].text<<std::endl;
     }*/
-    if (currentLines.empty())return;
+    if (!isActive || currentLines.empty())return;
 
     //now we are drawing
     SDL_Rect box={50,400,700,150};

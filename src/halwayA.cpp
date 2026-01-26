@@ -37,7 +37,10 @@ void HallwayA::handleEvents(SDL_Event &e) {
     }
 }
 
-void HallwayA::update(float dt) {}
+void HallwayA::update(float dt) {
+    inspector->update(dt);
+
+}
 void HallwayA::render(SDL_Renderer *renderer) {
     inspector->render(renderer);
     player->draw();

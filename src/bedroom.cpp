@@ -35,7 +35,9 @@ void bedroom::handleEvents(SDL_Event &e) {
         dialogueSystem->nextLine();
     }
 }
-void bedroom::update(float dt) {}
+void bedroom::update(float dt) {
+    inspector->update(dt);
+}
 
 void bedroom::render(SDL_Renderer *renderer) {
     inspector->render(renderer);

@@ -24,6 +24,9 @@ public:
     void render(SDL_Renderer* renderer) override;
     void exit() override;
 
+    //attempting fix
+    void setSceneManager(SceneManager* mgr) override { sceneManager = mgr;}
+
 private:
     StoryFlags& storyFlags;
     std::unique_ptr<Character> player;

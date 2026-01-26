@@ -25,7 +25,7 @@ void inspectionSystem::loadItems(const std::string &jsonPath, SDL_Renderer *rend
 
     items.clear();
 
-    std::ifstream file("../assets/data/item.json");
+    std::ifstream file(jsonPath);
 
     if (!file.is_open()){
         std::cerr << "failed to open item file : " << jsonPath << std::endl;
@@ -38,8 +38,8 @@ void inspectionSystem::loadItems(const std::string &jsonPath, SDL_Renderer *rend
         item.name = listitem["name"];
         item.inspect = listitem["inspect"];
 
-        item.type = listitem["type"];
-        item.targetScene = listitem["targetScene"];
+        item.type = listitem.value("type", "item");
+        item.targetScene = listitem.value("targetScene", "");
 
         item.rect = {listitem["x"],listitem["y"],listitem["w"],listitem["h"]};
 
@@ -68,10 +68,15 @@ void inspectionSystem::update(float dt) {
 }
 
 void inspectionSystem::render(SDL_Renderer *renderer) {
-    for (auto& item:items) {
-        SDL_RenderCopy(renderer,item.texture, nullptr, &item.rect);
-    }
+    for (auto &item: items) {
+        if (item.texture) {
+            SDL_RenderCopy(renderer, item.texture, nullptr, &item.rect);
+        }
+    else {
+        std::cerr << "Warning: failed to load texture for item: " << item.name << std::endl;
 
+    }
+}
     if (!currentText.empty()&&font){
         SDL_Rect box = {50,300,700,100};
         SDL_SetRenderDrawColor(renderer, 0,0,0,200);
