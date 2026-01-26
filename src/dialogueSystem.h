@@ -42,6 +42,9 @@ private:
 
     //loads file
     void loadDialogueFile(const std::string& jsonPath);
+
+
+
 };
 
 #endif //AMIPRETTY_DIALOGUESYSTEM_H

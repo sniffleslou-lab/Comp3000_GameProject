@@ -22,16 +22,27 @@ inspectionSystem::~inspectionSystem() {
 
 ///loads thejson file
 void inspectionSystem::loadItems(const std::string &jsonPath, SDL_Renderer *renderer) {
+
+    items.clear();
+
     std::ifstream file("../assets/data/item.json");
+
+    if (!file.is_open()){
+        std::cerr << "failed to open item file : " << jsonPath << std::endl;
+    }
     nlohmann::json data;
     file >> data;
-
     for(auto& listitem : data["items"]){
         Item item;
         item.id = std::stoi(listitem["id"].get<std::string>());
         item.name = listitem["name"];
         item.inspect = listitem["inspect"];
+
+        item.type = listitem["type"];
+        item.targetScene = listitem["targetScene"];
+
         item.rect = {listitem["x"],listitem["y"],listitem["w"],listitem["h"]};
+
 
         std::string texturePath = "../assets/textures/" + listitem["texture"].get<std::string>();
         item.texture = IMG_LoadTexture(renderer,texturePath.c_str());
@@ -40,6 +51,22 @@ void inspectionSystem::loadItems(const std::string &jsonPath, SDL_Renderer *rend
         items.push_back(item);
     }
 }
+void inspectionSystem::update(float dt) {
+    if (inspectActive){
+        inspectTimer += dt;
+        if (inspectTimer >= 1.0f){
+            currentText.clear();
+            inspectActive=false;
+        }
+    }
+    if (doorCooldown){
+        doorCooldownTimer += dt;
+        if (doorCooldownTimer >= 0.5f){
+            doorCooldown = false;
+        }
+    }
+}
+
 void inspectionSystem::render(SDL_Renderer *renderer) {
     for (auto& item:items) {
         SDL_RenderCopy(renderer,item.texture, nullptr, &item.rect);
@@ -64,14 +91,21 @@ void inspectionSystem::render(SDL_Renderer *renderer) {
 void inspectionSystem::inspect(const SDL_Rect &playerPos, SceneManager &sceneManager, SDL_Renderer *renderer) {
     for (auto& item:items) {
         if(SDL_HasIntersection(&playerPos,&item.rect)){
-            if(item.type== "door"){
+            if(item.type== "door" && !doorCooldown){
                 SceneID target = sceneManager.sceneIdFromString(item.targetScene);
                 std::cout<< "door to " << item.targetScene << " triggered\n";
                 sceneManager.changeScene(target,renderer);
+
+                doorCooldown = true;
+                doorCooldownTimer = 0.0f;
+                return;
             }else {
                 //test
                 currentText = item.inspect;
                 std::cout << "player says: " << item.inspect << std::endl;
+                inspectTimer=0.0f;
+                inspectActive =true;
+
             }
         }
     }

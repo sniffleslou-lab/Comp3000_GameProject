@@ -7,13 +7,12 @@
 
 #include <SDL.h>
 #include "scene.h"
-#include "sceneManager.h"
 #include "storyFlags.h"
 #include "dialogueSystem.h"
 
 class StartScene: public Scene{
 public:
-    StartScene(SDL_Renderer* renderer, SceneManager& manager);
+    StartScene(SDL_Renderer* renderer, StoryFlags& flags, DialogueSystem* dialogue);
     ~StartScene();
 
     void enter() override;
@@ -24,14 +23,16 @@ public:
     void exit() override;
 
 private:
+
+    SDL_Renderer* renderer;
     SDL_Texture* startButtonTexture;
     SDL_Rect startButtonRect;
 
     SDL_Texture* quitButtonTexture;
     SDL_Rect quitButtonRect;
 
-    SceneManager& sceneManager;
-    SDL_Renderer* renderer;
+    StoryFlags& storyFlags;
+    DialogueSystem* dialogueSystem;
 
 
 

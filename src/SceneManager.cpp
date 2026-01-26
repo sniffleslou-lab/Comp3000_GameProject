@@ -20,12 +20,13 @@ void SceneManager::changeScene(SceneID newScene, SDL_Renderer *renderer)  {
     unloadScene();
     currentSceneID = newScene;
     currentScene = createScene(newScene, renderer);
+    if (currentScene) currentScene->enter();
 }
 std::unique_ptr<Scene>SceneManager::createScene(SceneID scene, SDL_Renderer *renderer)  {
     switch (scene) {
         case SceneID::SCENE_START: {
             std::cout << "loaded the start scene\n";
-            auto s =std::make_unique<StartScene>(renderer, *this);
+            auto s = std::make_unique<StartScene>(renderer,storyFlags,dialogueSystem);
             s->setSceneManager(this);
             return s;
         }

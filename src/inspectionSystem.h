@@ -28,11 +28,19 @@ public:
 
     void loadItems(const std::string& jsonPath, SDL_Renderer* renderer);
     void render(SDL_Renderer* renderer);
+    void update(float dt);
     void inspect(const SDL_Rect& playerPos, SceneManager& sceneManager, SDL_Renderer* renderer);
 
 private:
     std::vector<Item> items;
     std::string currentText;
     TTF_Font* font = nullptr;
+
+    //timer for the inspector
+    float inspectTimer = 0.0f;
+    float inspectActive = false;
+    //cooldown for transition
+    bool doorCooldown=false;
+    float doorCooldownTimer=0.0f;
 };
 #endif //AMIPRETTY_INSPECTIONSYSTEM_H

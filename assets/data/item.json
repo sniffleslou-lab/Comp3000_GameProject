@@ -9,7 +9,8 @@
     "w": 128,
     "h": 96,
     "texture": "telly.png",
-    "type": "item"
+    "type": "item",
+    "targetScene": ""
   },
     {
       "id": "2",

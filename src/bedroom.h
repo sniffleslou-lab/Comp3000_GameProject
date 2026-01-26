@@ -29,7 +29,7 @@ private:
     std::unique_ptr<Character> player;
     Controls controls;
     std::unique_ptr<inspectionSystem> inspector;
-    std::unique_ptr<DialogueSystem> dialogueSystem;
+    DialogueSystem* dialogueSystem;
 
     SDL_Renderer* renderer;
     SceneManager* sceneManager= nullptr;
