@@ -8,6 +8,7 @@
 #include "bedroom.h"
 #include "hallwayA.h"
 #include "kitchen.h"
+#include "editorScene.h"
 
 SceneManager::SceneManager(SDL_Renderer *renderer, StoryFlags& flags, DialogueSystem* dialogue)
 : storyFlags(flags), dialogueSystem(dialogue) {
@@ -48,6 +49,12 @@ std::unique_ptr<Scene>SceneManager::createScene(SceneID scene, SDL_Renderer *ren
             s->setSceneManager(this);
             return s;
         }
+        case SceneID::SCENE_EDITOR: {
+            std::cout << "loaded the SCENE EDITOR scene\n";
+            auto s= std::make_unique<editorScene>(renderer,storyFlags,dialogueSystem);
+            s->setSceneManager(this);
+            return s;
+        }
         default:
             return nullptr;
     }
@@ -77,6 +84,7 @@ SceneID SceneManager::sceneIdFromString(const std::string &name) {
     if (name== "SCENE_BEDROOM")return SceneID::SCENE_BEDROOM;
     if (name== "SCENE_HALLWAYA")return SceneID::SCENE_HALLWAYA;
     if (name== "SCENE_KITCHEN")return SceneID::SCENE_KITCHEN;
+    if (name== "SCENE_EDITOR") return SceneID::SCENE_EDITOR;
     return SceneID::SCENE_START;
 
 }

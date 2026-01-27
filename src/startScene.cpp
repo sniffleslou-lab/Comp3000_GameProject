@@ -43,6 +43,10 @@ void StartScene::handleEvents(SDL_Event &e) {
             std::exit(0);
         }
     }
+    if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_F1){
+
+        sceneManager->changeScene(SceneID::SCENE_EDITOR, renderer);
+    }
 }
 void StartScene::update(float dt) {
 
