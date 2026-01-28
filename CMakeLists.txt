@@ -31,7 +31,10 @@ add_executable(${PROJECT_NAME}
         src/Kitchen.cpp
         src/halwayA.cpp
         src/editorScene.h
-        src/editorScene.cpp)
+        src/editorScene.cpp
+        src/inventorySystem.h
+        src/inventoryItem.h
+        src/inventorySystem.cpp)
 
 #packages and links
 find_package(SDL2 CONFIG REQUIRED)

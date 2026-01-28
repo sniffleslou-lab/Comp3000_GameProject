@@ -37,7 +37,7 @@ private:
     TTF_Font* font = nullptr;
 
     //timer for the inspector
-    float inspectTimer = 0.0f;
+    float inspectTimer = -0.0f;
     float inspectActive = false;
     //cooldown for transition
     bool doorCooldown=false;

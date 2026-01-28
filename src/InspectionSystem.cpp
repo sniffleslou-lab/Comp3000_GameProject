@@ -54,7 +54,7 @@ void inspectionSystem::loadItems(const std::string &jsonPath, SDL_Renderer *rend
 void inspectionSystem::update(float dt) {
     if (inspectActive){
         inspectTimer += dt;
-        if (inspectTimer >= 1.0f){
+        if (inspectTimer >= 5.0f){
             currentText.clear();
             inspectActive=false;
         }
