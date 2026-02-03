@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <string>
+#include "inspectionSystem.h"
 
 class Character{
 public:
@@ -9,7 +10,7 @@ public:
     ~Character();
 
     void draw();
-    void move(int dx, int dy);
+    void move(int dx, int dy, const std::vector<Item>& items);
     SDL_Rect getPosition()const;
 
 

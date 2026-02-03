@@ -23,9 +23,21 @@ Character::Character(SDL_Renderer *renderer, const std::string &imagePath, int x
 Character::~Character() {
     if (texture)SDL_DestroyTexture(texture);
 }
-void Character::move(int dx, int dy){
-    position.x += dx;
-    position.y +=dy;
+void Character::move(int dx, int dy, const std::vector<Item> &items) {
+    SDL_Rect nextPos = position;
+    nextPos.x += dx;
+    nextPos.y += dy;
+
+    //adding collison
+    for (const auto& item : items){
+        if (item.type == "solid"){
+            if (SDL_HasIntersection(&nextPos, &item.rect)){
+                return;
+            }
+        }
+
+    }
+    position = nextPos;
 }
 void Character::draw() {
     if(texture) SDL_RenderCopy(renderer,texture, nullptr, &position);

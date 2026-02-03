@@ -31,6 +31,8 @@ public:
     void update(float dt);
     void inspect(const SDL_Rect& playerPos, SceneManager& sceneManager, SDL_Renderer* renderer);
 
+    const std::vector<Item>& getItems() const { return items;}
+
 private:
     std::vector<Item> items;
     std::string currentText;
