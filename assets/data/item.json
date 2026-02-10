@@ -55,8 +55,44 @@
     "x": 0,
     "y": 0,
     "w": 800,
-    "h": 20,
-    "texture": "testplayer.png",
+    "h": 40,
+    "texture": "wall.png",
+    "type": "solid",
+    "targetScene": ""
+    },
+    {
+    "id": "6",
+    "name": "left WALL",
+    "inspect": "",
+    "x": 0,
+    "y": 0,
+    "w": 40,
+    "h": 800,
+    "texture": "wall.png",
+    "type": "solid",
+    "targetScene": ""
+    },
+    {
+    "id": "7",
+    "name": "right WALL",
+    "inspect": "",
+    "x": 760,
+    "y": 0,
+    "w": 40,
+    "h": 800,
+    "texture": "wall.png",
+    "type": "solid",
+    "targetScene": ""
+    },
+    {
+    "id": "6",
+    "name": "bottom WALL",
+    "inspect": "",
+    "x": 0,
+    "y": 560,
+    "w": 800,
+    "h": 40,
+    "texture": "wall.png",
     "type": "solid",
     "targetScene": ""
     }
