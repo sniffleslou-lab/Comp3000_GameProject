@@ -34,7 +34,9 @@ add_executable(${PROJECT_NAME}
         src/editorScene.cpp
         src/inventorySystem.h
         src/inventoryItem.h
-        src/inventorySystem.cpp)
+        src/inventorySystem.cpp
+        src/NPC.h
+        src/npc.cpp)
 
 #packages and links
 find_package(SDL2 CONFIG REQUIRED)

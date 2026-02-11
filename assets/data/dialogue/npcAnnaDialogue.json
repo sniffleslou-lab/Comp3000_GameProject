@@ -1,10 +1,15 @@
 {
   "npc" : "Anna",
   "dialogue": [
-    {
-      "id": 1,
-      "text": "dude, what's up? Watching the dust bunnies??",
-      "condition": "introduction == true"
-    }
+    {"id" :"a1", "text" :"Dude, what's up? Watching the dust bunnies?"},
+    {"id" :"a2", "text" :"Nah, I am messing with you."},
+    {"id" :"a3", "text" :"How are you feeling?"},
+    {"id" :"a4", "text" :"why are you apologising"},
+
+    {"id" :"a5", "text" :"OH! Would you be willing to help ke, please? "},
+    {"id" :"a6", "text" :"Maxwell is keeping every cup hostage."},
+    {"id" :"a7", "text" :"We just knock and pray he answers. Simple."},
+    {"id" :"a8", "text" :"I think he's just shy."}
+
   ]
 }

@@ -12,7 +12,7 @@
 #include <SDL_ttf.h>
 
 struct dialogueLine{
-    int id;
+    std::string id;
     std::string text;
     std::string condition;
 };

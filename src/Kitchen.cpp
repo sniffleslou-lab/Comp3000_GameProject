@@ -10,6 +10,8 @@ Kitchen::Kitchen(SDL_Renderer *renderer, StoryFlags &flags, DialogueSystem* dial
     inspector= std::make_unique<inspectionSystem>(renderer);
     inspector->loadItems("../assets/data/kitchen.json",renderer);
 
+    garretNPC = std::make_unique<NPC>(renderer, "../assets/textures/wall.png",300,200);
+
     //dialogueSystem = std::make_unique<DialogueSystem>(storyFlags);
     //dialogueSystem->loadAllDialogue("../assets/data/dialogue/");
 }
@@ -19,9 +21,22 @@ void Kitchen::enter() {
     std::cout<< "entered kitchen scene";
 }
 void Kitchen::handleEvents(SDL_Event &e) {}
-void Kitchen::update(float dt) {}
+void Kitchen::update(float dt) {
+    static bool startedGarretDialogue = false;
+
+    //garrets dialogue start when the player walks into the kitchen
+    if (!startedGarretDialogue){
+        dialogueSystem->startDialogue("Garret");
+        startedGarretDialogue;
+    }
+    const Uint8* keys = SDL_GetKeyboardState(NULL);
+    if (keys[SDL_SCANCODE_E]){
+        dialogueSystem->nextLine();
+    }
+}
 void Kitchen::render(SDL_Renderer *renderer) {
     inspector->render(renderer);
+    garretNPC->draw(renderer);
     player->draw();
     dialogueSystem->render(renderer);
 }

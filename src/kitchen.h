@@ -12,6 +12,7 @@
 #include "inspectionSystem.h"
 #include "dialogueSystem.h"
 #include "storyFlags.h"
+#include "NPC.h"
 
 
 class Kitchen : public Scene{
@@ -32,6 +33,7 @@ private:
     Controls controls;
     std::unique_ptr<inspectionSystem> inspector;
     DialogueSystem* dialogueSystem;
+    std::unique_ptr<NPC> garretNPC;
 
 };
 

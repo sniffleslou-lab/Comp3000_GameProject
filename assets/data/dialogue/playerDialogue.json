@@ -1,10 +1,9 @@
 {
   "npc" : "player",
   "dialogue": [
-    {
-      "id": 1,
-      "text": ".....",
-      "condition": "introduction == true"
-    }
+    {"id" : "p1","text": "my phone is buzzing"},
+    {"id" :"p2", "text": "I should probably get going."},
+    {"id" :"p3", "text":"The hallway feels.. wrong."}
+
   ]
 }
