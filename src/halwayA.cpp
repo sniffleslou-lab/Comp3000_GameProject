@@ -23,6 +23,27 @@ void HallwayA::enter() {
 }
 
 void HallwayA::handleEvents(SDL_Event &e) {
+
+    if(dialogueSystem->choiceActive){
+        if (e.type == SDL_KEYDOWN){
+            if (e.key.keysym.sym == SDLK_a){
+                dialogueSystem->selectedChoice=0;
+            }
+            if (e.key.keysym.sym == SDLK_d){
+                dialogueSystem->selectedChoice=1;
+            }
+            if (e.key.keysym.sym == SDLK_SPACE){
+                //NOW confirming
+                Choice chosen =dialogueSystem->currentChoices[dialogueSystem->selectedChoice];
+                storyFlags.setFlag(chosen.flag, true);
+                dialogueSystem->choiceActive=false;
+                dialogueSystem->currentChoices.clear();
+                dialogueSystem->nextLine();
+            }
+        }
+        return;
+    }
+
     controls.handleInput(e, *player, *inspector);
 
     if (e.type == SDL_KEYDOWN && e.key.keysym.sym==SDLK_e){
@@ -35,6 +56,9 @@ void HallwayA::handleEvents(SDL_Event &e) {
     if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE){
         dialogueSystem->nextLine();
     }
+
+
+
 }
 
 void HallwayA::update(float dt) {

@@ -29,12 +29,22 @@ void DialogueSystem::loadDialogueFile(const std::string &jsonPath) {
     NPCDialogue npc;
     npc.npcId = data["npc"];
 
+
     for (auto& lineJson : data["dialogue"]){
         dialogueLine line;
         line.id = lineJson["id"];
         line.text = lineJson["text"];
         if (lineJson.contains("condition")){
             line.condition = lineJson["condition"];
+        }
+
+        if(lineJson.contains("choices")){
+            for (auto& c: lineJson["choices"]){
+                Choice choice;
+                choice.text = c["text"];
+                choice.flag = c["flag"];
+                line.choices.push_back(choice);
+            }
         }
         npc.lines.push_back(line);
     }
@@ -62,10 +72,12 @@ void DialogueSystem::startDialogue(const std::string &npcId) {
             }
             break;
         }
-        if (currentLines.empty()){
-            isActive = false;
-        }
+    }
+    std::cout << "Loaded lines for Garret:\n";
+    for (auto& line : currentLines) { std::cout << " " << line.id << " (choices=" << line.choices.size() << ")\n";}
 
+    if (currentLines.empty()){
+        isActive = false;
     }
 }
 void DialogueSystem::nextLine() {
@@ -76,7 +88,15 @@ void DialogueSystem::nextLine() {
     if (line.id == "g5"){
         storyFlags.setFlag("Quest_Batteries", true);
         std::cout << "Quest started: Batteries\n";
+
     }
+    if(!line.choices.empty()){
+        choiceActive = true;
+        selectedChoice = 0;
+        currentChoices = line.choices;
+        return;
+    }
+
     if (currentIndex + 1 < currentLines.size()){
         currentIndex++;
     } else{
@@ -112,10 +132,45 @@ std::vector<std::string> DialogueSystem::wrapText(const std::string &text, int m
     }
     return lines;
 }
+void DialogueSystem::renderText(SDL_Renderer *renderer, const std::string &text, int x, int y) {
+    SDL_Color white = {255,255,255,255};
+
+    SDL_Surface* surface = TTF_RenderText_Blended(font,text.c_str(), white);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_Rect dst = {x,y,surface->w, surface->h};
+    SDL_RenderCopy(renderer,texture, nullptr,&dst);
+    SDL_FreeSurface(surface);
+    SDL_DestroyTexture(texture);
+}
 void DialogueSystem::render(SDL_Renderer *renderer) {
    /* if (currentIndex<currentLines.size()){
         std::cout<<currentLines[currentIndex].text<<std::endl;
     }*/
+   if(choiceActive){
+       SDL_Rect left = {250,500,200,60};
+       SDL_Rect right = {450,500,200,60};
+
+       //left button
+       SDL_SetRenderDrawColor(renderer,
+                              selectedChoice == 0 ? 200:80,
+                              selectedChoice == 0 ? 200:80,
+                              selectedChoice == 0 ? 200:80,
+                              255);
+       SDL_RenderFillRect(renderer, &left);
+
+       //right button
+       SDL_SetRenderDrawColor(renderer,
+                              selectedChoice == 1 ? 200 : 80,
+                              selectedChoice == 1 ? 200 : 80,
+                              selectedChoice == 1 ? 200 : 80,
+                              255);
+       SDL_RenderFillRect(renderer, &right);
+
+       renderText(renderer, currentChoices[0].text, left.x + 20, left.y + 15);
+       renderText(renderer, currentChoices[1].text, right.x + 20,right.y + 15);
+return;
+
+   }
 
     if (!isActive || currentLines.empty())return;
 

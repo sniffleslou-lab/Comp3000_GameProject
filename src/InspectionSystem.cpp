@@ -49,6 +49,13 @@ void inspectionSystem::loadItems(const std::string &jsonPath, SDL_Renderer *rend
         item.texture = IMG_LoadTexture(renderer,texturePath.c_str());
 
 
+        //Hiding items when player picsk them up
+        std::string flagName= "PickedUp_" + item.name;
+        if (storyFlags.getFlag(flagName)) {
+            item.rect={0,0,0,0};
+        }
+
+
         items.push_back(item);
     }
 }
@@ -114,7 +121,7 @@ void inspectionSystem::inspect(const SDL_Rect &playerPos, SceneManager &sceneMan
 
                 //now questing
                 if(item.name == "batteries"){
-                    storyFlags.setFlag("HasBatteries",true);
+                    storyFlags.setFlag("PickedUp_batteries",true);
                     std::cout<<"batteries picked up. \n";
                     item.rect = {0,0,0,0};
 

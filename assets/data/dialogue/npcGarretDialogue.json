@@ -4,7 +4,10 @@
     {"id" :"g1", "text" :"Hey, you shouldn't go out.."},
     {"id" :"g2", "text" :"Oh you didn't hear? Some people are doing a protest."},
     {"id" :"g3", "text" :"Just stupid people, who are finding something to hate"},
-    {"id" :"g4", "text" :"Want to hang out, or something..?" },
+    {"id" :"g4", "text" :"Want to hang out, or something..?", "choices": [
+      {"text": "yes", "flag": "ChoseYes"},
+      {"text": "no", "flag": "ChoseNo"}
+    ]},
 
     {"id" :"g5", "text" :"Fuck, remote is not working. Can you get some batteries?"},
     {"id" :"g6", "text" :"Nothing on, fucking sitcoms. Affection Island, desperate househusbands, nothing interesting","condition": "HasBatteries"},

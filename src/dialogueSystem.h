@@ -10,16 +10,21 @@
 #include <vector>
 #include <SDL.h>
 #include <SDL_ttf.h>
-
+struct Choice{
+        std::string text;
+        std::string flag;
+};
 struct dialogueLine{
     std::string id;
     std::string text;
     std::string condition;
+    std::vector<Choice>choices;
 };
 struct NPCDialogue{
     std::string npcId;
     std::vector<dialogueLine> lines;
 };
+
 
 class DialogueSystem{
 public:
@@ -31,6 +36,11 @@ public:
     void nextLine();
     void render(SDL_Renderer* renderer);
     void endDialogue();
+
+    //now for choices
+    bool choiceActive = false;
+    int selectedChoice = 0;
+    std::vector<Choice> currentChoices;
 
 private:
     StoryFlags& storyFlags;
@@ -48,6 +58,7 @@ private:
 
     //wrap text
     std::vector<std::string> wrapText(const std::string& text, int maxWidth);
+    void renderText(SDL_Renderer* renderer, const std::string& text, int x, int y);
 
 };
 
