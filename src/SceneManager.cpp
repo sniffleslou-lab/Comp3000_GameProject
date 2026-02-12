@@ -18,6 +18,7 @@ SceneManager::SceneManager(SDL_Renderer *renderer, StoryFlags& flags, DialogueSy
     if (currentScene)currentScene->enter();
 }
 void SceneManager::changeScene(SceneID newScene, SDL_Renderer *renderer)  {
+    dialogueSystem->endDialogue();
     unloadScene();
     currentSceneID = newScene;
     currentScene = createScene(newScene, renderer);

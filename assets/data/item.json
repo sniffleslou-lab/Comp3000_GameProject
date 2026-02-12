@@ -85,7 +85,7 @@
     "targetScene": ""
     },
     {
-    "id": "6",
+    "id": "8",
     "name": "bottom WALL",
     "inspect": "",
     "x": 0,
@@ -95,5 +95,17 @@
     "texture": "wall.png",
     "type": "solid",
     "targetScene": ""
+    },
+    {
+      "id": "9",
+      "name": "batteries",
+      "inspect": "whow you found some batteries",
+      "x": 300,
+      "y": 150,
+      "w": 32,
+      "h": 32,
+      "texture": "batteries-2.png",
+      "type": "item",
+      "targetScene": ""
     }
   ]}

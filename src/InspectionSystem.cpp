@@ -7,8 +7,9 @@
 #include <iostream>
 #include "sceneManager.h"
 #include <SDL_image.h>
+#include "storyFlags.h"
 
-inspectionSystem::inspectionSystem(SDL_Renderer *renderer) {
+inspectionSystem::inspectionSystem(SDL_Renderer *renderer, StoryFlags& flags) : storyFlags(flags){
     font = TTF_OpenFont("../assets/font/Sunlight Dreams.otf", 20);
     if (!font){
         std::cerr<<"failed to load inpsection font: " << TTF_GetError()<< std::endl;
@@ -110,6 +111,14 @@ void inspectionSystem::inspect(const SDL_Rect &playerPos, SceneManager &sceneMan
                 std::cout << "player says: " << item.inspect << std::endl;
                 inspectTimer=0.0f;
                 inspectActive =true;
+
+                //now questing
+                if(item.name == "batteries"){
+                    storyFlags.setFlag("HasBatteries",true);
+                    std::cout<<"batteries picked up. \n";
+                    item.rect = {0,0,0,0};
+
+                }
 
             }
         }

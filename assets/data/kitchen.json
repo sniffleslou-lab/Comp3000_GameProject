@@ -10,6 +10,6 @@
       "h": 80,
       "texture": "door.png",
       "type": "door",
-      "targetScene": "SCENE_HALLWAY"
+      "targetScene": "SCENE_HALLWAYA"
     }
   ]}

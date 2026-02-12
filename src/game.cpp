@@ -43,7 +43,7 @@ bool Game::init(const char *title, int width, int height) {
     //loads dialoge
 dialogueSystem = std::make_unique<DialogueSystem>(storyFlags);
 dialogueSystem->loadAllDialogue("../assets/data/dialogue/");
-dialogueSystem->startDialogue("Garret");
+//dialogueSystem->startDialogue("Garret");
 
 
     isRunning = true;

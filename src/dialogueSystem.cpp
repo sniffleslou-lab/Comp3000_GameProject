@@ -6,6 +6,7 @@
 #include <iostream>
 #include "dialogueSystem.h"
 #include "filesystem"
+#include "sstream"
 
 DialogueSystem::DialogueSystem(StoryFlags &flags)
 : storyFlags(flags) {
@@ -70,6 +71,12 @@ void DialogueSystem::startDialogue(const std::string &npcId) {
 void DialogueSystem::nextLine() {
     if (!isActive) return;
 
+    const dialogueLine& line = currentLines[currentIndex];
+    //quest trigger for garret
+    if (line.id == "g5"){
+        storyFlags.setFlag("Quest_Batteries", true);
+        std::cout << "Quest started: Batteries\n";
+    }
     if (currentIndex + 1 < currentLines.size()){
         currentIndex++;
     } else{
@@ -81,10 +88,35 @@ void DialogueSystem::endDialogue() {
     currentLines.clear();
     currentIndex = 0;
 }
+
+std::vector<std::string> DialogueSystem::wrapText(const std::string &text, int maxWidth) {
+    std::vector<std::string>lines;
+    std::string current;
+    std::istringstream words(text);
+    std::string word;
+
+    while (words >> word) {
+        std::string test = current + (current.empty() ? "" : " ")+word;
+
+        int w;
+        TTF_SizeText(font, test.c_str(), &w, nullptr);
+        if(w > maxWidth){
+            lines.push_back(current);
+            current = word;
+        }else {
+            current = test;
+        }
+    }
+    if (!current.empty()){
+        lines.push_back(current);
+    }
+    return lines;
+}
 void DialogueSystem::render(SDL_Renderer *renderer) {
    /* if (currentIndex<currentLines.size()){
         std::cout<<currentLines[currentIndex].text<<std::endl;
     }*/
+
     if (!isActive || currentLines.empty())return;
 
     //now we are drawing
@@ -95,13 +127,28 @@ void DialogueSystem::render(SDL_Renderer *renderer) {
     //now we redner the lines
     const dialogueLine& line = currentLines[currentIndex];
     SDL_Color white = {255,255,255,255};
-    SDL_Surface* surface = TTF_RenderText_Blended(font,line.text.c_str(),white);
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer,surface);
+    //SDL_Surface* surface = TTF_RenderText_Blended(font,line.text.c_str(),white);
+    //SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer,surface);
 
-    SDL_Rect dst = {70,420, surface->w, surface->h};
-    SDL_RenderCopy(renderer,texture, nullptr,&dst);
-    SDL_FreeSurface(surface);
-    SDL_DestroyTexture(texture);
+    //SDL_Rect dst = {70,420, surface->w, surface->h};
+    //SDL_RenderCopy(renderer,texture, nullptr,&dst);
+    //SDL_FreeSurface(surface);
+    //SDL_DestroyTexture(texture);
+
+   auto wrappedLines = wrapText(line.text, 650);
+   int y = 420;
+    for (const auto& l : wrappedLines){
+        SDL_Surface* surface = TTF_RenderText_Blended(font, l.c_str(), white);
+        SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+
+        SDL_Rect dst = {70, y,surface->w,surface->h};
+        SDL_RenderCopy(renderer, texture,nullptr, &dst);
+
+        y+= surface->h+5;
+
+        SDL_FreeSurface(surface);
+        SDL_DestroyTexture(texture);
+    }
 
 
 }

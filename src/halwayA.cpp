@@ -9,7 +9,7 @@ HallwayA::HallwayA(SDL_Renderer *renderer, StoryFlags &flags, DialogueSystem* di
 :storyFlags(flags), renderer(renderer), dialogueSystem(dialogue)
 {
     player = std::make_unique<Character>(renderer,"../assets/textures/testPlayer.png",100,200);
-    inspector= std::make_unique<inspectionSystem>(renderer);
+    inspector= std::make_unique<inspectionSystem>(renderer, storyFlags);
     inspector->loadItems("../assets/data/hallwayA.json",renderer);
 
     //dialogueSystem = std::make_unique<DialogueSystem>(storyFlags);

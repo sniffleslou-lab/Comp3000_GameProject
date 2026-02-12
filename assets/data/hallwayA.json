@@ -13,7 +13,7 @@
       "targetScene": "SCENE_BEDROOM"
     },
     {
-      "id": "3",
+      "id": "2",
       "name": "hallway door to kitchen",
       "inspect": "this door leads to the kitchen",
       "x": 40,
@@ -61,7 +61,7 @@
       "targetScene": ""
     },
     {
-      "id": "6",
+      "id": "8",
       "name": "bottom WALL",
       "inspect": "",
       "x": 0,

@@ -9,6 +9,7 @@
 #include <vector>
 #include <SDL_ttf.h>
 #include "sceneManager.h"
+#include "storyFlags.h"
 //same as json
 struct Item{
     int id;
@@ -23,7 +24,7 @@ struct Item{
 
 class inspectionSystem{
 public:
-    inspectionSystem(SDL_Renderer* renderer);
+    inspectionSystem(SDL_Renderer* renderer, StoryFlags& flags);
     ~inspectionSystem();
 
     void loadItems(const std::string& jsonPath, SDL_Renderer* renderer);
@@ -44,5 +45,7 @@ private:
     //cooldown for transition
     bool doorCooldown=false;
     float doorCooldownTimer=0.0f;
+
+    StoryFlags& storyFlags;
 };
 #endif //AMIPRETTY_INSPECTIONSYSTEM_H

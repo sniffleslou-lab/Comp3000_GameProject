@@ -46,6 +46,9 @@ private:
 
     bool isActive = false;
 
+    //wrap text
+    std::vector<std::string> wrapText(const std::string& text, int maxWidth);
+
 };
 
 #endif //AMIPRETTY_DIALOGUESYSTEM_H
