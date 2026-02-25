@@ -83,6 +83,8 @@ void DialogueSystem::startDialogue(const std::string &npcId) {
 void DialogueSystem::nextLine() {
     if (!isActive) return;
 
+    currentChoices.clear();
+
     if(justFinishedChoice){
         justFinishedChoice = false;
         if (currentIndex + 1 < currentLines.size()){
@@ -91,6 +93,10 @@ void DialogueSystem::nextLine() {
             endDialogue();
             return;
         }
+    }
+    if (currentIndex >= currentLines.size()){
+        endDialogue();
+        return;
     }
    const dialogueLine& line = currentLines[currentIndex];
 

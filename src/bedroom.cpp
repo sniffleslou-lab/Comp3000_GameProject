@@ -20,6 +20,8 @@ bedroom::~bedroom()  {}
 
 void bedroom::enter() {
     std::cout<< "entered bedroom scene";
+    inspector->doorCooldown = true;
+    inspector->doorCooldownTimer = 0.0f;
 }
 void bedroom::handleEvents(SDL_Event &e) {
 

@@ -31,7 +31,7 @@ private:
     StoryFlags& storyFlags;
 
     SDL_Renderer* renderer;
-    SceneManager* sceneManager= nullptr;
+    //SceneManager* sceneManager= nullptr;
 
     std::unique_ptr<Character> player;
     Controls controls;

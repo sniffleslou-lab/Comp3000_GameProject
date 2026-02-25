@@ -16,10 +16,9 @@
       "id": "2",
       "name": "Bedroom door",
       "inspect": "this door leads to the hallway",
-      "x": 500,
-      "y": 60,
+   "x": 500, "y": 60,
       "w": 80,
-      "h": 120,
+   "h": 120,
       "texture": "door.png",
       "type": "door",
       "targetScene": "SCENE_HALLWAYA"

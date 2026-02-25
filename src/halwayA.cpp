@@ -20,6 +20,8 @@ HallwayA::~HallwayA() {}
 
 void HallwayA::enter() {
     std::cout<<"entered hallway scene\n";
+    inspector->doorCooldown = true;
+    inspector->doorCooldownTimer = 0.0f;
 }
 
 void HallwayA::handleEvents(SDL_Event &e) {
@@ -53,9 +55,18 @@ void HallwayA::handleEvents(SDL_Event &e) {
     if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_f){
         dialogueSystem->startDialogue("Garret");
     }
-    if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE){
-        dialogueSystem->nextLine();
+    if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE) {
+
+        if (dialogueSystem->justFinishedChoice) {
+            dialogueSystem->justFinishedChoice = false;
+            return;
+        }
+
+        if (!dialogueSystem->choiceActive) {
+            dialogueSystem->nextLine();
+        }
     }
+
 
 
 

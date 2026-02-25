@@ -21,6 +21,8 @@ Kitchen::~Kitchen() {}
 void Kitchen::enter() {
     std::cout<< "entered kitchen scene";
     dialogueSystem->startDialogue("Garret");
+    inspector->doorCooldown = true;
+    inspector->doorCooldownTimer = 0.0f;
 }
 void Kitchen::handleEvents(SDL_Event &e) {
 
@@ -44,7 +46,7 @@ void Kitchen::handleEvents(SDL_Event &e) {
 
                 dialogueSystem -> choiceActive = false;
                 dialogueSystem -> justFinishedChoice = true;
-                dialogueSystem -> currentChoices.clear();
+                //dialogueSystem -> currentChoices.clear();
                 dialogueSystem -> nextLine();
             }
         }

@@ -34,6 +34,9 @@ public:
 
     const std::vector<Item>& getItems() const { return items;}
 
+    //cooldown for transition
+    bool doorCooldown=false;
+    float doorCooldownTimer=0.0f;
 private:
     std::vector<Item> items;
     std::string currentText;
@@ -42,9 +45,7 @@ private:
     //timer for the inspector
     float inspectTimer = -0.0f;
     float inspectActive = false;
-    //cooldown for transition
-    bool doorCooldown=false;
-    float doorCooldownTimer=0.0f;
+
 
     StoryFlags& storyFlags;
 };
