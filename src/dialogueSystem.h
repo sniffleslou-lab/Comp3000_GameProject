@@ -41,6 +41,8 @@ public:
     bool choiceActive = false;
     int selectedChoice = 0;
     std::vector<Choice> currentChoices;
+    bool justFinishedChoice = false;
+
 
 private:
     StoryFlags& storyFlags;

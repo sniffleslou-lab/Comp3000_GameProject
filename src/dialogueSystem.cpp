@@ -83,7 +83,17 @@ void DialogueSystem::startDialogue(const std::string &npcId) {
 void DialogueSystem::nextLine() {
     if (!isActive) return;
 
-    const dialogueLine& line = currentLines[currentIndex];
+    if(justFinishedChoice){
+        justFinishedChoice = false;
+        if (currentIndex + 1 < currentLines.size()){
+            currentIndex++;
+        }else{
+            endDialogue();
+            return;
+        }
+    }
+   const dialogueLine& line = currentLines[currentIndex];
+
     //quest trigger for garret
     if (line.id == "g5"){
         storyFlags.setFlag("Quest_Batteries", true);

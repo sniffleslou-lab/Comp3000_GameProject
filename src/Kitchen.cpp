@@ -20,26 +20,32 @@ Kitchen::Kitchen(SDL_Renderer *renderer, StoryFlags &flags, DialogueSystem* dial
 Kitchen::~Kitchen() {}
 void Kitchen::enter() {
     std::cout<< "entered kitchen scene";
+    dialogueSystem->startDialogue("Garret");
 }
 void Kitchen::handleEvents(SDL_Event &e) {
 
-    if(dialogueSystem->choiceActive){
-        if (e.type == SDL_KEYDOWN){
-            if (e.key.keysym.sym == SDLK_a){
-                dialogueSystem->selectedChoice=0;
+
+    if (dialogueSystem->choiceActive) {
+        if (e.type == SDL_KEYDOWN) {
+            if (e.key.repeat != 0) return;
+
+            if (e.key.keysym.sym == SDLK_a) {
+                dialogueSystem->selectedChoice = 0;
             }
-            if (e.key.keysym.sym == SDLK_d){
-                dialogueSystem->selectedChoice=1;
+
+            if (e.key.keysym.sym == SDLK_d) {
+                dialogueSystem->selectedChoice = 1;
             }
-            if (e.key.keysym.sym == SDLK_SPACE){
-                std::cout << "SPACE pressed while choiceActive = " << dialogueSystem->choiceActive << "\n";
-                //NOW confirming
-                Choice chosen =dialogueSystem->currentChoices[dialogueSystem->selectedChoice];
+            if (e.key.keysym.sym == SDLK_SPACE) {
+                std::cout << "SPACE pressed while choiceActive = "
+                          << dialogueSystem->choiceActive << "\n";
+                Choice chosen = dialogueSystem->currentChoices[dialogueSystem->selectedChoice];
                 storyFlags.setFlag(chosen.flag, true);
 
-                dialogueSystem->choiceActive=false;
-                dialogueSystem->currentChoices.clear();
-                dialogueSystem->nextLine();
+                dialogueSystem -> choiceActive = false;
+                dialogueSystem -> justFinishedChoice = true;
+                dialogueSystem -> currentChoices.clear();
+                dialogueSystem -> nextLine();
             }
         }
         return;
@@ -47,25 +53,36 @@ void Kitchen::handleEvents(SDL_Event &e) {
 
     controls.handleInput(e, *player, *inspector);
 
-    if (e.type == SDL_KEYDOWN && e.key.keysym.sym==SDLK_e){
-        inspector->inspect(player->getPosition(),*sceneManager, renderer);
+    if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_e) {
+        inspector->inspect(player->getPosition(), *sceneManager, renderer);
 
     }
-
-    if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_f){
+    if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_f) {
         dialogueSystem->startDialogue("Garret");
     }
-    if (!dialogueSystem->choiceActive && e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE)
-    { dialogueSystem->nextLine(); }
+
+    if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE) {
+
+            if (dialogueSystem->justFinishedChoice) {
+                dialogueSystem->justFinishedChoice = false;
+                return;
+            }
+            if (!dialogueSystem->choiceActive) {
+                dialogueSystem->nextLine();
+            }
+
+    }
 }
+
+
 void Kitchen::update(float dt) {
     static bool startedGarretDialogue = false;
 
     //garrets dialogue start when the player walks into the kitchen
-    if (!startedGarretDialogue){
-        dialogueSystem->startDialogue("Garret");
-        startedGarretDialogue = true;
-    }
+   // if (!startedGarretDialogue){
+     //   dialogueSystem->startDialogue("Garret");
+       // startedGarretDialogue = true;
+   // }
 /*
     if(!dialogueSystem->choiceActive) {
         const Uint8* keys = SDL_GetKeyboardState(NULL);
