@@ -4,7 +4,7 @@
     {"id" :"a1", "text" :"Dude, what's up? Watching the dust bunnies?", "condition":  "GotCup == false"},
     {"id" :"a2", "text" :"Nah, I am messing with you.", "condition":  "GotCup == false"},
     {"id" :"a3", "text" :"How are you feeling?", "condition":  "GotCup == false"},
-    {"id" :"a4", "text" :"why are you apologising", "condition":  "GotCup == false"},
+    {"id" :"a4", "text" :"Why are you apologising", "condition":  "GotCup == false"},
 
     {"id" :"a5", "text" :"OH! Would you be willing to help me, please? ", "choices" :  [
       {"text": "Yeah", "next": "a6", "flag": "AnnaQuestAccepted"},

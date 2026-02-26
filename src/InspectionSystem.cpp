@@ -106,6 +106,8 @@ void inspectionSystem::inspect(const SDL_Rect &playerPos, SceneManager &sceneMan
     }
 
     for (auto& item:items) {
+        if(item.rect.w == 0 || item.rect.h ==0)continue;
+
         if(SDL_HasIntersection(&playerPos,&item.rect)){
             //for npc door
             if (item.type == "npcdoor"){

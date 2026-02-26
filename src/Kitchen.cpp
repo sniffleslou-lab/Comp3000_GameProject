@@ -13,7 +13,8 @@ Kitchen::Kitchen(SDL_Renderer *renderer, StoryFlags &flags, DialogueSystem* dial
     garretNPC = std::make_unique<NPC>(renderer, "../assets/textures/wall.png",300,200);
 
     if(storyFlags.getFlag("AnnaMoved")){
-        annaNPC = std::make_unique<NPC>(renderer, "../assets/textures/wall.png",300,500);
+        std::cout << "Anna moved flag detected — spawning Anna in kitchen.\n";
+        annaNPC = std::make_unique<NPC>(renderer, "../assets/textures/lamp-2.png",350,200);
     }
 
 
@@ -91,6 +92,9 @@ void Kitchen::update(float dt) {
 inspector->update(dt);
     //garrets dialogue start when the player walks into the kitchen
     if (startDialogueNextFrame){
+        dialogueSystem->choiceActive = false;
+        dialogueSystem->justFinishedChoice = false;
+        dialogueSystem-> selectedChoice = 0;
        dialogueSystem->startDialogue("Garret");
         startDialogueNextFrame = false;
     }
