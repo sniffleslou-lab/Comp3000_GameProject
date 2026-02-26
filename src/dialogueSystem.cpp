@@ -43,6 +43,7 @@ void DialogueSystem::loadDialogueFile(const std::string &jsonPath) {
                 Choice choice;
                 choice.text = c["text"];
                 choice.flag = c["flag"];
+                if(c.contains("next")) choice.next = c["next"];
                 line.choices.push_back(choice);
             }
         }
@@ -123,6 +124,14 @@ void DialogueSystem::endDialogue() {
     isActive = false;
     currentLines.clear();
     currentIndex = 0;
+}
+void DialogueSystem::jumpToLine(const std::string &id) {
+    for (int i = 0; i < currentLines.size(); i++){
+        if (currentLines[i].id == id ){
+            currentIndex = i;
+            return;
+        }
+    }
 }
 
 std::vector<std::string> DialogueSystem::wrapText(const std::string &text, int maxWidth) {

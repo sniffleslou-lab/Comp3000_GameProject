@@ -17,7 +17,7 @@
 
 class Kitchen : public Scene{
 public:
-    Kitchen(SDL_Renderer* renderer, StoryFlags& flags, DialogueSystem* dialogue, SceneManager* sm);
+    Kitchen(SDL_Renderer* renderer, StoryFlags& flags, DialogueSystem* dialogue);
     ~Kitchen();
 
     void enter() override;
@@ -29,12 +29,13 @@ public:
 private:
     SDL_Renderer* renderer;
     StoryFlags& storyFlags;
-    SceneManager* sceneManager = nullptr;
+   // SceneManager* sceneManager = nullptr;
     std::unique_ptr<Character> player;
     Controls controls;
     std::unique_ptr<inspectionSystem> inspector;
     DialogueSystem* dialogueSystem;
     std::unique_ptr<NPC> garretNPC;
+    std::unique_ptr<NPC> annaNPC;
     bool eWasDown = false;
     bool startDialogueNextFrame = false;
 };

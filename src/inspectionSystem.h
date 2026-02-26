@@ -19,12 +19,13 @@ struct Item{
     SDL_Texture* texture;
     std::string type;
     std::string targetScene;
+    std::string flag;
 
 };
 
 class inspectionSystem{
 public:
-    inspectionSystem(SDL_Renderer* renderer, StoryFlags& flags);
+    inspectionSystem(SDL_Renderer* renderer, StoryFlags& flags, DialogueSystem* dialogueSystem);
     ~inspectionSystem();
 
     void loadItems(const std::string& jsonPath, SDL_Renderer* renderer);
@@ -48,5 +49,6 @@ private:
 
 
     StoryFlags& storyFlags;
+    DialogueSystem* dialogueSystem;
 };
 #endif //AMIPRETTY_INSPECTIONSYSTEM_H

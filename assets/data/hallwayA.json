@@ -74,14 +74,14 @@
     },
     {
       "id": "9",
-      "name": "Maxwells' door",
-      "inspect": "Max's bedroom.. I probably should leave right",
-      "x": 200,
-      "y": 200,
+      "name": "MaxwellDoor",
+      "inspect": "",
+      "x": 710,
+      "y": 250,
       "w": 50,
       "h": 80,
       "texture": "door.png",
-      "type": "door",
-      "targetScene": "SCENE_BEDROOM"
+      "type": "npcdoor",
+      "targetScene": ""
     }
   ]}

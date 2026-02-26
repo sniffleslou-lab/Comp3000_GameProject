@@ -1,20 +1,35 @@
 {
   "npc" : "Garret",
   "dialogue": [
-    {"id" :"g1", "text" :"Hey, you shouldn't go out..","condition": "PickedUp_batteries == false"},
+    {"id" :"g1", "text" :"Hey, you shouldn't go out..", "condition": "PickedUp_batteries == false"},
     {"id" :"g2", "text" :"Oh you didn't hear? Some people are doing a protest.", "condition": "PickedUp_batteries == false"},
-    {"id" :"g3", "text" :"Just stupid people, who are finding something to hate","condition": "PickedUp_batteries == false"},
+    {"id" :"g3", "text" :"Just stupid people, who are finding something to hate", "condition": "PickedUp_batteries == false"},
+
     {"id" :"g4", "text" :"Want to hang out, or something..?", "choices": [
-      {"text": "yes", "flag": "ChoseYes"},
+      {"text": "yes", "flag": "ChoseYes", "next":"g5"},
       {"text": "no", "flag": "ChoseNo"}
-    ]},
+    ], "condition":  "PickedUp_batteries == false"},
 
-    {"id" :"g5", "text" :"Nothing on, fucking sitcoms. Affection Island, desperate househusbands, nothing interesting","condition": "PickedUp_batteries == true"},
-    {"id" :"g6", "text" :"...","condition": "PickedUp_batteries == true"},
-    {"id" :"g7", "text" :"...","condition": "PickedUp_batteries == true"},
+    {"id": "g5", "text": "fuck, the remote doesn't work. can you get some batteries?", "condition":  "PickedUp_Batteries == false"},
+    {"id": "g6", "text": "can you grab some?", "choices": [
+      {"text": "Yeah, whatever", "flag": "GarretAskedForBatteries"},
+      {"text": "no", "flag": "RefusedBatteries"}
+
+    ], "condition": "PickedUp_batteries == false"},
+
+
+    {"id" :"g7", "text" :"Nothing on, fucking sitcoms. Affection Island, desperate househusbands, nothing interesting","condition": "PickedUp_batteries == true"},
     {"id" :"g8", "text" :"...","condition": "PickedUp_batteries == true"},
+    {"id" :"g9", "text" :"...","condition": "PickedUp_batteries == true"},
+    {"id" :"g10", "text" :"...","condition": "PickedUp_batteries == true"},
 
-    {"id" :"g9", "text" :"Sorry for bringing this up.. Do you ever think about starting over? Moving away?","condition": "PickedUp_batteries == true"},
-    {"id" :"g10", "text" :"fuck, sorry.","condition": "PickedUp_batteries == true"}
+    {"id" :"g11", "text" :"Sorry for bringing this up.. Do you ever think about starting over? Moving away?","condition": "PickedUp_batteries == true"},
+    {"id" :"g12", "text" :"what do you think?", "choices" : [
+      {"text":  "yeah, I want to disappear sometimes?", "flag": "GarretOpenedUp"},
+      {"text": "no, never","flag": "GarretClosedOff"}
+    ],
+
+      "condition": "PickedUp_batteries == true"}
+
   ]
 }

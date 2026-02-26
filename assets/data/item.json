@@ -99,6 +99,7 @@
     {
       "id": "9",
       "name": "batteries",
+      "flag": "PickedUp_batteries",
       "inspect": "whow you found some batteries",
       "x": 300,
       "y": 150,

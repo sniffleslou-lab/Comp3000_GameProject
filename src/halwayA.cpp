@@ -9,10 +9,10 @@ HallwayA::HallwayA(SDL_Renderer *renderer, StoryFlags &flags, DialogueSystem* di
 :storyFlags(flags), renderer(renderer), dialogueSystem(dialogue)
 {
     player = std::make_unique<Character>(renderer,"../assets/textures/testPlayer.png",100,200);
-    inspector= std::make_unique<inspectionSystem>(renderer, storyFlags);
+    inspector= std::make_unique<inspectionSystem>(renderer, storyFlags, dialogueSystem);
     inspector->loadItems("../assets/data/hallwayA.json",renderer);
 
-    if(storyFlags.getFlag("AnnaUnlocked")){
+    if(storyFlags.getFlag("AnnaUnlocked")&& !storyFlags.getFlag("AnnaMoved")){
         annaNPC = std::make_unique<NPC>(renderer, "../assets/textures/wall.png", 500, 300);
     }
     //dialogueSystem = std::make_unique<DialogueSystem>(storyFlags);
@@ -44,7 +44,12 @@ void HallwayA::handleEvents(SDL_Event &e) {
                 storyFlags.setFlag(chosen.flag, true);
                 dialogueSystem->choiceActive=false;
                 dialogueSystem->justFinishedChoice= true;
-                dialogueSystem->nextLine();
+
+                if(!chosen.next.empty()){
+                    dialogueSystem->jumpToLine(chosen.next);
+                } else{
+                    dialogueSystem->nextLine();
+                }
             }
         }
         return;

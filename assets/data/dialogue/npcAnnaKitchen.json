@@ -1,0 +1,7 @@
+{
+  "npc": "AnnaKitchen",
+  "dialogue": [
+    {"id": "ak1","text": "Oh! You got the cup! Thanks","condition": "GotCup == true", "flag": "AnnaMoved"},
+    {"id" : "ak2","text":  "he's a lot, but not scary. He's just shy.", "condition": "GotCup == true"}
+  ]
+}

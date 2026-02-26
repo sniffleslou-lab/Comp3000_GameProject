@@ -1,20 +1,22 @@
 {
   "npc" : "Anna",
   "dialogue": [
-    {"id" :"a1", "text" :"Dude, what's up? Watching the dust bunnies?"},
-    {"id" :"a2", "text" :"Nah, I am messing with you."},
-    {"id" :"a3", "text" :"How are you feeling?"},
-    {"id" :"a4", "text" :"why are you apologising"},
+    {"id" :"a1", "text" :"Dude, what's up? Watching the dust bunnies?", "condition":  "GotCup == false"},
+    {"id" :"a2", "text" :"Nah, I am messing with you.", "condition":  "GotCup == false"},
+    {"id" :"a3", "text" :"How are you feeling?", "condition":  "GotCup == false"},
+    {"id" :"a4", "text" :"why are you apologising", "condition":  "GotCup == false"},
 
     {"id" :"a5", "text" :"OH! Would you be willing to help me, please? ", "choices" :  [
-      {"text": "Yeah", "next": "a6", "flag": "AnnaQuestAccespted"},
+      {"text": "Yeah", "next": "a6", "flag": "AnnaQuestAccepted"},
       {"text": "Not right now", "next": "a8", "flag": "AnnaQuestDeclined"}
-    ]},
+    ], "condition":  "GotCup == false"
+    },
 
-    {"id" :"a6", "text" :"Maxwell is keeping every cup hostage."},
-    {"id" :"a7", "text" :"We just knock and pray he answers. Simple."},
-    {"id" :"a8", "text" :"I think he's just shy."},
-    {"id": "a9", "text" :  "oh yeah ok I guess, it's chill."}
+    {"id" :"a6", "text" :"Maxwell is keeping every cup hostage.",  "condition":  "GotCup == false"},
+    {"id" :"a7", "text" :"We just knock and pray he answers. Simple.",  "condition":  "GotCup == false"},
+    {"id" :"a8", "text" :"I think he's just shy.",  "condition":  "GotCup == false"},
+    {"id": "a9", "text" :  "oh yeah ok I guess, it's chill.", "condition":  "GotCup == false"}
+
 
   ]
 }

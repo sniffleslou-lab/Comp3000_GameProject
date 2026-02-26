@@ -9,7 +9,7 @@
 #include <SDL_image.h>
 #include "storyFlags.h"
 
-inspectionSystem::inspectionSystem(SDL_Renderer *renderer, StoryFlags& flags) : storyFlags(flags){
+inspectionSystem::inspectionSystem(SDL_Renderer *renderer, StoryFlags& flags, DialogueSystem* dialogue) : storyFlags(flags), dialogueSystem(dialogue){
     font = TTF_OpenFont("../assets/font/Sunlight Dreams.otf", 20);
     if (!font){
         std::cerr<<"failed to load inpsection font: " << TTF_GetError()<< std::endl;
@@ -41,6 +41,7 @@ void inspectionSystem::loadItems(const std::string &jsonPath, SDL_Renderer *rend
 
         item.type = listitem.value("type", "item");
         item.targetScene = listitem.value("targetScene", "");
+        item.flag = listitem.value("flag", "");
 
         item.rect = {listitem["x"],listitem["y"],listitem["w"],listitem["h"]};
 
@@ -50,11 +51,9 @@ void inspectionSystem::loadItems(const std::string &jsonPath, SDL_Renderer *rend
 
 
         //Hiding items when player picsk them up
-        std::string flagName= "PickedUp_" + item.name;
-        if (storyFlags.getFlag(flagName)) {
-            item.rect={0,0,0,0};
-        }
-
+       if(!item.flag.empty() && storyFlags.getFlag(item.flag)){
+           item.rect = {0,0,0,0};
+       }
 
         items.push_back(item);
     }
@@ -108,6 +107,19 @@ void inspectionSystem::inspect(const SDL_Rect &playerPos, SceneManager &sceneMan
 
     for (auto& item:items) {
         if(SDL_HasIntersection(&playerPos,&item.rect)){
+            //for npc door
+            if (item.type == "npcdoor"){
+                if(storyFlags.getFlag("AnnaQuestAccepted")){
+                    std::cout << "knocking on Maxwell's door \n";
+                    dialogueSystem->startDialogue("Maxwell");
+                }else
+                {
+                    currentText = "it's locked.";
+                    inspectActive = true;
+                    inspectTimer = 0.0f;
+                }
+                return;
+            }
             if(item.type== "door" && !doorCooldown){
                 SceneID target = sceneManager.sceneIdFromString(item.targetScene);
                 std::cout<< "door to " << item.targetScene << " triggered\n";
@@ -124,12 +136,12 @@ void inspectionSystem::inspect(const SDL_Rect &playerPos, SceneManager &sceneMan
                 inspectActive =true;
 
                 //now questing
-                if(item.name == "batteries"){
-                    storyFlags.setFlag("PickedUp_batteries",true);
-                    std::cout<<"batteries picked up. \n";
-                    item.rect = {0,0,0,0};
-                    storyFlags.setFlag("AnnaUnlocked", true);
-
+                if(!item.flag.empty()) {
+                    storyFlags.setFlag(item.flag, true);
+                    item.rect = {0, 0, 0, 0};
+                    if (item.flag == "PickedUp_batteries") {
+                        storyFlags.setFlag("AnnaUnlocked", true);
+                    }
                 }
 
             }

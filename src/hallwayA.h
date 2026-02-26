@@ -31,17 +31,19 @@ public:
 
 private:
     StoryFlags& storyFlags;
+    DialogueSystem* dialogueSystem;
 
-    SDL_Renderer* renderer;
-    //SceneManager* sceneManager= nullptr;
 
     std::unique_ptr<Character> player;
-    Controls controls;
     std::unique_ptr<inspectionSystem> inspector;
-    DialogueSystem* dialogueSystem;
+    std::unique_ptr<NPC> annaNPC;
+
+    SDL_Renderer* renderer;
+    SceneManager* sceneManager= nullptr;
+
+    Controls controls;
     bool startDialogueNextFrame = false;
     std::string queuedNPC;
-    std::unique_ptr<NPC> annaNPC;
 
 };
 

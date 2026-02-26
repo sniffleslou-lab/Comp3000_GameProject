@@ -46,7 +46,7 @@ std::unique_ptr<Scene>SceneManager::createScene(SceneID scene, SDL_Renderer *ren
         }
         case SceneID::SCENE_KITCHEN: {
             std::cout << "loaded the kitchen scene\n";
-            auto s= std::make_unique<Kitchen>(renderer, storyFlags,dialogueSystem, this);
+            auto s= std::make_unique<Kitchen>(renderer, storyFlags,dialogueSystem);
             s->setSceneManager(this);
             return s;
         }

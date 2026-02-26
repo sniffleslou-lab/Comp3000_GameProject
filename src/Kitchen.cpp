@@ -4,13 +4,17 @@
 #include "kitchen.h"
 #include <iostream>
 
-Kitchen::Kitchen(SDL_Renderer *renderer, StoryFlags &flags, DialogueSystem* dialogue, SceneManager* sm)
-:storyFlags(flags), renderer(renderer), dialogueSystem(dialogue), sceneManager(sm) {
+Kitchen::Kitchen(SDL_Renderer *renderer, StoryFlags &flags, DialogueSystem* dialogue)
+:storyFlags(flags), renderer(renderer), dialogueSystem(dialogue) {
     player = std::make_unique<Character>(renderer,"../assets/textures/testPlayer.png",100,200);
-    inspector= std::make_unique<inspectionSystem>(renderer,storyFlags);
+    inspector= std::make_unique<inspectionSystem>(renderer,storyFlags,dialogueSystem);
     inspector->loadItems("../assets/data/kitchen.json",renderer);
 
     garretNPC = std::make_unique<NPC>(renderer, "../assets/textures/wall.png",300,200);
+
+    if(storyFlags.getFlag("AnnaMoved")){
+        annaNPC = std::make_unique<NPC>(renderer, "../assets/textures/wall.png",300,500);
+    }
 
 
     //dialogueSystem = std::make_unique<DialogueSystem>(storyFlags);
@@ -49,7 +53,11 @@ void Kitchen::handleEvents(SDL_Event &e) {
 
                 dialogueSystem->choiceActive = false;
                 dialogueSystem->justFinishedChoice = true;
-                dialogueSystem->nextLine();
+                if(!chosen.next.empty()){
+                    dialogueSystem->jumpToLine(chosen.next);
+                } else{
+                    dialogueSystem->nextLine();
+                }
             }
         }
         return;
@@ -100,6 +108,9 @@ inspector->update(dt);
 void Kitchen::render(SDL_Renderer *renderer) {
     inspector->render(renderer);
     garretNPC->draw(renderer);
+
+    if (annaNPC) annaNPC->draw(renderer);
+
     player->draw();
     dialogueSystem->render(renderer);
 }

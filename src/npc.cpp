@@ -2,7 +2,7 @@
 #include <SDL_image.h>
 #include <iostream>
 
-NPC::NPC(SDL_Renderer *renderer, const std::string &texturePath, int x, int y) {
+NPC::NPC(SDL_Renderer *renderer, const std::string &texturePath, int x, int y) : texture(nullptr) {
     SDL_Surface* surface = IMG_Load(texturePath.c_str());
     if(!surface){
         std::cerr << "failed to load npc texture: " << IMG_GetError()<< std::endl;

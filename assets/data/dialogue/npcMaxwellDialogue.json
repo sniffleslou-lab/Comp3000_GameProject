@@ -6,7 +6,7 @@
 
     {"id" :"m3", "text" :"... so, you need a cup?",
     "choices" :  [
-      {"text" :  "yes, please", "flag" : "GotCup", " next": "m4"},
+      {"text" :  "yes, please", "flag" : "GotCup", "next": "m4"},
       {"text": "no, sorry", "flag":  "RefusedCup", "next": "m5"}
     ]
     },

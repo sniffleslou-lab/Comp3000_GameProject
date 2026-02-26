@@ -13,6 +13,7 @@
 struct Choice{
         std::string text;
         std::string flag;
+        std::string next;
 };
 struct dialogueLine{
     std::string id;
@@ -44,6 +45,8 @@ public:
     bool justFinishedChoice = false;
 
     bool evaluteCondition(const std::string& cond);
+
+    void jumpToLine(const std::string& id);
 
 
 private:
