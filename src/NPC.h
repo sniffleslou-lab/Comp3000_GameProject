@@ -10,6 +10,7 @@ public:
     void draw(SDL_Renderer* renderer);
     SDL_Rect getRect() const { return rect; }
 
+
 private:
     SDL_Texture* texture = nullptr;
     SDL_Rect rect;

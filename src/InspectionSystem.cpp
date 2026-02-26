@@ -128,6 +128,7 @@ void inspectionSystem::inspect(const SDL_Rect &playerPos, SceneManager &sceneMan
                     storyFlags.setFlag("PickedUp_batteries",true);
                     std::cout<<"batteries picked up. \n";
                     item.rect = {0,0,0,0};
+                    storyFlags.setFlag("AnnaUnlocked", true);
 
                 }
 

@@ -13,6 +13,7 @@
 #include "dialogueSystem.h"
 #include "storyFlags.h"
 #include "sceneManager.h"
+#include "NPC.h"
 
 
 class HallwayA : public Scene{
@@ -26,6 +27,7 @@ public:
     void render(SDL_Renderer* renderer) override;
     void exit() override;
     void setSceneManager(SceneManager* mgr) { sceneManager = mgr; }
+    bool playerIsNearAnna();
 
 private:
     StoryFlags& storyFlags;
@@ -39,6 +41,7 @@ private:
     DialogueSystem* dialogueSystem;
     bool startDialogueNextFrame = false;
     std::string queuedNPC;
+    std::unique_ptr<NPC> annaNPC;
 
 };
 

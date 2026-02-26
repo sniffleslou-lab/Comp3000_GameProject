@@ -6,10 +6,15 @@
     {"id" :"a3", "text" :"How are you feeling?"},
     {"id" :"a4", "text" :"why are you apologising"},
 
-    {"id" :"a5", "text" :"OH! Would you be willing to help ke, please? "},
+    {"id" :"a5", "text" :"OH! Would you be willing to help me, please? ", "choices" :  [
+      {"text": "Yeah", "next": "a6", "flag": "AnnaQuestAccespted"},
+      {"text": "Not right now", "next": "a8", "flag": "AnnaQuestDeclined"}
+    ]},
+
     {"id" :"a6", "text" :"Maxwell is keeping every cup hostage."},
     {"id" :"a7", "text" :"We just knock and pray he answers. Simple."},
-    {"id" :"a8", "text" :"I think he's just shy."}
+    {"id" :"a8", "text" :"I think he's just shy."},
+    {"id": "a9", "text" :  "oh yeah ok I guess, it's chill."}
 
   ]
 }

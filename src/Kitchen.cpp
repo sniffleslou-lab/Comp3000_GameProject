@@ -44,12 +44,12 @@ void Kitchen::handleEvents(SDL_Event &e) {
                 std::cout << "SPACE pressed while choiceActive = "
                           << dialogueSystem->choiceActive << "\n";
                 Choice chosen = dialogueSystem->currentChoices[dialogueSystem->selectedChoice];
+
                 storyFlags.setFlag(chosen.flag, true);
 
-                dialogueSystem -> choiceActive = false;
-                dialogueSystem -> justFinishedChoice = true;
-                //dialogueSystem -> currentChoices.clear();
-                dialogueSystem -> nextLine();
+                dialogueSystem->choiceActive = false;
+                dialogueSystem->justFinishedChoice = true;
+                dialogueSystem->nextLine();
             }
         }
         return;

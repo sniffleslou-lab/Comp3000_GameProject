@@ -12,6 +12,9 @@ HallwayA::HallwayA(SDL_Renderer *renderer, StoryFlags &flags, DialogueSystem* di
     inspector= std::make_unique<inspectionSystem>(renderer, storyFlags);
     inspector->loadItems("../assets/data/hallwayA.json",renderer);
 
+    if(storyFlags.getFlag("AnnaUnlocked")){
+        annaNPC = std::make_unique<NPC>(renderer, "../assets/textures/wall.png", 500, 300);
+    }
     //dialogueSystem = std::make_unique<DialogueSystem>(storyFlags);
     //dialogueSystem->loadAllDialogue("../assets/data/dialogue/");
 }
@@ -56,6 +59,12 @@ void HallwayA::handleEvents(SDL_Event &e) {
         queuedNPC = "Garret";
         startDialogueNextFrame = true;
     }
+    if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_f){
+        if (annaNPC && playerIsNearAnna()){
+            queuedNPC = "Anna";
+            startDialogueNextFrame = true;
+        }
+    }
     if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE) {
 
         if (dialogueSystem->justFinishedChoice) {
@@ -73,6 +82,12 @@ void HallwayA::handleEvents(SDL_Event &e) {
 
 }
 
+bool HallwayA::playerIsNearAnna() {
+    SDL_Rect p = player->getPosition();
+    SDL_Rect a = annaNPC->getRect();
+    return SDL_HasIntersection(&p,&a);
+}
+
 void HallwayA::update(float dt) {
     inspector->update(dt);
     if (startDialogueNextFrame){
@@ -85,6 +100,7 @@ void HallwayA::render(SDL_Renderer *renderer) {
     inspector->render(renderer);
     player->draw();
     dialogueSystem->render(renderer);
+    if (annaNPC) annaNPC->draw(renderer);
 }
 void HallwayA::exit() {
     std::cout<<"left hallway scene\n";

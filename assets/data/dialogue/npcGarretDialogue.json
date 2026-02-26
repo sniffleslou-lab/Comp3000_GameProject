@@ -1,17 +1,16 @@
 {
   "npc" : "Garret",
   "dialogue": [
-    {"id" :"g1", "text" :"Hey, you shouldn't go out.."},
-    {"id" :"g2", "text" :"Oh you didn't hear? Some people are doing a protest."},
-    {"id" :"g3", "text" :"Just stupid people, who are finding something to hate"},
+    {"id" :"g1", "text" :"Hey, you shouldn't go out..","condition": "PickedUp_batteries == false"},
+    {"id" :"g2", "text" :"Oh you didn't hear? Some people are doing a protest.", "condition": "PickedUp_batteries == false"},
+    {"id" :"g3", "text" :"Just stupid people, who are finding something to hate","condition": "PickedUp_batteries == false"},
     {"id" :"g4", "text" :"Want to hang out, or something..?", "choices": [
       {"text": "yes", "flag": "ChoseYes"},
       {"text": "no", "flag": "ChoseNo"}
     ]},
 
-    {"id" :"g5", "text" :"Fuck, remote is not working. Can you get some batteries?"},
-    {"id" :"g6", "text" :"Nothing on, fucking sitcoms. Affection Island, desperate househusbands, nothing interesting","condition": "HasBatteries"},
-    {"id" :"g7", "text" :"...","condition": "HasBatteries"  },
-    {"id" :"g8", "text" :"Sorry for bringing this up.. Do you ever think about starting over? Moving away?","condition": "HasBatteries"}
+    {"id" :"G5", "text" :"Nothing on, fucking sitcoms. Affection Island, desperate househusbands, nothing interesting","condition": "PickedUp_batteries == true"},
+    {"id" :"g6", "text" :"...","condition": "PickedUp_batteries == true"},
+    {"id" :"g7", "text" :"Sorry for bringing this up.. Do you ever think about starting over? Moving away?","condition": "PickedUp_batteries == true"}
   ]
 }
