@@ -36,6 +36,7 @@ private:
     DialogueSystem* dialogueSystem;
     std::unique_ptr<NPC> garretNPC;
     bool eWasDown = false;
+    bool startDialogueNextFrame = false;
 };
 
 #endif //AMIPRETTY_KITCHEN_H

@@ -37,6 +37,8 @@ private:
     Controls controls;
     std::unique_ptr<inspectionSystem> inspector;
     DialogueSystem* dialogueSystem;
+    bool startDialogueNextFrame = false;
+    std::string queuedNPC;
 
 };
 

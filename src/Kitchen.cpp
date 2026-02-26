@@ -20,9 +20,11 @@ Kitchen::Kitchen(SDL_Renderer *renderer, StoryFlags &flags, DialogueSystem* dial
 Kitchen::~Kitchen() {}
 void Kitchen::enter() {
     std::cout<< "entered kitchen scene";
-    dialogueSystem->startDialogue("Garret");
+   // dialogueSystem->startDialogue("Garret");
     inspector->doorCooldown = true;
     inspector->doorCooldownTimer = 0.0f;
+
+    startDialogueNextFrame = true;
 }
 void Kitchen::handleEvents(SDL_Event &e) {
 
@@ -78,13 +80,12 @@ void Kitchen::handleEvents(SDL_Event &e) {
 
 
 void Kitchen::update(float dt) {
-    static bool startedGarretDialogue = false;
-
+inspector->update(dt);
     //garrets dialogue start when the player walks into the kitchen
-   // if (!startedGarretDialogue){
-     //   dialogueSystem->startDialogue("Garret");
-       // startedGarretDialogue = true;
-   // }
+    if (startDialogueNextFrame){
+       dialogueSystem->startDialogue("Garret");
+        startDialogueNextFrame = false;
+    }
 /*
     if(!dialogueSystem->choiceActive) {
         const Uint8* keys = SDL_GetKeyboardState(NULL);

@@ -2,8 +2,8 @@
   "items":[
     {
       "id": "1",
-      "name": "kitchen door",
-      "inspect": "this door leads back to the hallway",
+      "name": "kitchen door to hallway",
+      "inspect": "this door leads to the halway",
       "x": 500,
       "y": 60,
       "w": 80,
@@ -11,5 +11,53 @@
       "texture": "door.png",
       "type": "door",
       "targetScene": "SCENE_HALLWAYA"
+    },
+    {
+      "id": "2",
+      "name": "Top WALL",
+      "inspect": "",
+      "x": 0,
+      "y": 0,
+      "w": 800,
+      "h": 40,
+      "texture": "wall.png",
+      "type": "solid",
+      "targetScene": ""
+    },
+    {
+      "id": "3",
+      "name": "left WALL",
+      "inspect": "",
+      "x": 0,
+      "y": 0,
+      "w": 40,
+      "h": 800,
+      "texture": "wall.png",
+      "type": "solid",
+      "targetScene": ""
+    },
+    {
+      "id": "4",
+      "name": "right WALL",
+      "inspect": "",
+      "x": 760,
+      "y": 0,
+      "w": 40,
+      "h": 800,
+      "texture": "wall.png",
+      "type": "solid",
+      "targetScene": ""
+    },
+    {
+      "id": "5",
+      "name": "bottom WALL",
+      "inspect": "",
+      "x": 0,
+      "y": 560,
+      "w": 800,
+      "h": 40,
+      "texture": "wall.png",
+      "type": "solid",
+      "targetScene": ""
     }
   ]}

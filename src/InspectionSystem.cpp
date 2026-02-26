@@ -102,6 +102,10 @@ void inspectionSystem::render(SDL_Renderer *renderer) {
     }
 }
 void inspectionSystem::inspect(const SDL_Rect &playerPos, SceneManager &sceneManager, SDL_Renderer *renderer) {
+    if(doorCooldown){
+        return;
+    }
+
     for (auto& item:items) {
         if(SDL_HasIntersection(&playerPos,&item.rect)){
             if(item.type== "door" && !doorCooldown){
