@@ -1,8 +1,16 @@
 {
   "npc" : "Maxwell",
   "dialogue": [
-    {"id" :"m1", "text" :"..."},
-    {"id" :"m2", "text" :"..."},
-    {"id" :"m3", "text" :"Sorry."}
+    {"id" :"m1", "text" :"...who is it"},
+    {"id" :"m2", "text" :"oh. Anna sent you?", "condition" :  "AnnaQuestAccepted == true"},
+
+    {"id" :"m3", "text" :"... so, you need a cup?",
+    "choices" :  [
+      {"text" :  "yes, please", "flag" : "GotCup", " next": "m4"},
+      {"text": "no, sorry", "flag":  "RefusedCup", "next": "m5"}
+    ]
+    },
+    {"id" :"m4", "text" :"...Fine.. Take one,"},
+    {"id" :"m5", "text" :"oh ok ehh bye"}
   ]
 }

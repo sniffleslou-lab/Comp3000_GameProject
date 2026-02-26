@@ -43,6 +43,8 @@ public:
     std::vector<Choice> currentChoices;
     bool justFinishedChoice = false;
 
+    bool evaluteCondition(const std::string& cond);
+
 
 private:
     StoryFlags& storyFlags;

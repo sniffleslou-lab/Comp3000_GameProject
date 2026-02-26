@@ -66,7 +66,7 @@ void DialogueSystem::startDialogue(const std::string &npcId) {
     for (auto& npc : npcs) {
         if(npc.npcId == npcId){
             for (auto& line : npc.lines){
-                if (line.condition.empty() || storyFlags.getFlag(line.condition)){
+                if (evaluteCondition(line.condition)){
                     currentLines.push_back(line);
                 }
             }
@@ -157,6 +157,23 @@ void DialogueSystem::renderText(SDL_Renderer *renderer, const std::string &text,
     SDL_RenderCopy(renderer,texture, nullptr,&dst);
     SDL_FreeSurface(surface);
     SDL_DestroyTexture(texture);
+}
+bool  DialogueSystem::evaluteCondition(const std::string &cond) {
+    if (cond.empty())return true;
+
+    std::string flag;
+    std::string op;
+    std::string value;
+
+    std::stringstream ss(cond);
+    ss >> flag >> op >> value;
+
+    if (op != "==") return true;
+
+    bool flagValue = storyFlags.getFlag(flag);
+    bool expected = (value == "true");
+
+    return flagValue == expected;
 }
 void DialogueSystem::render(SDL_Renderer *renderer) {
    /* if (currentIndex<currentLines.size()){

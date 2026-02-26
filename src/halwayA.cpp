@@ -31,6 +31,7 @@ void HallwayA::handleEvents(SDL_Event &e) {
 
     if(dialogueSystem->choiceActive){
         if (e.type == SDL_KEYDOWN){
+            if (e.key.repeat != 0) return;
             if (e.key.keysym.sym == SDLK_a){
                 dialogueSystem->selectedChoice=0;
             }
@@ -42,7 +43,7 @@ void HallwayA::handleEvents(SDL_Event &e) {
                 Choice chosen =dialogueSystem->currentChoices[dialogueSystem->selectedChoice];
                 storyFlags.setFlag(chosen.flag, true);
                 dialogueSystem->choiceActive=false;
-                dialogueSystem->currentChoices.clear();
+                dialogueSystem->justFinishedChoice= true;
                 dialogueSystem->nextLine();
             }
         }
@@ -56,15 +57,15 @@ void HallwayA::handleEvents(SDL_Event &e) {
     }
 
     if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_f){
-        queuedNPC = "Garret";
-        startDialogueNextFrame = true;
-    }
-    if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_f){
         if (annaNPC && playerIsNearAnna()){
             queuedNPC = "Anna";
             startDialogueNextFrame = true;
+            return;
         }
+        queuedNPC = "Garret";
+        startDialogueNextFrame = true;
     }
+
     if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE) {
 
         if (dialogueSystem->justFinishedChoice) {

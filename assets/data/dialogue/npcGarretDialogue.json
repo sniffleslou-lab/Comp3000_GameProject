@@ -9,8 +9,12 @@
       {"text": "no", "flag": "ChoseNo"}
     ]},
 
-    {"id" :"G5", "text" :"Nothing on, fucking sitcoms. Affection Island, desperate househusbands, nothing interesting","condition": "PickedUp_batteries == true"},
+    {"id" :"g5", "text" :"Nothing on, fucking sitcoms. Affection Island, desperate househusbands, nothing interesting","condition": "PickedUp_batteries == true"},
     {"id" :"g6", "text" :"...","condition": "PickedUp_batteries == true"},
-    {"id" :"g7", "text" :"Sorry for bringing this up.. Do you ever think about starting over? Moving away?","condition": "PickedUp_batteries == true"}
+    {"id" :"g7", "text" :"...","condition": "PickedUp_batteries == true"},
+    {"id" :"g8", "text" :"...","condition": "PickedUp_batteries == true"},
+
+    {"id" :"g9", "text" :"Sorry for bringing this up.. Do you ever think about starting over? Moving away?","condition": "PickedUp_batteries == true"},
+    {"id" :"g10", "text" :"fuck, sorry.","condition": "PickedUp_batteries == true"}
   ]
 }
