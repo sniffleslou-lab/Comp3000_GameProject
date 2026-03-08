@@ -1,0 +1,45 @@
+{
+  "npc": "GroupArc2",
+  "dialogue": [
+    {
+      "id": "ret1",
+      "speaker": "Narrator",
+      "text": "the rain muffles everything outside. The hallway is quiet.",
+      "next": "ret2"
+    },
+    {
+      "id": "ret2",
+      "speaker": "Anna",
+      "text": "I'm not ignoring anything!",
+      "next": "ret3"
+    },
+    {
+      "id": "ret3",
+      "speaker": "Garret",
+      "text": "Then stop pretending everything's perfect.",
+      "next": "ret4"
+    },
+    {
+      "id": "ret4",
+      "speaker": "Anna",
+      "text": "You think I am stupid? I know what's happening out there.",
+      "next": "ret5"
+    },
+    {
+      "id": "ret5",
+      "speaker": "Narrator",
+      "text": "They stop when they notice you.",
+      "choices": [
+        {"text": "Are you both okay?", "flag": "SideNeutral", "next": "ret6"},
+        {"text": "Are I.. leave?", "flag": "SideAvoid", "next": "ret6"},
+        {"text": "Say nothing", "flag": "SideSilent", "next": "ret6"}
+      ]
+    },
+    {
+      "id": "ret6",
+      "speaker": "Narrator",
+      "text": "Both fall silent, embarrassed.",
+      "flag": "Arc2ArgumentSeen"
+    }
+  ]
+}

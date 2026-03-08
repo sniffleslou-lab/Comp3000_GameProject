@@ -1,0 +1,9 @@
+{
+  "npc": "PlayThoughts",
+  "dialogue": [
+    {"id": "anx1","speaker":"Player","text": "Everything feels louder..?","next": "anx2" },
+    {"id": "anx3","speaker":"Player","text": "Just breathe.. Just breathe,,","next": "anx3" },
+    {"id": "anx3","speaker":"Player","text": "It's fine.. It's fine.."}
+
+  ]
+}

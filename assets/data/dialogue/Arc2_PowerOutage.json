@@ -1,0 +1,29 @@
+{
+  "npc": "GroupArc2",
+  "dialogue": [
+    {
+      "id": "pwr1",
+      "speaker": "Anna",
+      "text": "uh... did the power just die",
+      "next": "pwr2"
+    },
+    {
+      "id": "pwr2",
+      "speaker": "Garret",
+      "text": "Great. Perfect. Love that.",
+      "next": "pwr3"
+    },
+    {
+      "id": "pwr3",
+      "speaker": "Maxwell",
+      "text": "It'll come back.. probably, right?",
+      "next": "pwr4"
+    },
+    {
+      "id": "pwr4",
+      "speaker": "Narrator",
+      "text": "Room is frozen. Now one moves until the lights flicker back on.",
+      "next": "PowerOutage1Done"
+    }
+  ]
+}

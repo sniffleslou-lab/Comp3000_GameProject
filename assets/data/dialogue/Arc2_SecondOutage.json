@@ -1,0 +1,38 @@
+{
+"npc": "GroupArc2",
+"dialogue": [
+{
+"id": "pwr5",
+"speaker": "Anna",
+"text": "Okay! That one was not caused by me.",
+"next": "pwr6"
+},
+{
+"id": "pwr6",
+"speaker": "Garret",
+"text": "*sigh* we should check the breaker",
+"next": "pwr7"
+},
+  {
+    "id": "pwr7",
+    "speaker": "Maxwell",
+    "text": "It's probably nothing..",
+    "next": "pwr8"
+  },
+  {
+    "id":"pwr8",
+    "speaker": "Garret",
+    "text":"You coming with me?",
+    "choices": [
+      {"text": "Sure, I'll go.", "flag":"GoWithGarret", "next": "pwr9"},
+      {"text": "Really, do I have to?", "flag":  "ReluctantGarret", "next": "pwr9"}
+    ]
+  },
+{
+"id": "pwr9",
+"speaker": "Narrator",
+"text": "You head into the hallway",
+"next": "StartBreakerQuest"
+}
+]
+}

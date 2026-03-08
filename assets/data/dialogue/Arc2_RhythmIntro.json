@@ -1,0 +1,28 @@
+{
+  "npc": "GroupArc2",
+  "dialogue": [
+    {
+      "id":"rh1",
+      "speaker": "Garret",
+      "text":"Well... Since we're not doing much. Anyone up for killing some time?",
+      "next": "rh2"
+    },
+    {
+      "id":"rh2",
+      "speaker": "Anna",
+      "text":"Oh! Rhythm Game! Let's do something fun!",
+      "choices": [
+        {"text": "Sure", "flag":"RhythmAgree", "next": "rh3"},
+        {"text": "I guess", "flag":  "RhythmNeutral", "next": "rh3"},
+        {"text": "Not really..", "flag":  "RhythmDisagree", "next": "rh3"}
+
+      ]
+    },
+    {
+      "id":"rh3",
+      "speaker": "Narrator",
+      "text":"You prepare for the minigame",
+      "next": "StartRhythmMinigame"
+    }
+  ]
+}

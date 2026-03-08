@@ -1,0 +1,17 @@
+{
+  "npc": "Garret",
+  "Dialogue": [
+    {
+      "id": "brk1",
+      "speaker": "Garret",
+      "text": "There it is. Just flip the switch.",
+      "next": "brk2"
+    },
+    {
+      "id": "brk2",
+      "speaker": "Narrator",
+      "text": "You interact with the breaker",
+      "flag": "StartBreakerPuzzle"
+    }
+  ]
+}
