@@ -1,0 +1,23 @@
+{
+  "npc": "Maxwell",
+  "dialogue": [
+    {
+      "id": "mxF1",
+      "speaker": "Maxwell",
+      "text": "Why did you follow me..?",
+      "next": "mxF2"
+    },
+    {
+      "id": "mxF2",
+      "speaker": "Player",
+      "text": "Because we're similar. Both isolated. Both scared",
+      "next": "mxF3"
+    },
+    {
+      "id": "mxF3",
+      "speaker": "Player",
+      "text": "But we can change",
+      "flag": "MaxwellReassured"
+    }
+  ]
+}

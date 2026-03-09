@@ -1,0 +1,12 @@
+{
+  "npc": "Narrator",
+  "dialogue": [
+    {
+      "id": "fml",
+      "speaker": "Narrator",
+      "text": "You Find Maxwell siting alone.",
+      "next": "fm2"
+    }
+
+  ]
+}
