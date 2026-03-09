@@ -1,0 +1,29 @@
+{
+  "npc": "PlayerThoughts",
+  "dialogue": [
+    {
+      "id": "mir1",
+      "speaker": "Narrator",
+      "text": "You stare at yourself in the mirror. You cannot move.",
+      "next": "mir2"
+    },
+    {
+      "id": "mir2",
+      "speaker": "Player",
+      "text": "....",
+      "next": "mir3"
+    },
+    {
+      "id": "mir3",
+      "speaker": "player",
+      "text": ".....",
+      "next": "mir4"
+    },
+    {
+      "id": "mir4",
+      "speaker": "Narrator",
+      "text": "Your body finally responds.",
+      "flag": "MirrorSceneDone"
+    }
+  ]
+}

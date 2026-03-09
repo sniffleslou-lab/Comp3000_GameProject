@@ -1,0 +1,17 @@
+{
+  "npc": "Narrator",
+  "dialogue": [
+    {
+      "id": "inv1",
+      "speaker": "Narrator",
+      "text": "You use what you've learned to access the spare room",
+      "next": "inv2"
+    },
+    {
+      "id": "inv1",
+      "speaker": "Narrator",
+      "text": "A feint light leaks under Maxwell's door",
+      "flag": "ReachedMaxwellDoor"
+    }
+  ]
+}

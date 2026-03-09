@@ -1,0 +1,52 @@
+{
+  "npc": "Garret",
+  "dialogue": [
+    {
+      "id": "gl1",
+      "speaker": "Garret",
+      "text": "Hey. Thanks for coming",
+      "next": "gl2"
+    },
+    {
+      "id": "gl2",
+      "speaker": "Garret",
+      "text": "I just need to talk to someone.",
+      "next": "gl3"
+    },
+    {
+      "id": "gl3",
+      "speaker": "Garret",
+      "text": "Do you ever think about the future? Like… what it even looks like anymore?",
+      "next": "gl4"
+    },
+    {
+      "id": "gl4",
+      "speaker": "Garret",
+      "text": "What do you think?",
+      "Choices": [
+        {
+          "text": "I'm scared too.",
+          "flag": "PlayerOpenedUp",
+          "next": "gl5"
+        },
+        {
+          "text": "I don't know",
+          "flag": "PlayerUnsure",
+          "next": "gl5"
+        },
+        {
+          "text": "I.. I'm trying",
+          "flag": "PlayerTrying",
+          "next": "gl5"
+        }
+      ]
+    },
+    {
+      "id": "gl5",
+      "speaker": "Garret",
+      "text": "Yeah.... I get that.",
+      "flag": "GarretTalkDone"
+    }
+
+  ]
+}

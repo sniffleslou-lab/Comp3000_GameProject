@@ -1,0 +1,11 @@
+{
+  "npc": "Phone",
+  "dialogue": [
+    {
+      "id": "txt1",
+      "speaker": "Garret",
+      "text": "Can we talk? Living room.",
+      "next": "CalledToLivingRoom"
+    }
+  ]
+}

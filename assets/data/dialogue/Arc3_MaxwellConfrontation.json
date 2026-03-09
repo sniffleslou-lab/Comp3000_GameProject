@@ -1,0 +1,28 @@
+{
+  "npc": "Maxwell",
+  "dialogue": [
+    {
+      "id": "mxC1",
+      "speaker": "Narrator",
+      "text": "Why are you here...?",
+      "next": "mxC2"
+    },
+    {
+      "id": "mxC2",
+      "speaker": "Narrator",
+      "text": "Do you think I could ever be like you?",
+      "choices":[
+        {"text": "Yes.","flag": "ToldMaxwellYes","next": "mxC3"},
+        {"text": "Maybe..","flag": "ToldMaxwellMaybe","next": "mxC3"},
+        {"text": "No","flag": "ToldMaxwellNo","next": "mxC3"}
+
+      ]
+    },
+    {
+      "id": "mxC3",
+      "speaker": "Narrator",
+      "text": "Maxwell turns away and storms out.",
+      "flag": "MaxwellStormedOut"
+    }
+  ]
+}

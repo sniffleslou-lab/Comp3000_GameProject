@@ -1,0 +1,17 @@
+{
+  "npc": "Anna",
+  "dialogue": [
+{
+  "id": "anx1",
+  "speaker": "Anna",
+  "text": "Sorry to interrupt.. but something is wrong with Maxwell",
+  "next": "anx2"
+},
+{
+  "id": "anx2",
+  "speaker": "Anna",
+  "text": "I need to talk Garret about earlier. Can you check on Max?",
+  "flag": "StartMaxwellInvestigation"
+}
+]
+}
