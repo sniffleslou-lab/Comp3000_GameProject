@@ -5,6 +5,7 @@
 #include <iostream>
 #include "sceneManager.h"
 #include "inspectionSystem.h"
+#include <SDL_ttf.h>
 
 
 bedroom::bedroom(SDL_Renderer *renderer, StoryFlags& flags, DialogueSystem* dialogue)
@@ -12,6 +13,11 @@ bedroom::bedroom(SDL_Renderer *renderer, StoryFlags& flags, DialogueSystem* dial
     player = std::make_unique<Character>(renderer,"../assets/textures/testPlayer.png",100,200);
     inspector= std::make_unique<inspectionSystem>(renderer,storyFlags,dialogueSystem);
     inspector->loadItems("../assets/data/item.json",renderer);
+
+    chapterFont = TTF_OpenFont("../assets/font/SunLight Dreams.otf", 48);
+    if(!chapterFont){
+        std::cout << "failed to load font: "<<TTF_GetError()<< std::endl;
+    }
 
     //dialogueSystem = std::make_unique<DialogueSystem>(storyFlags);
     //dialogueSystem->loadAllDialogue("../assets/data/dialogue/");
@@ -22,6 +28,42 @@ void bedroom::enter() {
     std::cout<< "entered bedroom scene";
     inspector->doorCooldown = true;
     inspector->doorCooldownTimer = 0.0f;
+
+    //title card
+    if (!storyFlags.getFlag("SeenChapter1Card")){
+        showChapterCard = true;
+        chapterCardTimer = 0.0f;
+        storyFlags.setFlag("SeenChapter1Card", true);
+    }
+}
+void bedroom::drawText(SDL_Renderer *renderer, TTF_Font *font, const std::string &text, int x, int y) {
+    SDL_Color white = {255,255,255,255};
+
+    SDL_Surface* surf = TTF_RenderText_Blended(font,text.c_str(),white);
+    SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, surf);
+    SDL_Rect dst = {x,y,surf->w,surf->h};
+    SDL_RenderCopy(renderer, tex, NULL, &dst);
+
+    SDL_FreeSurface(surf);
+    SDL_DestroyTexture(tex);
+}
+void bedroom::drawCenteredText(SDL_Renderer *renderer, TTF_Font *font, const std::string &text, int y) {
+    SDL_Color white = {255,255,255,255};
+
+    SDL_Surface* surf = TTF_RenderText_Blended(font,text.c_str(),white);
+    SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, surf);
+
+    int screenW = 1280;
+    int textW = surf->w;
+
+    SDL_Rect dst;
+    dst.x = ( screenW - textW)/2;
+    dst.y=y;
+    dst.w = surf->w;
+    dst.h = surf->h;
+    SDL_RenderCopy(renderer, tex, NULL,&dst);
+    SDL_FreeSurface(surf);
+    SDL_DestroyTexture(tex);
 }
 void bedroom::handleEvents(SDL_Event &e) {
 
@@ -60,6 +102,13 @@ void bedroom::handleEvents(SDL_Event &e) {
 }
 void bedroom::update(float dt) {
     inspector->update(dt);
+
+    if(showChapterCard){
+        chapterCardTimer += dt;
+        if(chapterCardTimer > 15.0f){
+            showChapterCard = false;
+        }
+    }
 }
 
 void bedroom::render(SDL_Renderer *renderer) {
@@ -67,6 +116,18 @@ void bedroom::render(SDL_Renderer *renderer) {
     player->draw();
 
     dialogueSystem->render(renderer);
+
+    //title card
+    if(showChapterCard){
+        SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+        SDL_SetRenderDrawColor(renderer,0,0,0,180);
+        SDL_Rect fullscreen = {0,0,1280,720};
+        SDL_RenderFillRect(renderer, &fullscreen);
+
+        drawCenteredText(renderer, chapterFont, "CHAPTER 1", 500);
+        drawCenteredText(renderer, chapterFont, "Unsettling", 450);
+
+    }
 }
 void bedroom::exit() {
     std::cout<<"exited bedroom scene";

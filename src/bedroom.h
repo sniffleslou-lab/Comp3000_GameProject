@@ -27,6 +27,10 @@ public:
     //attempting fix
     void setSceneManager(SceneManager* mgr) override { sceneManager = mgr;}
 
+    void drawText(SDL_Renderer* renderer, TTF_Font* font, const std::string& text,int x, int y);
+    void drawCenteredText(SDL_Renderer* renderer, TTF_Font* font, const std::string& text, int y);
+
+
 private:
     StoryFlags& storyFlags;
     std::unique_ptr<Character> player;
@@ -36,6 +40,11 @@ private:
 
     SDL_Renderer* renderer;
     SceneManager* sceneManager= nullptr;
+
+    //title card
+    bool showChapterCard = false;
+    float chapterCardTimer = 0.0f;
+    TTF_Font* chapterFont;
 
 };
 #endif //AMIPRETTY_BEDROOM_H
