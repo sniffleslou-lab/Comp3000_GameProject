@@ -15,7 +15,9 @@
     {"id" :"a6", "text" :"Maxwell is keeping every cup hostage.",  "condition":  "GotCup == false"},
     {"id" :"a7", "text" :"We just knock and pray he answers. Simple.",  "condition":  "GotCup == false"},
     {"id" :"a8", "text" :"I think he's just shy.",  "condition":  "GotCup == false"},
-    {"id": "a9", "text" :  "oh yeah ok I guess, it's chill.", "condition":  "GotCup == false"}
+    {"id": "a9", "text" :  "oh yeah ok I guess, it's chill.", "condition":  "GotCup == false"},
+    {"id": "a10", "text" :  "oh you got the cup! thanks dude", "condition":  "GotCup == true", "flag": "AnnaMoved"}
+
 
 
   ]

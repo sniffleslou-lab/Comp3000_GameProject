@@ -23,6 +23,15 @@ HallwayA::~HallwayA() {}
 
 void HallwayA::enter() {
     std::cout<<"entered hallway scene\n";
+
+
+    //rests diaglogue state
+    queuedNPC = "";
+    startDialogueNextFrame = false;
+    dialogueSystem->isActive = false;
+    dialogueSystem->choiceActive = false;
+    dialogueSystem->justFinishedChoice = false;
+
     inspector->doorCooldown = true;
     inspector->doorCooldownTimer = 0.0f;
 }
@@ -67,8 +76,17 @@ void HallwayA::handleEvents(SDL_Event &e) {
             startDialogueNextFrame = true;
             return;
         }
-        queuedNPC = "Garret";
-        startDialogueNextFrame = true;
+        if(inspector->isNear("MaxwellDoor", player->getPosition())){
+            queuedNPC = "Maxwell";
+            startDialogueNextFrame = true;
+            return;
+        }
+        /*if(playerIsNearGarret()){
+            queuedNPC = "Garret";
+            startDialogueNextFrame = true;
+            return;
+        }*/
+        return;
     }
 
     if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE) {

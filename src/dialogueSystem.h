@@ -48,6 +48,7 @@ public:
     bool evaluteCondition(const std::string& cond);
 
     void jumpToLine(const std::string& id);
+    bool isActive = false;
 
 
 private:
@@ -62,7 +63,6 @@ private:
     //loads file
     void loadDialogueFile(const std::string& jsonPath);
 
-    bool isActive = false;
 
     //wrap text
     std::vector<std::string> wrapText(const std::string& text, int maxWidth);

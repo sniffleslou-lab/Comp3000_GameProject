@@ -28,6 +28,8 @@ public:
     void exit() override;
     void setSceneManager(SceneManager* mgr) { sceneManager = mgr; }
     bool playerIsNearAnna();
+    bool playerIsNearGarret();
+
 
 private:
     StoryFlags& storyFlags;

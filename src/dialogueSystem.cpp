@@ -43,6 +43,13 @@ void DialogueSystem::loadDialogueFile(const std::string &jsonPath) {
 
     NPCDialogue npc;
     npc.npcId = data["npc"];
+    std::cout << " npc ID in this file: " << npc.npcId << "\n";
+    //proof checking files to make sure no file already using same id
+    for (auto& existing : npcs){
+        if(existing.npcId == npc.npcId){
+            std::cout << " warning: duplicate npc id is detected: " << npc.npcId << " (file: " << jsonPath << ")\n";
+        }
+    }
 
 
     for (auto& lineJson : data["dialogue"]){
@@ -97,7 +104,7 @@ void DialogueSystem::startDialogue(const std::string &npcId) {
         }
 
     }
-    std::cout << "Loaded lines for Garret:\n";
+    std::cout << "Loaded lines for "<< npcId << ":\n";
     for (auto& line : currentLines) { std::cout << " " << line.id << " (choices=" << line.choices.size() << ")\n";}
 
     if (currentLines.empty()){
@@ -241,7 +248,7 @@ void DialogueSystem::render(SDL_Renderer *renderer) {
     }
     //portrait
     if (currentPortrait){
-        SDL_Rect portraitRect = {800,350,512,512};
+        SDL_Rect portraitRect = {600,100,512,512};
         SDL_RenderCopy(renderer, currentPortrait, NULL, &portraitRect);
     }
     //dialogue

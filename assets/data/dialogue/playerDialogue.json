@@ -1,5 +1,5 @@
 {
-  "npc" : "player",
+  "npc" : "Player",
   "dialogue": [
     {"id" : "p1","text": "my phone is buzzing"},
     {"id" :"p2", "text": "I should probably get going."},

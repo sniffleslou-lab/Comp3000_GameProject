@@ -1,5 +1,5 @@
 {
-  "npc": "Garret",
+  "npc": "GarretLivingRoomScene",
   "dialogue": [
     {
       "id": "gl1",
@@ -23,7 +23,7 @@
       "id": "gl4",
       "speaker": "Garret",
       "text": "What do you think?",
-      "Choices": [
+      "choices": [
         {
           "text": "I'm scared too.",
           "flag": "PlayerOpenedUp",

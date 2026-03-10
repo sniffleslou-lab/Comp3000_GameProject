@@ -1,6 +1,6 @@
 {
-  "npc": "Garret",
-  "Dialogue": [
+  "npc": "BreakerBoxScene",
+  "dialogue": [
     {
       "id": "brk1",
       "speaker": "Garret",

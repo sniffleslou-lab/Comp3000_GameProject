@@ -1,5 +1,5 @@
 {
-  "npc": "Narrator",
+  "npc": "InvestigationScene",
   "dialogue": [
     {
       "id": "inv1",

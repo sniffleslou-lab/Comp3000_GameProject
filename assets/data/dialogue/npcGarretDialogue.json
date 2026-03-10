@@ -10,7 +10,7 @@
       {"text": "no", "flag": "ChoseNo"}
     ], "condition":  "PickedUp_batteries == false"},
 
-    {"id": "g5", "text": "fuck, the remote doesn't work. can you get some batteries?", "condition":  "PickedUp_Batteries == false"},
+    {"id": "g5", "text": "damn, the remote doesn't work. can you get some batteries?", "condition":  "PickedUp_batteries  == false"},
     {"id": "g6", "text": "can you grab some?", "choices": [
       {"text": "Yeah, whatever", "flag": "GarretAskedForBatteries"},
       {"text": "no", "flag": "RefusedBatteries"}
@@ -18,7 +18,7 @@
     ], "condition": "PickedUp_batteries == false"},
 
 
-    {"id" :"g7", "text" :"Nothing on, fucking sitcoms. Affection Island, desperate househusbands, nothing interesting","condition": "PickedUp_batteries == true"},
+    {"id" :"g7", "text" :"Nothing on, dumb sitcoms. Affection Island, desperate househusbands, nothing interesting","condition": "PickedUp_batteries == true"},
     {"id" :"g8", "text" :"...","condition": "PickedUp_batteries == true"},
     {"id" :"g9", "text" :"...","condition": "PickedUp_batteries == true"},
     {"id" :"g10", "text" :"...","condition": "PickedUp_batteries == true"},

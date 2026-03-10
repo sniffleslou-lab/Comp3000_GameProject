@@ -1,5 +1,5 @@
 {
-  "npc": "Narrator",
+  "npc": "FindMaxwellScene",
   "dialogue": [
     {
       "id": "fml",

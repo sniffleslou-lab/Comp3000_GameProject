@@ -93,9 +93,9 @@ void bedroom::handleEvents(SDL_Event &e) {
         inspector->inspect(player->getPosition(),*sceneManager, renderer);
     }
 
-    if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_f){
-        dialogueSystem->startDialogue("Garret");
-    }
+    //if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_f){
+      //  dialogueSystem->startDialogue("Garret");
+    //}
     if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE){
         dialogueSystem->nextLine();
     }

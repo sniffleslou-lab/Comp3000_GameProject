@@ -100,6 +100,16 @@ void inspectionSystem::render(SDL_Renderer *renderer) {
         SDL_DestroyTexture(texture);
     }
 }
+
+bool inspectionSystem::isNear(const std::string &itemName, const SDL_Rect &playerRect) {
+    for(auto& item : items){
+        if(item.name == itemName){
+            SDL_Rect itemRect = item.rect;
+            return SDL_HasIntersection(&playerRect, &itemRect);
+        }
+    }
+    return false;
+}
 void inspectionSystem::inspect(const SDL_Rect &playerPos, SceneManager &sceneManager, SDL_Renderer *renderer) {
     if(doorCooldown){
         return;

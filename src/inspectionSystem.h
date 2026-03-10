@@ -38,6 +38,7 @@ public:
     //cooldown for transition
     bool doorCooldown=false;
     float doorCooldownTimer=0.0f;
+    bool isNear(const std::string& itemName, const SDL_Rect& playerRect);
 private:
     std::vector<Item> items;
     std::string currentText;
