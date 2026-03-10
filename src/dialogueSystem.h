@@ -10,6 +10,7 @@
 #include <vector>
 #include <SDL.h>
 #include <SDL_ttf.h>
+#include <SDL_image.h>
 struct Choice{
         std::string text;
         std::string flag;
@@ -29,7 +30,7 @@ struct NPCDialogue{
 
 class DialogueSystem{
 public:
-    DialogueSystem(StoryFlags& flags);
+    DialogueSystem(StoryFlags& flags, SDL_Renderer* renderer);
     //loads the dialogue from JSON
     void loadAllDialogue(const std::string& folderPath);
 
@@ -66,6 +67,11 @@ private:
     //wrap text
     std::vector<std::string> wrapText(const std::string& text, int maxWidth);
     void renderText(SDL_Renderer* renderer, const std::string& text, int x, int y);
+
+    //portraits
+    SDL_Renderer* renderer;
+    std::unordered_map<std::string, SDL_Texture*> portraitMap;
+    SDL_Texture* currentPortrait = nullptr;
 
 };
 

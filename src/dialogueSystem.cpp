@@ -8,12 +8,27 @@
 #include "filesystem"
 #include "sstream"
 
-DialogueSystem::DialogueSystem(StoryFlags &flags)
-: storyFlags(flags) {
+
+DialogueSystem::DialogueSystem(StoryFlags &flags, SDL_Renderer* renderer)
+: storyFlags(flags), renderer(renderer) {
     font = TTF_OpenFont("../assets/font/Sunlight Dreams.otf",24);
     if(!font){
         std::cerr << "failed to load font: " << TTF_GetError()<<std::endl;
     }
+
+    //portrait loader
+    portraitMap["Garret"] = IMG_LoadTexture(renderer,"../assets/textures/portraits/garret.png");
+    portraitMap["Anna"] = IMG_LoadTexture(renderer,"../assets/textures/portraits/anna.png");
+    portraitMap["Maxwell"] = IMG_LoadTexture(renderer,"../assets/textures/portraits/maxwell.png");
+    portraitMap["player"] = IMG_LoadTexture(renderer,"../assets/textures/portraits/player.png");
+
+    for (auto& p : portraitMap){
+        if(!p.second){
+            std::cerr << "failed to load portrait for " << p.first<<std::endl;
+        }
+    }
+
+
 }
 
 void DialogueSystem::loadDialogueFile(const std::string &jsonPath) {
@@ -66,6 +81,13 @@ void DialogueSystem::startDialogue(const std::string &npcId) {
 
     for (auto& npc : npcs) {
         if(npc.npcId == npcId){
+            ///portrait
+            if(portraitMap.find(npcId)!= portraitMap.end()){
+                currentPortrait = portraitMap[npcId];
+            }else  {
+                currentPortrait = nullptr;
+            }
+            ///lines
             for (auto& line : npc.lines){
                 if (evaluteCondition(line.condition)){
                     currentLines.push_back(line);
@@ -73,6 +95,7 @@ void DialogueSystem::startDialogue(const std::string &npcId) {
             }
             break;
         }
+
     }
     std::cout << "Loaded lines for Garret:\n";
     for (auto& line : currentLines) { std::cout << " " << line.id << " (choices=" << line.choices.size() << ")\n";}
@@ -184,69 +207,66 @@ bool  DialogueSystem::evaluteCondition(const std::string &cond) {
 
     return flagValue == expected;
 }
+
+
 void DialogueSystem::render(SDL_Renderer *renderer) {
-   /* if (currentIndex<currentLines.size()){
-        std::cout<<currentLines[currentIndex].text<<std::endl;
-    }*/
-   if(choiceActive){
-       SDL_Rect left = {250,500,200,60};
-       SDL_Rect right = {450,500,200,60};
 
-       //left button
-       SDL_SetRenderDrawColor(renderer,
-                              selectedChoice == 0 ? 200:80,
-                              selectedChoice == 0 ? 200:80,
-                              selectedChoice == 0 ? 200:80,
-                              255);
-       SDL_RenderFillRect(renderer, &left);
+    if (!isActive || currentLines.empty())
+        return;
 
-       //right button
-       SDL_SetRenderDrawColor(renderer,
-                              selectedChoice == 1 ? 200 : 80,
-                              selectedChoice == 1 ? 200 : 80,
-                              selectedChoice == 1 ? 200 : 80,
-                              255);
-       SDL_RenderFillRect(renderer, &right);
+    if(choiceActive) {
 
-       renderText(renderer, currentChoices[0].text, left.x + 20, left.y + 15);
-       renderText(renderer, currentChoices[1].text, right.x + 20,right.y + 15);
-return;
+        SDL_Rect left = {250,500,200,60};
+        SDL_Rect right = {450,500,200,60};
 
-   }
+        //left button
+        SDL_SetRenderDrawColor(renderer,
+                               selectedChoice == 0 ? 200 : 80,
+                               selectedChoice == 0 ? 200 : 80,
+                               selectedChoice == 0 ? 200 : 80,
+                               255);
+        SDL_RenderFillRect(renderer, &left);
 
-    if (!isActive || currentLines.empty())return;
+        //right
+        SDL_SetRenderDrawColor(renderer,
+                               selectedChoice == 1 ? 200 : 80,
+                               selectedChoice == 1 ? 200 : 80,
+                               selectedChoice == 1 ? 200 : 80,
+                               255);
+        SDL_RenderFillRect(renderer, &right);
 
-    //now we are drawing
-    SDL_Rect box={50,400,700,150};
+        renderText(renderer, currentChoices[0].text,left.x + 20, left.y + 15);
+        renderText(renderer, currentChoices[1].text,right.x + 20, right.y + 15);
+        return;
+    }
+    //portrait
+    if (currentPortrait){
+        SDL_Rect portraitRect = {800,350,512,512};
+        SDL_RenderCopy(renderer, currentPortrait, NULL, &portraitRect);
+    }
+    //dialogue
+    SDL_Rect box = {50,400,700,150};
     SDL_SetRenderDrawColor(renderer, 0,0,0,200);
     SDL_RenderFillRect(renderer, &box);
 
-    //now we redner the lines
+    //wrap text
     const dialogueLine& line = currentLines[currentIndex];
     SDL_Color white = {255,255,255,255};
-    //SDL_Surface* surface = TTF_RenderText_Blended(font,line.text.c_str(),white);
-    //SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer,surface);
 
-    //SDL_Rect dst = {70,420, surface->w, surface->h};
-    //SDL_RenderCopy(renderer,texture, nullptr,&dst);
-    //SDL_FreeSurface(surface);
-    //SDL_DestroyTexture(texture);
+    auto wrappedLines = wrapText(line.text, 650);
+    int y = 420;
 
-   auto wrappedLines = wrapText(line.text, 650);
-   int y = 420;
     for (const auto& l : wrappedLines){
-        SDL_Surface* surface = TTF_RenderText_Blended(font, l.c_str(), white);
+        SDL_Surface* surface = TTF_RenderText_Blended(font, l.c_str(),white);
         SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+        SDL_Rect dst = {70,y,surface->w,surface->h};
+        SDL_RenderCopy(renderer, texture, nullptr, &dst);
 
-        SDL_Rect dst = {70, y,surface->w,surface->h};
-        SDL_RenderCopy(renderer, texture,nullptr, &dst);
-
-        y+= surface->h+5;
+        y += surface->h + 5;
 
         SDL_FreeSurface(surface);
         SDL_DestroyTexture(texture);
     }
-
 
 }
 
