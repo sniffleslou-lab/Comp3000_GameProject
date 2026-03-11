@@ -248,11 +248,11 @@ void DialogueSystem::render(SDL_Renderer *renderer) {
     }
     //portrait
     if (currentPortrait){
-        SDL_Rect portraitRect = {600,100,512,512};
+        SDL_Rect portraitRect = {20,230,200,200};
         SDL_RenderCopy(renderer, currentPortrait, NULL, &portraitRect);
     }
     //dialogue
-    SDL_Rect box = {50,400,700,150};
+    SDL_Rect box = {0,430,800,170};
     SDL_SetRenderDrawColor(renderer, 0,0,0,200);
     SDL_RenderFillRect(renderer, &box);
 
@@ -260,16 +260,17 @@ void DialogueSystem::render(SDL_Renderer *renderer) {
     const dialogueLine& line = currentLines[currentIndex];
     SDL_Color white = {255,255,255,255};
 
-    auto wrappedLines = wrapText(line.text, 650);
-    int y = 420;
+    int textX = 240;
+    int textY = 450;
+    auto wrappedLines = wrapText(line.text, 480);
 
     for (const auto& l : wrappedLines){
         SDL_Surface* surface = TTF_RenderText_Blended(font, l.c_str(),white);
         SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
-        SDL_Rect dst = {70,y,surface->w,surface->h};
+        SDL_Rect dst = {textX, textY, surface->w, surface->h};
         SDL_RenderCopy(renderer, texture, nullptr, &dst);
 
-        y += surface->h + 5;
+        textY += surface->h + 5;
 
         SDL_FreeSurface(surface);
         SDL_DestroyTexture(texture);

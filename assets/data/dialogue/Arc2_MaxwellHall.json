@@ -1,5 +1,5 @@
 {
-  "npc": "Maxwell",
+  "npc": "MaxwellHall",
   "dialogue": [
     {"id": "mx1","speaker": "Maxwell","text": "Rough night?","next": "mx2"},
     {"id": "mx2","speaker": "Player","text": "Seems like it..","next": "mx3"},
