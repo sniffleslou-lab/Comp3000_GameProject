@@ -44,6 +44,13 @@ void DialogueSystem::loadDialogueFile(const std::string &jsonPath) {
     NPCDialogue npc;
     npc.npcId = data["npc"];
     std::cout << " npc ID in this file: " << npc.npcId << "\n";
+
+    if (data.contains("name")){
+        npc.displayName = data["name"];
+    }else{
+        npc.displayName = npc.npcId;
+    }
+
     //proof checking files to make sure no file already using same id
     for (auto& existing : npcs){
         if(existing.npcId == npc.npcId){
@@ -88,6 +95,9 @@ void DialogueSystem::startDialogue(const std::string &npcId) {
 
     for (auto& npc : npcs) {
         if(npc.npcId == npcId){
+
+            //name
+            currentNPCName = npc.displayName;
             ///portrait
             if(portraitMap.find(npcId)!= portraitMap.end()){
                 currentPortrait = portraitMap[npcId];
@@ -248,7 +258,7 @@ void DialogueSystem::render(SDL_Renderer *renderer) {
     }
     //portrait
     if (currentPortrait){
-        SDL_Rect portraitRect = {20,230,200,200};
+        SDL_Rect portraitRect = {30,230,200,200};
         SDL_RenderCopy(renderer, currentPortrait, NULL, &portraitRect);
     }
     //dialogue
@@ -256,13 +266,16 @@ void DialogueSystem::render(SDL_Renderer *renderer) {
     SDL_SetRenderDrawColor(renderer, 0,0,0,200);
     SDL_RenderFillRect(renderer, &box);
 
+    //name tag
+    renderText(renderer, currentNPCName, 230,480);
+
     //wrap text
     const dialogueLine& line = currentLines[currentIndex];
     SDL_Color white = {255,255,255,255};
 
-    int textX = 240;
+    int textX = 220;
     int textY = 450;
-    auto wrappedLines = wrapText(line.text, 480);
+    auto wrappedLines = wrapText(line.text, 520);
 
     for (const auto& l : wrappedLines){
         SDL_Surface* surface = TTF_RenderText_Blended(font, l.c_str(),white);

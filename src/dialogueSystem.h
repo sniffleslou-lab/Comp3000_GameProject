@@ -24,6 +24,7 @@ struct dialogueLine{
 };
 struct NPCDialogue{
     std::string npcId;
+    std::string displayName;
     std::vector<dialogueLine> lines;
 };
 
@@ -72,6 +73,9 @@ private:
     SDL_Renderer* renderer;
     std::unordered_map<std::string, SDL_Texture*> portraitMap;
     SDL_Texture* currentPortrait = nullptr;
+
+    //name
+    std::string currentNPCName;
 
 };
 
