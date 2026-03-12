@@ -130,6 +130,11 @@ inspector->update(dt);
 
 }
 void Kitchen::render(SDL_Renderer *renderer) {
+
+
+    SDL_SetRenderDrawColor(renderer, 253,253,100,255);
+    SDL_RenderClear(renderer);
+
     inspector->render(renderer);
     garretNPC->draw(renderer);
 

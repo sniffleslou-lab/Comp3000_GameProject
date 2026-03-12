@@ -30,12 +30,13 @@
       "name": "Bed",
       "inspect": "I wish I could sleep all day...",
       "x": 150,
-      "y": 450,
+      "y": 400,
       "w": 160,
       "h": 160,
-      "texture": "bed.png",
+      "texture": "/SYD_Interior_Pack_V1/Restroom/Black bed/Bed_Double_Side_4.png",
       "type": "item",
-      "targetScene": ""
+      "targetScene": "",
+      "layer": 1
     },
     {
       "id": "4",
@@ -119,7 +120,7 @@
       "w": 300,
       "h": 300,
       "texture": "/SYD_Interior_Pack_V1/Livingroom/Carpet/Carpet_Wheat_3x2.png",
-      "type": "solid",
+      "type": "",
       "targetScene": "",
       "layer": 0
     },
@@ -132,7 +133,33 @@
       "w": 100,
       "h": 100,
       "texture": "/SYD_Interior_Pack_V1/Livingroom/Shelf/Closet_2.png",
-      "type": "solid",
+      "type": "",
+      "targetScene": "",
+      "layer": 0
+    },
+    {
+      "id": "12",
+      "name": "Bookshelf",
+      "inspect": "Need to stop buy so many books",
+      "x": 250,
+      "y": 50,
+      "w": 100,
+      "h": 100,
+      "texture": "/SYD_Interior_Pack_V1/Livingroom/Shelf/Bookshelf_3.png",
+      "type": "",
+      "targetScene": "",
+      "layer": 0
+    },
+    {
+      "id": "13",
+      "name": "Couch",
+      "inspect": "How did I drag this up here?",
+      "x": 650,
+      "y": 300,
+      "w": 100,
+      "h": 200,
+      "texture": "/SYD_Interior_Pack_V1/Livingroom/Couch & Armchair/Couch_3_Side.png",
+      "type": "",
       "targetScene": "",
       "layer": 0
     }

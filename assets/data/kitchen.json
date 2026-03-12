@@ -70,6 +70,95 @@
     "h": 100,
     "texture": "/SYD_Interior_Pack_V1/Livingroom/Carpet/Carpet_Wheat_3x2.png",
     "type": "solid",
-    "targetScene": ""
+    "targetScene": "",
+      "layer": 0
+    },
+    {
+      "id": "7",
+      "name": "Couch",
+      "inspect": "Need to replace this couch, its all torn up.",
+      "x": 380,
+      "y": 200,
+      "w": 180,
+      "h": 90,
+      "texture": "/SYD_Interior_Pack_V1/Livingroom/Couch & Armchair/Couch_3_Front.png",
+      "type": "",
+      "targetScene": "",
+      "layer": 1
+    },
+    {
+      "id": "8",
+      "name": "Table",
+      "inspect": "I am kinda confident that this table was from outside. ",
+      "x": 380,
+      "y": 400,
+      "w": 120,
+      "h": 60,
+      "texture": "/SYD_Interior_Pack_V1/Livingroom/Table/Table_Glas_Up.png",
+      "type": "",
+      "targetScene": "",
+      "layer": 1
+    },
+    {
+      "id": "9",
+      "name": "side, top WALL",
+      "inspect": "",
+      "x": 30,
+      "y": 50,
+      "w": 40,
+      "h": 40,
+      "texture": "wall.png",
+      "type": "solid",
+      "targetScene": ""
+    },
+    {
+      "id": "10",
+      "name": "fridge",
+      "inspect": "God I wish I brought those fancy burgers",
+      "x": 64,
+      "y": 68,
+      "w": 80,
+      "h": 80,
+      "texture": "/SYD_Interior_Pack_V1/Kitchen/Fridge/Fridge_SIDE.png",
+      "type": "item",
+      "targetScene": ""
+    },
+    {
+      "id": "11",
+      "name": "Oven",
+      "inspect": "Wait, how do I tell this is on or of",
+      "x": 150,
+      "y": 68,
+      "w": 80,
+      "h": 80,
+      "texture": "/SYD_Interior_Pack_V1/Kitchen/Furnace/Furnace_SIDE.png",
+      "type": "item",
+      "targetScene": ""
+    },
+    {
+      "id": "12",
+      "name": "Trashcan",
+      "inspect": "Insert bit from that sunny show",
+      "x": 50,
+      "y": 115,
+      "w": 80,
+      "h": 80,
+      "texture": "/SYD_Interior_Pack_V1/Kitchen/Trashcan/Trashcan_4.png",
+      "type": "",
+      "targetScene": "",
+      "layer": 0
+
+    },
+    {
+      "id": "13",
+      "name": "kitchen door to hallway",
+      "inspect": "this door leads to the halway",
+      "x": 50,
+      "y": 400,
+      "w": 80,
+      "h": 120,
+      "texture": "door.png",
+      "type": "",
+      "targetScene": ""
     }
   ]}

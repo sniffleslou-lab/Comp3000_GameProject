@@ -15,7 +15,7 @@ HallwayA::HallwayA(SDL_Renderer *renderer, StoryFlags &flags, DialogueSystem* di
 
     bool unlocked = storyFlags.getFlag("AnnaUnlocked");
     bool moved = storyFlags.getFlag("AnnaMoved");
-    std::cout << "DEBUG: annaunlocked=" << unlocked << " | AnnaMoved=" << moved << "\n";
+    std::cout << "DEBUG: annaUnlocked= " << unlocked << " | AnnaMoved=" << moved << "\n";
 
     if (unlocked && !moved){
         annaNPC = std::make_unique<NPC>(renderer, "../assets/textures/Characters/annaCha.png", 500,300);
@@ -127,6 +127,9 @@ void HallwayA::update(float dt) {
 
 }
 void HallwayA::render(SDL_Renderer *renderer) {
+    SDL_SetRenderDrawColor(renderer, 80,60,100,255);
+    SDL_RenderClear(renderer);
+
     inspector->render(renderer);
     player->draw();
     if (annaNPC) annaNPC->draw(renderer);
