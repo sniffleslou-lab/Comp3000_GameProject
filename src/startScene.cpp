@@ -13,10 +13,11 @@ StartScene::StartScene(SDL_Renderer* renderer, StoryFlags& flags, DialogueSystem
     //below will load the textures
     startButtonTexture = IMG_LoadTexture(renderer, "../assets/textures/StartScene/startButton.png");
     quitButtonTexture = IMG_LoadTexture(renderer, "../assets/textures/StartScene/quitButton.png");
-
+    logoTexture = IMG_LoadTexture(renderer, "../assets/textures/StartScene/logo.png");
     //pos
-    startButtonRect = {150,60,500,400};
-    quitButtonRect={150,260,500,400};
+    startButtonRect = {250,280,300,80};
+    quitButtonRect={250,380,300,80};
+    LogoRect = {150,80,500,150};
 }
 StartScene::~StartScene(){
     SDL_DestroyTexture(startButtonTexture);
@@ -56,6 +57,8 @@ void StartScene::update(float dt) {
 void StartScene::render(SDL_Renderer *renderer) {
     SDL_RenderCopy(renderer,startButtonTexture, nullptr, &startButtonRect);
     SDL_RenderCopy(renderer, quitButtonTexture, nullptr,&quitButtonRect);
+    SDL_RenderCopy(renderer, logoTexture, nullptr,&LogoRect);
+
 }
 void StartScene::exit() {
     std::cout << "exit start scene";

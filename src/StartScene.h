@@ -31,6 +31,9 @@ private:
     SDL_Texture* quitButtonTexture;
     SDL_Rect quitButtonRect;
 
+    SDL_Texture* logoTexture;
+    SDL_Rect LogoRect;
+
     StoryFlags& storyFlags;
     DialogueSystem* dialogueSystem;
 
