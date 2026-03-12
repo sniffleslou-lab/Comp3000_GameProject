@@ -19,6 +19,8 @@ DialogueSystem::DialogueSystem(StoryFlags &flags, SDL_Renderer* renderer)
     //portrait loader
     portraitMap["Garret"] = IMG_LoadTexture(renderer,"../assets/textures/portraits/garret.png");
     portraitMap["Anna"] = IMG_LoadTexture(renderer,"../assets/textures/portraits/anna.png");
+    portraitMap["AnnaKitchen"] = IMG_LoadTexture(renderer,"../assets/textures/portraits/anna.png");
+
     portraitMap["Maxwell"] = IMG_LoadTexture(renderer,"../assets/textures/portraits/maxwell.png");
     portraitMap["player"] = IMG_LoadTexture(renderer,"../assets/textures/portraits/player.png");
 
@@ -232,6 +234,10 @@ void DialogueSystem::render(SDL_Renderer *renderer) {
         return;
 
     if(choiceActive) {
+        //BACKGROUND
+        SDL_Rect choiceBox = {0,420,800,180};
+        SDL_SetRenderDrawColor(renderer, 0,0,0,200);
+        SDL_RenderFillRect(renderer, &choiceBox);
 
         SDL_Rect left = {250,500,200,60};
         SDL_Rect right = {450,500,200,60};
@@ -252,6 +258,10 @@ void DialogueSystem::render(SDL_Renderer *renderer) {
                                255);
         SDL_RenderFillRect(renderer, &right);
 
+        auto leftLines = wrapText(currentChoices[0].text,160);
+        auto rightLines = wrapText(currentChoices[1].text,160);
+        int lineHeight = 24;
+
         renderText(renderer, currentChoices[0].text,left.x + 20, left.y + 15);
         renderText(renderer, currentChoices[1].text,right.x + 20, right.y + 15);
         return;
@@ -262,19 +272,19 @@ void DialogueSystem::render(SDL_Renderer *renderer) {
         SDL_RenderCopy(renderer, currentPortrait, NULL, &portraitRect);
     }
     //dialogue
-    SDL_Rect box = {0,430,800,170};
+    SDL_Rect box = {0,420,800,180};
     SDL_SetRenderDrawColor(renderer, 0,0,0,200);
     SDL_RenderFillRect(renderer, &box);
 
     //name tag
-    renderText(renderer, currentNPCName, 230,480);
+    renderText(renderer, currentNPCName, 230,435);
 
     //wrap text
     const dialogueLine& line = currentLines[currentIndex];
     SDL_Color white = {255,255,255,255};
 
-    int textX = 220;
-    int textY = 450;
+    int textX = 230;
+    int textY = 470;
     auto wrappedLines = wrapText(line.text, 520);
 
     for (const auto& l : wrappedLines){

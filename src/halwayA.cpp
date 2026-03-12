@@ -8,12 +8,18 @@
 HallwayA::HallwayA(SDL_Renderer *renderer, StoryFlags &flags, DialogueSystem* dialogue)
 :storyFlags(flags), renderer(renderer), dialogueSystem(dialogue)
 {
-    player = std::make_unique<Character>(renderer,"../assets/textures/testPlayer.png",100,200);
+    player = std::make_unique<Character>(renderer,"../assets/textures/Characters/playerChar.png",100,200);
     inspector= std::make_unique<inspectionSystem>(renderer, storyFlags, dialogueSystem);
     inspector->loadItems("../assets/data/hallwayA.json",renderer);
 
-    if(storyFlags.getFlag("AnnaUnlocked")&& !storyFlags.getFlag("AnnaMoved")){
-        annaNPC = std::make_unique<NPC>(renderer, "../assets/textures/wall.png", 500, 300);
+
+    bool unlocked = storyFlags.getFlag("AnnaUnlocked");
+    bool moved = storyFlags.getFlag("AnnaMoved");
+    std::cout << "DEBUG: annaunlocked=" << unlocked << " | AnnaMoved=" << moved << "\n";
+
+    if (unlocked && !moved){
+        annaNPC = std::make_unique<NPC>(renderer, "../assets/textures/Characters/annaCha.png", 500,300);
+        std::cout << "anna spawned in hallway\n";
     }
     //dialogueSystem = std::make_unique<DialogueSystem>(storyFlags);
     //dialogueSystem->loadAllDialogue("../assets/data/dialogue/");
@@ -28,9 +34,9 @@ void HallwayA::enter() {
     //rests diaglogue state
     queuedNPC = "";
     startDialogueNextFrame = false;
-    dialogueSystem->isActive = false;
-    dialogueSystem->choiceActive = false;
-    dialogueSystem->justFinishedChoice = false;
+    //dialogueSystem->isActive = false;
+    //dialogueSystem->choiceActive = false;
+    //dialogueSystem->justFinishedChoice = false;
 
     inspector->doorCooldown = true;
     inspector->doorCooldownTimer = 0.0f;
@@ -123,8 +129,10 @@ void HallwayA::update(float dt) {
 void HallwayA::render(SDL_Renderer *renderer) {
     inspector->render(renderer);
     player->draw();
-    dialogueSystem->render(renderer);
     if (annaNPC) annaNPC->draw(renderer);
+    dialogueSystem->render(renderer);
+
+
 }
 void HallwayA::exit() {
     std::cout<<"left hallway scene\n";

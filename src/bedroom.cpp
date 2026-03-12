@@ -10,7 +10,7 @@
 
 bedroom::bedroom(SDL_Renderer *renderer, StoryFlags& flags, DialogueSystem* dialogue)
 : storyFlags(flags), renderer(renderer), dialogueSystem(dialogue) {
-    player = std::make_unique<Character>(renderer,"../assets/textures/testPlayer.png",100,200);
+    player = std::make_unique<Character>(renderer,"../assets/textures/Characters/playerChar.png",100,200);
     inspector= std::make_unique<inspectionSystem>(renderer,storyFlags,dialogueSystem);
     inspector->loadItems("../assets/data/item.json",renderer);
 

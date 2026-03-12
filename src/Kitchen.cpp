@@ -6,15 +6,15 @@
 
 Kitchen::Kitchen(SDL_Renderer *renderer, StoryFlags &flags, DialogueSystem* dialogue)
 :storyFlags(flags), renderer(renderer), dialogueSystem(dialogue) {
-    player = std::make_unique<Character>(renderer,"../assets/textures/testPlayer.png",100,200);
+    player = std::make_unique<Character>(renderer,"../assets/textures/Characters/playerChar.png",100,200);
     inspector= std::make_unique<inspectionSystem>(renderer,storyFlags,dialogueSystem);
     inspector->loadItems("../assets/data/kitchen.json",renderer);
 
-    garretNPC = std::make_unique<NPC>(renderer, "../assets/textures/wall.png",300,200);
+    garretNPC = std::make_unique<NPC>(renderer, "../assets/textures/Characters/garretCha.png",300,200);
 
     if(storyFlags.getFlag("AnnaMoved")){
         std::cout << "Anna moved flag detected — spawning Anna in kitchen.\n";
-        annaNPC = std::make_unique<NPC>(renderer, "../assets/textures/lamp-2.png",350,200);
+        annaNPC = std::make_unique<NPC>(renderer, "../assets/textures/Characters/annaCha.png",350,200);
     }
 
 
@@ -30,6 +30,19 @@ void Kitchen::enter() {
     inspector->doorCooldownTimer = 0.0f;
 
     startDialogueNextFrame = true;
+}
+
+bool Kitchen::playerIsNearGarret() {
+    SDL_Rect p = player->getPosition();
+    SDL_Rect g = garretNPC->getRect();
+    return SDL_HasIntersection(&p,&g);
+}
+bool Kitchen::playerIsNearAnnaKitchen() {
+    if(!annaNPC) return false;
+    SDL_Rect p = player->getPosition();
+    SDL_Rect g = annaNPC->getRect();
+    return SDL_HasIntersection(&p,&g);
+
 }
 void Kitchen::handleEvents(SDL_Event &e) {
 
@@ -67,8 +80,15 @@ void Kitchen::handleEvents(SDL_Event &e) {
     controls.handleInput(e, *player, *inspector);
 
     if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_e) {
-        inspector->inspect(player->getPosition(), *sceneManager, renderer);
 
+        if(playerIsNearGarret()){
+            dialogueSystem->startDialogue("Garret");
+            return;
+        }
+        if(playerIsNearAnnaKitchen()){
+            dialogueSystem->startDialogue("AnnaKitchen");
+            return;
+        }
     }
     if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_f) {
         dialogueSystem->startDialogue("Garret");

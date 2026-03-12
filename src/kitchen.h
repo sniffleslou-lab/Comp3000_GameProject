@@ -25,6 +25,9 @@ public:
     void update(float dt) override;
     void render(SDL_Renderer* renderer) override;
     void exit() override;
+    bool playerIsNearAnnaKitchen();
+    bool playerIsNearGarret();
+
 
 private:
     SDL_Renderer* renderer;
