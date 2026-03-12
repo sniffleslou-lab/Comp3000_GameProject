@@ -59,5 +59,17 @@
       "texture": "wall.png",
       "type": "solid",
       "targetScene": ""
+    },
+    {
+    "id": "6",
+    "name": "carpet",
+    "inspect": "",
+    "x": 400,
+    "y": 300,
+    "w": 100,
+    "h": 100,
+    "texture": "/SYD_Interior_Pack_V1/Livingroom/Carpet/Carpet_Wheat_3x2.png",
+    "type": "solid",
+    "targetScene": ""
     }
   ]}

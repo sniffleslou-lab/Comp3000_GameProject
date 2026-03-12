@@ -42,6 +42,7 @@ void inspectionSystem::loadItems(const std::string &jsonPath, SDL_Renderer *rend
         item.type = listitem.value("type", "item");
         item.targetScene = listitem.value("targetScene", "");
         item.flag = listitem.value("flag", "");
+        item.layer = listitem.value("layer",0);
 
         item.rect = {listitem["x"],listitem["y"],listitem["w"],listitem["h"]};
 
@@ -57,6 +58,10 @@ void inspectionSystem::loadItems(const std::string &jsonPath, SDL_Renderer *rend
 
         items.push_back(item);
     }
+    //laying for object
+    std::sort(items.begin(),items.end(),[](const Item& a, const Item& b){
+        return a.layer < b.layer;
+    });
 }
 void inspectionSystem::update(float dt) {
     if (inspectActive){

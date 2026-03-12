@@ -20,6 +20,7 @@ struct Item{
     std::string type;
     std::string targetScene;
     std::string flag;
+    int layer = 0;
 
 };
 
