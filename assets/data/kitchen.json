@@ -3,7 +3,7 @@
     {
       "id": "1",
       "name": "kitchen door to hallway",
-      "inspect": "this door leads to the halway",
+      "inspect": "this door leads to the hallway",
       "x": 500,
       "y": 60,
       "w": 80,
@@ -148,17 +148,5 @@
       "targetScene": "",
       "layer": 0
 
-    },
-    {
-      "id": "13",
-      "name": "kitchen door to hallway",
-      "inspect": "this door leads to the halway",
-      "x": 50,
-      "y": 400,
-      "w": 80,
-      "h": 120,
-      "texture": "door.png",
-      "type": "",
-      "targetScene": ""
     }
   ]}

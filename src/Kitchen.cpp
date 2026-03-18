@@ -110,7 +110,10 @@ void Kitchen::handleEvents(SDL_Event &e) {
 
 void Kitchen::update(float dt) {
 inspector->update(dt);
+    inspector->inspect(player->getPosition(), *sceneManager, renderer);
+
     //garrets dialogue start when the player walks into the kitchen
+
     if (startDialogueNextFrame){
         dialogueSystem->choiceActive = false;
         dialogueSystem->justFinishedChoice = false;

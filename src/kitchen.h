@@ -32,7 +32,7 @@ public:
 private:
     SDL_Renderer* renderer;
     StoryFlags& storyFlags;
-   // SceneManager* sceneManager = nullptr;
+   //SceneManager* sceneManager = nullptr;
     std::unique_ptr<Character> player;
     Controls controls;
     std::unique_ptr<inspectionSystem> inspector;
