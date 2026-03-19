@@ -30,6 +30,8 @@ void Kitchen::enter() {
     inspector->doorCooldownTimer = 0.0f;
 
     startDialogueNextFrame = true;
+    arc2Font = TTF_OpenFont("../assets/font/SunLight Dreams.otf", 48);
+
 }
 
 bool Kitchen::playerIsNearGarret() {
@@ -106,6 +108,20 @@ void Kitchen::handleEvents(SDL_Event &e) {
 
     }
 }
+void Kitchen::drawCenteredText(SDL_Renderer* renderer, TTF_Font* font, const std::string& text, int y) {
+    SDL_Color white = {255,255,255,255};
+
+    SDL_Surface* surf = TTF_RenderText_Blended(font,text.c_str(),white);
+    SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, surf);
+    int w = surf->w;
+    int h = surf->h;
+
+    SDL_Rect dst = {(1280-w)/2,y,w,h};
+    SDL_RenderCopy(renderer, tex, NULL, &dst);
+
+    SDL_FreeSurface(surf);
+    SDL_DestroyTexture(tex);
+}
 
 
 void Kitchen::update(float dt) {
@@ -127,6 +143,27 @@ inspector->update(dt);
         storyFlags.setFlag("Arc2_PowerOutage_Triggered", true);
     }
     screenFade.update(dt);
+    if (storyFlags.getFlag("Arc2_PowerOutage_Triggered")&& !showArc2Card) {
+        showArc2Card = true;
+        arc2CardTimer = 0.0f;
+    }
+    if (showArc2Card) {
+        arc2CardTimer += dt;
+
+        if (arc2CardTimer > 3.0f && !showNewsImage) {
+            newsImage = IMG_LoadTexture(renderer, "../assets/textures/breakingnews.png");
+            showNewsImage = true;
+            newsTimer = 0.0f;
+        }
+    }
+    if (showNewsImage) {
+        newsTimer += dt;
+        if (newsTimer > 3.0f) {
+            showNewsImage = false;
+            SDL_DestroyTexture(newsImage);
+            newsImage = nullptr;
+        }
+    }
 /*
     if(!dialogueSystem->choiceActive) {
         const Uint8* keys = SDL_GetKeyboardState(NULL);
@@ -141,7 +178,7 @@ inspector->update(dt);
 
 void Kitchen::startPowerOutage() {
     screenFade.start(0,0,0,255,2.0f);
-    blackOutImage = IMG_LoadTexture(renderer,"../assets/textures/wall.png");
+    blackoutImage = IMG_LoadTexture(renderer,"../assets/textures/wall.png");
     //add sound
 }
 
@@ -162,9 +199,24 @@ void Kitchen::render(SDL_Renderer *renderer) {
     screenFade.render(renderer);
 
     if (storyFlags.getFlag("Arc2_PowerOutage_Triggered")) {
-        SDL_RenderCopy(renderer,blackOutImage, NULL, NULL);
+        SDL_RenderCopy(renderer,blackoutImage, NULL, NULL);
     }
+
+    if (showArc2Card ) {
+        SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+        SDL_SetRenderDrawColor(renderer, 0,0,0,180);
+        SDL_Rect fullscreen = {0,0,1280,720};
+        SDL_RenderFillRect(renderer, &fullscreen);
+
+        drawCenteredText(renderer, arc2Font, "CHAPTER 2", 500);
+        drawCenteredText(renderer,arc2Font, "Static", 450);
+    }
+    if (showNewsImage && newsImage) {
+        SDL_RenderCopy(renderer, newsImage,NULL,NULL);
+    }
+
 }
+
 void Kitchen::exit() {
     std::cout<< "left kitchen scene";
 

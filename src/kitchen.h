@@ -30,6 +30,8 @@ public:
     bool playerIsNearAnnaKitchen();
     bool playerIsNearGarret();
     void startPowerOutage();
+    void drawCenteredText(SDL_Renderer* renderer, TTF_Font* font, const std::string& text, int y);
+
 
 private:
     SDL_Renderer* renderer;
@@ -45,7 +47,17 @@ private:
     bool startDialogueNextFrame = false;
 
     FadeEffect screenFade;
-    SDL_Texture* blackOutImage = nullptr;
+    SDL_Texture* blackoutImage = nullptr;
+
+    //chapter card
+    bool showArc2Card = false;
+    float arc2CardTimer = 0.0f;
+    TTF_Font* arc2Font = nullptr;
+
+    SDL_Texture* newsImage= nullptr;
+    bool showNewsImage = false;
+    float newsTimer = 0.0f;
+
 };
 
 #endif //AMIPRETTY_KITCHEN_H
