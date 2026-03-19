@@ -13,6 +13,8 @@
 #include "dialogueSystem.h"
 #include "storyFlags.h"
 #include "NPC.h"
+#include <SDL_image.h>
+#include  "FadeEffect.h"
 
 
 class Kitchen : public Scene{
@@ -27,7 +29,7 @@ public:
     void exit() override;
     bool playerIsNearAnnaKitchen();
     bool playerIsNearGarret();
-
+    void startPowerOutage();
 
 private:
     SDL_Renderer* renderer;
@@ -41,6 +43,9 @@ private:
     std::unique_ptr<NPC> annaNPC;
     bool eWasDown = false;
     bool startDialogueNextFrame = false;
+
+    FadeEffect screenFade;
+    SDL_Texture* blackOutImage = nullptr;
 };
 
 #endif //AMIPRETTY_KITCHEN_H

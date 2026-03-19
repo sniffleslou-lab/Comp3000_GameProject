@@ -24,12 +24,14 @@
     {"id" :"g10", "text" :"...","condition": "PickedUp_batteries == true"},
 
     {"id" :"g11", "text" :"Sorry for bringing this up.. Do you ever think about starting over? Moving away?","condition": "PickedUp_batteries == true"},
+
     {"id" :"g12", "text" :"what do you think?", "choices" : [
       {"text":  "yeah, I want to disappear sometimes?", "flag": "GarretOpenedUp"},
       {"text": "no, never","flag": "GarretClosedOff"}
     ],
 
-      "condition": "PickedUp_batteries == true"}
+      "condition": "PickedUp_batteries == true",
+    "flag": "GarretKitchen_Done"}
 
   ]
 }

@@ -121,6 +121,12 @@ inspector->update(dt);
        dialogueSystem->startDialogue("Garret");
         startDialogueNextFrame = false;
     }
+    if (storyFlags.getFlag("Arc2_PowerOutage_Start")&& !storyFlags.getFlag("Arc2_PowerOutage_Triggered"))
+        {
+        startPowerOutage();
+        storyFlags.setFlag("Arc2_PowerOutage_Triggered", true);
+    }
+    screenFade.update(dt);
 /*
     if(!dialogueSystem->choiceActive) {
         const Uint8* keys = SDL_GetKeyboardState(NULL);
@@ -132,6 +138,13 @@ inspector->update(dt);
     }*/
 
 }
+
+void Kitchen::startPowerOutage() {
+    screenFade.start(0,0,0,255,2.0f);
+    blackOutImage = IMG_LoadTexture(renderer,"../assets/textures/wall.png");
+    //add sound
+}
+
 void Kitchen::render(SDL_Renderer *renderer) {
 
 
@@ -145,6 +158,12 @@ void Kitchen::render(SDL_Renderer *renderer) {
 
     player->draw();
     dialogueSystem->render(renderer);
+
+    screenFade.render(renderer);
+
+    if (storyFlags.getFlag("Arc2_PowerOutage_Triggered")) {
+        SDL_RenderCopy(renderer,blackOutImage, NULL, NULL);
+    }
 }
 void Kitchen::exit() {
     std::cout<< "left kitchen scene";

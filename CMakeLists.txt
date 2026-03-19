@@ -36,7 +36,8 @@ add_executable(${PROJECT_NAME}
         src/inventoryItem.h
         src/inventorySystem.cpp
         src/NPC.h
-        src/npc.cpp)
+        src/npc.cpp
+        src/FadeEffect.h)
 
 #packages and links
 find_package(SDL2 CONFIG REQUIRED)

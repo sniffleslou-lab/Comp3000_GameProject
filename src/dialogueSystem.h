@@ -20,11 +20,14 @@ struct dialogueLine{
     std::string id;
     std::string text;
     std::string condition;
+    std::string next;
+    std::string flag;
     std::vector<Choice>choices;
 };
 struct NPCDialogue{
     std::string npcId;
     std::string displayName;
+    std::string requiresFlag;
     std::vector<dialogueLine> lines;
 };
 

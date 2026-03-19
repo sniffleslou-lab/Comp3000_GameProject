@@ -52,6 +52,10 @@ void DialogueSystem::loadDialogueFile(const std::string &jsonPath) {
     }else{
         npc.displayName = npc.npcId;
     }
+   //require flag
+    if (data.contains("requiresFlag"))npc.requiresFlag = data["requiresFlag"];
+
+
 
     //proof checking files to make sure no file already using same id
     for (auto& existing : npcs){
@@ -68,6 +72,10 @@ void DialogueSystem::loadDialogueFile(const std::string &jsonPath) {
         if (lineJson.contains("condition")){
             line.condition = lineJson["condition"];
         }
+
+        //updated
+        if (lineJson.contains("next"))line.next = lineJson["next"];
+        if (lineJson.contains("flag"))line.flag = lineJson["flag"];
 
         if(lineJson.contains("choices")){
             for (auto& c: lineJson["choices"]){
@@ -95,9 +103,17 @@ void DialogueSystem::startDialogue(const std::string &npcId) {
     currentIndex = 0;
     isActive = true;
 
+
     for (auto& npc : npcs) {
         if(npc.npcId == npcId){
+            //requires which checks flags that are a required must for optional dialogue
 
+            if (!npc.requiresFlag.empty()) {
+                if (!storyFlags.getFlag(npc.requiresFlag)) {
+                    isActive = false;
+                    return;
+                }
+            }
             //name
             currentNPCName = npc.displayName;
             ///portrait
@@ -108,9 +124,9 @@ void DialogueSystem::startDialogue(const std::string &npcId) {
             }
             ///lines
             for (auto& line : npc.lines){
-                if (evaluteCondition(line.condition)){
+                //if (evaluteCondition(line.condition)){
                     currentLines.push_back(line);
-                }
+                //}
             }
             break;
         }
@@ -140,15 +156,33 @@ void DialogueSystem::nextLine() {
     if (currentIndex >= currentLines.size()){
         endDialogue();
         return;
-    }
-   const dialogueLine& line = currentLines[currentIndex];
+    }dialogueLine& line = currentLines[currentIndex];
 
+    //skips line where the condiiton is false
+    while (!line.condition.empty() && !evaluteCondition(line.condition)) {
+        currentIndex++;
+        if (currentIndex >= currentLines.size()) {
+            endDialogue();
+            return;
+        }
+        line = currentLines[currentIndex];
+    }
+    //aply flag on this
+    if (!line.flag.empty()) {
+        storyFlags.setFlag(line.flag,true);
+    }
+    //flow the next pointer
+    if (!line.next.empty()) {
+        jumpToLine(line.next);
+        return;
+    }
+/*
     //quest trigger for garret
     if (line.id == "g5"){
         storyFlags.setFlag("Quest_Batteries", true);
         std::cout << "Quest started: Batteries\n";
 
-    }
+    }*/
     if(!line.choices.empty()){
         choiceActive = true;
         selectedChoice = 0;

@@ -1,0 +1,49 @@
+{
+  "npc": "LivingRoom_Arc1End",
+  "requiresFlag": "Arc1_Done",
+
+  "dialogue": [
+    {
+      "id": "lr1",
+      "speaker": "Anna",
+      "text": "You two look like those people in those old scary movie adverts.",
+      "flag": "",
+      "next": "lr2"
+    },
+    {
+      "id": "lr2",
+      "speaker": "Anna",
+      "text": "You know how the marking was usually 'this is the scariest movie ever' and the people would be reacting in the cinema? ",
+      "flag": "",
+      "next": "lr3"
+    },
+    {
+      "id": "lr3",
+      "speaker": "Anna",
+      "text": "That's kinda you two.. right now..",
+      "flag": "",
+      "next": "lr4"
+    },
+    {
+      "id": "lr4",
+      "speaker": "Garret",
+      "text": "No offence. Are you trying to annoy me?",
+      "flag": "",
+      "next": "lr5"
+    },
+    {
+      "id": "lr5",
+      "speaker": "Player",
+      "text": "...Hey, calm. It was a joke.",
+      "flag": "Arc1_TvTransition",
+      "next": "lr6"
+    },
+    {
+      "id": "lr6",
+      "speaker": "SYSTEM",
+      "text": "The tv flickers. The room darkens.",
+      "flag": "",
+      "next": "Arc2_PowerOutage_Start"
+    }
+  ]
+}
