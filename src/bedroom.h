@@ -46,5 +46,9 @@ private:
     float chapterCardTimer = 0.0f;
     TTF_Font* chapterFont;
 
+    int chapterNumber = 0;
+    std::string chapterSubtitle = "";
+
+
 };
 #endif //AMIPRETTY_BEDROOM_H

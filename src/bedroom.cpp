@@ -25,16 +25,34 @@ bedroom::bedroom(SDL_Renderer *renderer, StoryFlags& flags, DialogueSystem* dial
 bedroom::~bedroom()  {}
 
 void bedroom::enter() {
+
+
     std::cout<< "entered bedroom scene";
     inspector->doorCooldown = true;
     inspector->doorCooldownTimer = 0.0f;
 
     //title card
     if (!storyFlags.getFlag("SeenChapter1Card")){
+        chapterNumber = 1;
+        chapterSubtitle = "Unsettling";
         showChapterCard = true;
         chapterCardTimer = 0.0f;
         storyFlags.setFlag("SeenChapter1Card", true);
+        return;
     }
+    //chapter 3
+    if (!storyFlags.getFlag("SeenChapter1Card")){
+        chapterNumber = 2;
+        chapterSubtitle = "Reflections";
+        showChapterCard = true;
+        chapterCardTimer = 0.0f;
+        storyFlags.setFlag("SeenChapter3Card", true);
+        return;
+    }
+    if (!storyFlags.getFlag("MirrorSceneDone")) {
+        dialogueSystem->startDialogue("PlayerThoughts_Mirror");
+    }
+
 }
 void bedroom::drawText(SDL_Renderer *renderer, TTF_Font *font, const std::string &text, int x, int y) {
     SDL_Color white = {255,255,255,255};
@@ -107,6 +125,10 @@ void bedroom::update(float dt) {
         chapterCardTimer += dt;
         if(chapterCardTimer > 15.0f){
             showChapterCard = false;
+
+            if (!storyFlags.getFlag("MirrorSceneDone")) {
+                dialogueSystem->startDialogue("PlayerThoughts_Mirror");
+            }
         }
     }
 }
@@ -124,8 +146,8 @@ void bedroom::render(SDL_Renderer *renderer) {
         SDL_Rect fullscreen = {0,0,1280,720};
         SDL_RenderFillRect(renderer, &fullscreen);
 
-        drawCenteredText(renderer, chapterFont, "CHAPTER 1", 500);
-        drawCenteredText(renderer, chapterFont, "Unsettling", 450);
+        drawCenteredText(renderer, chapterFont, "CHAPTER " + std::to_string(chapterNumber), 500);
+        drawCenteredText(renderer, chapterFont, chapterSubtitle, 450);
 
     }
 }
