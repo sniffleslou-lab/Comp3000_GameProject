@@ -19,7 +19,7 @@ class FadeEffect {
         active = true;
     }
     void update(float dt) {
-        if (active) return;
+        if (!active) return;
 
         alpha += speed * dt;
         if (alpha >= targetAlpha) {
@@ -28,7 +28,7 @@ class FadeEffect {
         }
     }
     void render(SDL_Renderer* renderer) {
-        if (!active & alpha == 0) return;
+        if (!active && alpha == 0) return;
 
         SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
         SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, (Uint8)alpha);
@@ -40,6 +40,7 @@ class FadeEffect {
 
     private:
     SDL_Color color;
+    float alpha;
     float targetAlpha;
     float speed;
     bool active;

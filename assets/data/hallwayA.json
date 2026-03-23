@@ -119,5 +119,18 @@
       "texture": "door.png",
       "type": "npcdoor",
       "targetScene": ""
+    },
+    {
+      "id": "14",
+      "name": "MaxwellTrigger",
+      "inspect": "",
+      "x": 600,
+      "y": 250,
+      "w": 120,
+      "h": 200,
+      "texture": "",
+      "type": "trigger",
+      "dialogue": "MaxwellHall",
+      "flag": "Arc2_MaxwellSeen"
     }
   ]}

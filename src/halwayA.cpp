@@ -87,6 +87,7 @@ void HallwayA::handleEvents(SDL_Event &e) {
             startDialogueNextFrame = true;
             return;
         }
+
         /*if(playerIsNearGarret()){
             queuedNPC = "Garret";
             startDialogueNextFrame = true;
@@ -123,6 +124,14 @@ void HallwayA::update(float dt) {
     if (startDialogueNextFrame){
         dialogueSystem->startDialogue(queuedNPC);
         startDialogueNextFrame = false;
+    }
+    //maxwell hallway moment in arc2
+    if (storyFlags.getFlag("Arc2ArgumentSeen")&&
+        !storyFlags.getFlag("Arc2_MaxwellSeen")&&
+        inspector->isNear("MaxwellTrigger", player->getPosition())&&
+        !dialogueSystem->isActive) {
+        dialogueSystem->startDialogue("MaxwellHall");
+        storyFlags.setFlag("Arc2_MaxwellSeen", true);
     }
 
 }

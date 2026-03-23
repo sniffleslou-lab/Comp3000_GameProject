@@ -125,7 +125,7 @@ void Kitchen::drawCenteredText(SDL_Renderer* renderer, TTF_Font* font, const std
 
 
 void Kitchen::update(float dt) {
-inspector->update(dt);
+    inspector->update(dt);
     inspector->inspect(player->getPosition(), *sceneManager, renderer);
 
     //garrets dialogue start when the player walks into the kitchen
@@ -137,10 +137,29 @@ inspector->update(dt);
        dialogueSystem->startDialogue("Garret");
         startDialogueNextFrame = false;
     }
+    //arc2 post maxwell hallway moment//
+    if (storyFlags.getFlag("Arc2_MaxwellSeen")&&
+        !storyFlags.getFlag("Arc2Complete")&&
+        !dialogueSystem->isActive) {
+        dialogueSystem->startDialogue("GroupArc2_PostMaxwell");
+
+    }
+    //tranisition to chapter 3
+    if (storyFlags.getFlag("arc2Complete")&&
+        !dialogueSystem->isActive) {
+        sceneManager->changeScene(SceneID::SCENE_BEDROOM, renderer);
+    }
     if (storyFlags.getFlag("Arc2_PowerOutage_Start")&& !storyFlags.getFlag("Arc2_PowerOutage_Triggered"))
         {
         startPowerOutage();
         storyFlags.setFlag("Arc2_PowerOutage_Triggered", true);
+    }
+    //arc2 scene featuring the argument
+    if (storyFlags.getFlag("BreakerFixed")&&
+        !storyFlags.getFlag("Arc2ArgumentSeen")&&
+        !dialogueSystem->isActive) {
+
+        dialogueSystem->startDialogue("GroupArc2");
     }
     screenFade.update(dt);
     if (storyFlags.getFlag("Arc2_PowerOutage_Triggered")&& !showArc2Card) {
