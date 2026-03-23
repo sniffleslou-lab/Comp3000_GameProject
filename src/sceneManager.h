@@ -13,7 +13,10 @@ enum SceneID{
     SCENE_BEDROOM,
     SCENE_KITCHEN,
     SCENE_HALLWAYA,
-    SCENE_EDITOR
+    SCENE_EDITOR,
+    //new
+    SCENE_ARC2_HALLWAY,
+    SCENE_BREAKERROOM
 };
 
 class SceneManager{

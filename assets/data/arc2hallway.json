@@ -1,0 +1,29 @@
+{
+  "items": [
+    {
+      "id": "1",
+      "name": "BreakerBox",
+      "inspect": "The breaker box looks damaged.",
+      "x": 900,
+      "y": 250,
+      "w": 120,
+      "h": 200,
+      "texture": "breaker.png",
+      "type": "interact",
+      "dialogue": "BreakerBoxScene",
+      "flag": "BreakerFixed"
+    },
+    {
+      "id": "2",
+      "name": "ExitDoor",
+      "inspect": "This leads back to the hallway.",
+      "x": 50,
+      "y": 250,
+      "w": 120,
+      "h": 200,
+      "texture": "door.png",
+      "type": "door",
+      "targetScene": "SCENE_ARC2_HALLWAY"
+    }
+  ]
+}

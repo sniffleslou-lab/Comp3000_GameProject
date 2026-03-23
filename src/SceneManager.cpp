@@ -9,7 +9,8 @@
 #include "hallwayA.h"
 #include "kitchen.h"
 #include "editorScene.h"
-
+#include "BreakerRoomScene.h"
+#include "Arc2HallwayScene.h"
 SceneManager::SceneManager(SDL_Renderer *renderer, StoryFlags& flags, DialogueSystem* dialogue)
 : storyFlags(flags), dialogueSystem(dialogue) {
 
@@ -50,6 +51,18 @@ std::unique_ptr<Scene>SceneManager::createScene(SceneID scene, SDL_Renderer *ren
             s->setSceneManager(this);
             return s;
         }
+        case SceneID::SCENE_ARC2_HALLWAY: {
+            std::cout << "loaded Arc2 hallway scene\n";
+            auto s = std::make_unique<Arc2HallwayScene>(renderer, storyFlags, dialogueSystem);
+            s->setSceneManager(this);
+            return s;
+        }
+        case SceneID::SCENE_BREAKERROOM: {
+            std::cout << "loaded breaker room scene\n";
+            auto s = std::make_unique<BreakerRoomScene>(renderer, storyFlags, dialogueSystem);
+            s->setSceneManager(this);
+            return s;
+        }
         case SceneID::SCENE_EDITOR: {
             std::cout << "loaded the SCENE EDITOR scene\n";
             auto s= std::make_unique<editorScene>(renderer,storyFlags,dialogueSystem);
@@ -86,6 +99,8 @@ SceneID SceneManager::sceneIdFromString(const std::string &name) {
     if (name== "SCENE_HALLWAYA")return SceneID::SCENE_HALLWAYA;
     if (name== "SCENE_KITCHEN")return SceneID::SCENE_KITCHEN;
     if (name== "SCENE_EDITOR") return SceneID::SCENE_EDITOR;
+    if (name== "SCENE_ARC2_HALLWAY")return SceneID::SCENE_ARC2_HALLWAY;
+    if (name == "SCENE_BREAKERROOM") return SceneID::SCENE_BREAKERROOM;
     return SceneID::SCENE_START;
 
 }
