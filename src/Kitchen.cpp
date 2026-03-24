@@ -183,6 +183,18 @@ void Kitchen::update(float dt) {
             newsImage = nullptr;
         }
     }
+    //arc3 garret living room talk
+    if (storyFlags.getFlag("CalledToLivingRoom") &&
+        !storyFlags.getFlag("GarretTalkDone") &&
+            !dialogueSystem->isActive) {
+        dialogueSystem->startDialogue("CalledToLivingRoom");
+    }
+    //arc3 anna storms in
+    if (storyFlags.getFlag("GarretTalkDone")&&
+        !storyFlags.getFlag("StartMaxwellInvestigation")&&
+        !dialogueSystem->isActive) {
+        dialogueSystem->startDialogue("AnnaInterruptScene");
+    }
 /*
     if(!dialogueSystem->choiceActive) {
         const Uint8* keys = SDL_GetKeyboardState(NULL);

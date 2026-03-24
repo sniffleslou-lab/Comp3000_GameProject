@@ -53,6 +53,13 @@ void bedroom::enter() {
         dialogueSystem->startDialogue("PlayerThoughts_Mirror");
     }
 
+    if (storyFlags.getFlag("MirrorSceneDone")&&
+        !storyFlags.getFlag("PhoneMessageSeen")&&
+        !dialogueSystem->isActive) {
+        dialogueSystem->startDialogue("PlayerThoughts_Mirror");
+        storyFlags.setFlag("PhoneMessageSeen", true);
+    }
+
 }
 void bedroom::drawText(SDL_Renderer *renderer, TTF_Font *font, const std::string &text, int x, int y) {
     SDL_Color white = {255,255,255,255};
