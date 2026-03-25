@@ -15,8 +15,122 @@
     },
     {
       "id": "mxF3",
+      "speaker": "Maxwell",
+      "text": "I.. ehh ",
+      "next": "mxF4"
+    },
+    {
+      "id": "mxF4",
       "speaker": "Player",
-      "text": "But we can change",
+      "text": "It's ok. You don't need to tell me everything here, but I am here for you. ",
+      "next": "mxF5"
+    },
+    {
+      "id": "mxF5",
+      "speaker": "Player",
+      "text": "Wait.. Are you crying?",
+      "next": "mxF6"
+    },
+    {
+      "id": "mxF6",
+      "speaker": "Maxwell",
+      "text": "No.. Yes, it's just I am not good at this stuff",
+      "next": "mxF7"
+    },
+    {
+      "id": "mxF7",
+      "speaker": "Maxwell",
+      "text": "It's weak to show emotion and feelings. I am supposed to be...",
+      "next": "mxF8"
+    },
+    {
+      "id": "mxF8",
+      "speaker": "Maxwell",
+      "text": "A strong man",
+      "next": "mxF9"
+    },
+    {
+      "id": "mxF9",
+      "speaker": "Player",
+      "text": "...",
+      "next": "mxF10"
+    },
+    {
+      "id": "mxF10",
+      "speaker": "Player",
+      "text": "I used to be similar. Scared of showing emotion... and being",
+      "next": "mxF11"
+    },
+    {
+      "id": "mxF11",
+      "speaker": "Player",
+      "text": "myself",
+      "next": "mxF12"
+    },
+    {
+      "id": "mxF12",
+      "speaker": "Player",
+      "text": "I can't force you to do anything, but I can tell you my experience",
+      "next": "mxF13"
+    },
+    {
+      "id": "mxF13",
+      "speaker": "Player",
+      "text": "Allowing myself to me. I was still scared, but I saw hope",
+      "next": "mxF14"
+    },
+    {
+      "id": "mxF14",
+      "speaker": "Player",
+      "text": "I became happier, because I was allowed to express myself inside and out. I laugh and cry being me",
+      "next": "mxF15"
+    },
+    {
+      "id": "mxF15",
+      "speaker": "Player",
+      "text": "My connections with my friends became stronger since I allowed myself to open up",
+      "next": "mxF16"
+    },
+    {
+      "id": "mxF16",
+      "speaker": "Maxwell",
+      "text": "Aren't you afraid what people will think, what they would do?",
+      "next": "mxF17"
+    },
+    {
+      "id": "mxF17",
+      "speaker": "Player",
+      "text": "Of course, but worrying. Stopping myself from living is a harsher punishment for being myself.",
+      "next": "mxF18"
+    },
+    {
+      "id": "mxF18",
+      "speaker": "Player",
+      "text": "There is a quote I heard, not religious, but I stuck with me.",
+      "next": "mxF19"
+    },
+    {
+      "id": "mxF19",
+      "speaker": "Player",
+      "text": "It’s your road…and yours alone… Others may walk it with you, but no one can walk it for you. No matter what path you choose, really walk it.",
+      "next": "mxF20"
+    },
+    {
+      "id": "mxF20",
+      "speaker": "Player",
+      "text": "I can't walk your path, and no one can force you, but I can tell you. Being yourself will make you happy.",
+      "next": "mxF21"
+    },
+    {
+      "id": "mxF21",
+      "speaker": "Maxwell",
+      "text": "I  don't feel confident telling you everything, but I will walk down my path",
+      "next": "mxF22"
+    },
+    {
+      "id": "mxF22",
+      "speaker": "Maxwell",
+      "text": "I.. eh uh Thank you",
       "flag": "MaxwellReassured"
     }
   ]
