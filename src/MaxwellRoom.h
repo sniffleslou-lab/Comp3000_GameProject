@@ -7,7 +7,7 @@
 
 #include "scene.h"
 #include "storyFlags.h"
-#include "DialogueSystem.h"
+#include "dialogueSystem.h"
 #include <SDL.h>
 #include "inspectionSystem.h"
 
@@ -21,8 +21,10 @@ public:
     void render(SDL_Renderer* renderer) override;
     void exit() override;
 
-    void setSceneManager(SceneManager* mgr) override { sceneManager = mgr; }
-    private:
+    void setSceneManager(SceneManager* mgr) { sceneManager = mgr; }
+
+
+private:
     StoryFlags& storyFlags;
     DialogueSystem* dialogueSystem;
     std::unique_ptr<inspectionSystem> inspector;

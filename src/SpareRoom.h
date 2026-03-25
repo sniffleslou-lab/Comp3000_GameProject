@@ -22,7 +22,7 @@ class SpareRoom : public Scene {
     void exit() override;
     void handleEvents(SDL_Event &e) override;
 
-    void setSceneManager(SceneManager *mgr) override;
+    void setSceneManager(SceneManager* mgr) override { sceneManager = mgr; }
 
     private:
     StoryFlags& storyFlags;

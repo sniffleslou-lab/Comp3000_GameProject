@@ -26,7 +26,7 @@ class Arc2HallwayScene : public Scene {
     void render(SDL_Renderer *renderer) override;
     void handleEvents(SDL_Event &e) override;
 
-    void setSceneManager(SceneManager *mgr) override;
+    void setSceneManager(SceneManager* mgr) { sceneManager = mgr; }
 
     private:
     SDL_Renderer* renderer;

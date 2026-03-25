@@ -29,7 +29,14 @@ HallwayA::~HallwayA() {}
 
 void HallwayA::enter() {
     std::cout<<"entered hallway scene\n";
-
+    chapterFont = TTF_OpenFont("../assets/fonts/SunLight Dreams.ttf", 48);
+    //chapter 4 card
+    if (storyFlags.getFlag("MaxwellStormedOut")&&
+        !storyFlags.getFlag("Chapter4Started")) {
+        storyFlags.setFlag("Chapter4Started", true);
+        showChapter4Card = true;
+        chapter4Timer = 0.0f;
+    }
 
     //rests diaglogue state
     queuedNPC = "";
@@ -120,6 +127,11 @@ bool HallwayA::playerIsNearAnna() {
 }
 
 void HallwayA::update(float dt) {
+    if (showChapter4Card) {
+        chapter4Timer += dt;
+        return;
+    }
+
     inspector->update(dt);
     if (startDialogueNextFrame){
         dialogueSystem->startDialogue(queuedNPC);
@@ -158,8 +170,36 @@ void HallwayA::render(SDL_Renderer *renderer) {
     if (annaNPC) annaNPC->draw(renderer);
     dialogueSystem->render(renderer);
 
+    //chapter card
+    if (showChapter4Card) {
+        SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+        SDL_SetRenderDrawColor(renderer, 0,0,0,180);
+        SDL_Rect fullscreen = {0,0,1280,720};
+        SDL_RenderFillRect(renderer, &fullscreen);
+
+        drawCenteredText(renderer,chapterFont, "CHAPTER 4",300);
+        drawCenteredText(renderer,chapterFont, "Outsiders",380);
+    }
 
 }
+
+void HallwayA::drawCenteredText(SDL_Renderer *renderer, TTF_Font *font, const std::string &text, int y) {
+    SDL_Color white = {255,255,255};
+    SDL_Surface* surf = TTF_RenderText_Solid(font, text.c_str(), white);
+    SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, surf);
+
+    int w = surf->w;
+    int h = surf->h;
+    SDL_Rect dst = {(1280 - w )/ 2, y, w, h};
+
+    SDL_RenderCopy(renderer, tex, NULL, &dst);
+
+    SDL_FreeSurface(surf);
+    SDL_DestroyTexture(tex);
+
+}
+
 void HallwayA::exit() {
     std::cout<<"left hallway scene\n";
 }
+

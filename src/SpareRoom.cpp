@@ -1,9 +1,10 @@
 #include "SpareRoom.h"
-#include "SceneManager.h"
+#include "sceneManager.h"
 #include <iostream>
 
 SpareRoom::SpareRoom(SDL_Renderer *renderer, StoryFlags &flags, DialogueSystem *dialogue) :
 renderer(renderer), storyFlags(flags), dialogueSystem(dialogue){}
+
 
 void SpareRoom::enter() {
     std::cout << "SpareRoom::enter()\n";

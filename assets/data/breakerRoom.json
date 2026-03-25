@@ -1,28 +1,30 @@
+
 {
   "items": [
     {
       "id": "1",
-      "name": "BreakerDoor",
-      "inspect": "The breaker room is through here",
-      "x": 1100,
-      "y": 200,
-      "w": 80,
+      "name": "BreakerBox",
+      "inspect": "The breaker box looks damaged.",
+      "x": 900,
+      "y": 250,
+      "w": 120,
       "h": 200,
-      "texture":"door.png",
-      "type": "door",
-      "targetScene": "SCENE_BREAKERROOM"
+      "texture": "breaker.png",
+      "type": "interact",
+      "dialogue": "BreakerBoxScene",
+      "flag": "BreakerFixed"
     },
     {
       "id": "2",
-      "name": "ApartmentDoor",
-      "inspect": "Leads back into the kitchen",
+      "name": "ExitDoor",
+      "inspect": "This leads back to the hallway.",
       "x": 50,
-      "y": 200,
-      "w": 80,
+      "y": 250,
+      "w": 120,
       "h": 200,
-      "texture":"door.png",
+      "texture": "door.png",
       "type": "door",
-      "targetScene": "SCENE_KITCHEN"
+      "targetScene": "SCENE_ARC2_HALLWAY"
     }
   ]
 }

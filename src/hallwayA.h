@@ -14,6 +14,7 @@
 #include "storyFlags.h"
 #include "sceneManager.h"
 #include "NPC.h"
+#include <SDL_ttf.h>
 
 
 class HallwayA : public Scene{
@@ -46,6 +47,14 @@ private:
     Controls controls;
     bool startDialogueNextFrame = false;
     std::string queuedNPC;
+
+    //chapter card for arc4
+    bool showChapter4Card = false;
+    float chapter4Timer = 0.0f;
+    TTF_Font* chapterFont = nullptr;
+
+    void drawCenteredText(SDL_Renderer* renderer, TTF_Font* font,
+        const std::string& text, int y);
 
 };
 

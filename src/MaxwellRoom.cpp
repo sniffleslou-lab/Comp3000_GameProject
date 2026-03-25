@@ -1,15 +1,19 @@
 #include "MaxwellRoom.h"
-#include "SceneManager.h"
+#include "sceneManager.h"
 #include <iostream>
 
 MaxwellRoom::MaxwellRoom(SDL_Renderer* renderer, StoryFlags& flags, DialogueSystem* dialogue)
 : renderer(renderer), storyFlags(flags), dialogueSystem(dialogue) {}
 
+MaxwellRoom::~MaxwellRoom() {
+
+}
+
 void MaxwellRoom::enter() {
     std::cout << "Entering Maxwells room\n";
 
     //load room
-    inspector->loadItems("../assets/data/SpareRoom.json", renderer);
+    inspector->loadItems("../assets/data/MaxwellRoom.json", renderer);
     //trigger for the confrontation
     if (!storyFlags.getFlag("MaxwellStormedOut")) {
         dialogueSystem->startDialogue("MaxwellConfrontationScene");
