@@ -45,7 +45,9 @@ add_executable(${PROJECT_NAME}
         src/SpareRoom.h
         src/SpareRoom.cpp
         src/MaxwellRoom.h
-        src/MaxwellRoom.cpp)
+        src/MaxwellRoom.cpp
+        src/OutsideScene.h
+        src/OutSideScene.cpp)
 
 #packages and links
 find_package(SDL2 CONFIG REQUIRED)
