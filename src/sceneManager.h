@@ -16,7 +16,10 @@ enum SceneID{
     SCENE_EDITOR,
     //new
     SCENE_ARC2_HALLWAY,
-    SCENE_BREAKERROOM
+    SCENE_BREAKERROOM,
+    //ARC3
+    SCENE_MAXWELLROOM,
+    SCENE_SPAREROOM
 };
 
 class SceneManager{

@@ -8,7 +8,7 @@
       "next": "inv2"
     },
     {
-      "id": "inv1",
+      "id": "inv2",
       "speaker": "Narrator",
       "text": "A feint light leaks under Maxwell's door",
       "flag": "ReachedMaxwellDoor"

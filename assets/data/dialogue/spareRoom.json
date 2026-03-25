@@ -1,0 +1,77 @@
+{
+  "items": [
+    {
+      "id": "1",
+      "name": "Door to Hallway",
+      "inspect": "Back to the hallway.",
+      "x": 50,
+      "y": 250,
+      "w": 50,
+      "h": 80,
+      "texture": "door.png",
+      "type": "door",
+      "targetScene": "SCENE_HALLWAYA"
+    },
+    {
+      "id": "2",
+      "name": "Door to Maxwell",
+      "inspect": "Maxwell's room.",
+      "x": 700,
+      "y": 250,
+      "w": 50,
+      "h": 80,
+      "texture": "door.png",
+      "type": "door",
+      "targetScene": "SCENE_MAXWELLROOM"
+    },
+
+    {
+      "id": "3",
+      "name": "Top WALL",
+      "inspect": "",
+      "x": 0,
+      "y": 0,
+      "w": 800,
+      "h": 40,
+      "texture": "wall.png",
+      "type": "solid",
+      "targetScene": ""
+    },
+    {
+      "id": "4",
+      "name": "Bottom WALL",
+      "inspect": "",
+      "x": 0,
+      "y": 560,
+      "w": 800,
+      "h": 40,
+      "texture": "wall.png",
+      "type": "solid",
+      "targetScene": ""
+    },
+    {
+      "id": "5",
+      "name": "Left WALL",
+      "inspect": "",
+      "x": 0,
+      "y": 0,
+      "w": 40,
+      "h": 600,
+      "texture": "wall.png",
+      "type": "solid",
+      "targetScene": ""
+    },
+    {
+      "id": "6",
+      "name": "Right WALL",
+      "inspect": "",
+      "x": 760,
+      "y": 0,
+      "w": 40,
+      "h": 600,
+      "texture": "wall.png",
+      "type": "solid",
+      "targetScene": ""
+    }
+  ]
+}

@@ -134,6 +134,20 @@ void HallwayA::update(float dt) {
         storyFlags.setFlag("Arc2_MaxwellSeen", true);
     }
 
+    //max investigaiton in arc3
+
+    if (storyFlags.getFlag("StartMaxwellInvestigation")&&
+        !storyFlags.getFlag("ReachedMaxwellDoor")&&
+        !dialogueSystem->isActive) {
+        dialogueSystem->startDialogue("InvestigationScene");
+    }
+
+    if (storyFlags.getFlag("StartMaxwellInvestigation")&&
+        !storyFlags.getFlag("ReachedMaxwellDoor")&&
+        !dialogueSystem->isActive) {
+        dialogueSystem->startDialogue("InvestigationScene");
+    }
+
 }
 void HallwayA::render(SDL_Renderer *renderer) {
     SDL_SetRenderDrawColor(renderer, 80,60,100,255);

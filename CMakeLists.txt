@@ -41,7 +41,11 @@ add_executable(${PROJECT_NAME}
         src/Arc2HallwayScene.h
         src/Arc2HallwayScene.cpp
         src/BreakerRoomScene.h
-        src/BreakerRoomScene.cpp)
+        src/BreakerRoomScene.cpp
+        src/SpareRoom.h
+        src/SpareRoom.cpp
+        src/MaxwellRoom.h
+        src/MaxwellRoom.cpp)
 
 #packages and links
 find_package(SDL2 CONFIG REQUIRED)
