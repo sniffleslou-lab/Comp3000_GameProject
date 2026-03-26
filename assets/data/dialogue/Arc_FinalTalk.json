@@ -1,0 +1,150 @@
+{
+  "npc": "Arc5_FinalTalk",
+  "dialogue": [
+    {
+      "id":"a5ft_intro1",
+      "speaker": "Narrator",
+      "text": "Everyone, gather in the living room. The air feels heavy, no one is shouting or running away.",
+      "next": "a5ft_intro2"
+    },
+    {
+      "id":"a5ft_intro2",
+      "speaker": "Narrator",
+      "text": "For the first time, everyone is facing the truth together.",
+      "next": "a5ft_annaStart"
+    },
+    {
+      "id":"a5ft_annaStart",
+      "speaker": "Anna",
+      "text": "I guess I will start.",
+      "next": "a5ft_anna2"
+    },
+    {
+      "id":"a5ft_anna2",
+      "speaker": "Anna",
+      "text": "Sorry for pretending to ignore everything.",
+      "next": "a5ft_anna3"
+    },
+    {
+      "id":"a5ft_anna3",
+      "speaker": "Anna",
+      "text": "I understand it's annoying and disheartening to hear someone ignore problems.",
+      "next": "a5ft_anna4"
+    },
+    {
+      "id":"a5ft_anna4",
+      "speaker": "Anna",
+      "text": "I just don't know what to do, do I just lie down, and yet the maggots eat my skin, or do I fight back?",
+      "next": "a5ft_anna5"
+    },
+    {
+      "id":"a5ft_anna5",
+      "speaker": "Anna",
+      "text": "Fighting back is tiring, I am exhausted. So tired from doing anything.",
+      "next": "a5ft_anna6"
+    },
+    {
+      "id":"a5ft_anna6",
+      "speaker": "Anna",
+      "text": "Do I scream! Because most days I feel like screaming, even now.",
+      "next": "a5ft_anna7"
+    },
+    {
+      "id":"a5ft_anna7",
+      "speaker": "Anna",
+      "text": "..",
+      "next": "a5ft_anna8"
+    },
+    {
+      "id":"a5ft_anna8",
+      "speaker": "Anna",
+      "text": "I am so tired.  But I want to keep being your guys' friends.",
+      "next": "a5ft_garretStart"
+    },
+    {
+      "id": "a5ft_garretStart",
+      "speaker": "Garret",
+      "text": "..ah, screw it.",
+      "next": "a5ft_garret1"
+    },
+    {
+      "id": "a5ft_garret1",
+      "speaker": "Garret",
+      "text": "I’ve been thinking about leaving. Going home, or just… disappearing.",
+      "next": "a5ft_garret2"
+    },
+    {
+      "id": "a5ft_garret2",
+      "speaker": "Garret",
+      "text": "Part of me still thinks it would be easier.",
+      "next": "a5ft_garret3"
+    },
+    {
+      "id": "a5ft_garret3",
+      "speaker": "Garret",
+      "text": "Taking a plane and starting a new life. I’d be broke, homeless… but it’s possible.",
+      "next": "a5ft_garret4"
+    },
+    {
+      "id": "a5ft_garret4",
+      "speaker": "Garret",
+      "text": "But running won’t fix anything. It’d probably make it worse.",
+      "next": "a5ft_garret5"
+    },
+    {
+      "id": "a5ft_garret5",
+      "speaker": "Garret",
+      "text": "If I run away, I’ll lose people I care about. And I don’t want to lose you guys.",
+      "next": "a5ft_maxwellStart"
+    },
+    {
+      "id":"a5ft_maxwellStart",
+      "speaker": "Maxwell",
+      "text": "Oh, you guys are looking at me!",
+      "next": "a5ft_maxwell2"
+    },
+    {
+      "id":"a5ft_maxwell2",
+      "speaker": "Maxwell",
+      "text": "I already had my sappy cry talk earlier, but I'll..",
+      "next": "a5ft_maxwell3"
+    },
+    {
+      "id":"a5ft_maxwell3",
+      "speaker": "Maxwell",
+      "text": "Say one thing. I am going to change, I just need time, but you guys are cool and I want to be your friends.",
+      "next": "a5ft_playerStart"
+    },
+    {
+      "id":"a5ft_playerStart",
+      "speaker": "Player",
+      "text": "I mentioned this already outside, but here we go",
+      "next": "a5ft_player2"
+    },
+    {
+      "id":"a5ft_player2",
+      "speaker": "Player",
+      "text": "I am scared. More than I want to admit.",
+      "next": "a5ft_player3"
+    },
+    {
+      "id":"a5ft_player3",
+      "speaker": "Player",
+      "text": "But standing here and listening to you guys. I know I am not alone.",
+      "next": "a5ft_player4"
+    },
+    {
+      "id":"a5ft_player4",
+      "speaker": "Player",
+      "text": "Even if the world shifts around us. I know we will be here for each other.",
+      "next": "a5ft_outro"
+    },
+    {
+      "id":"a5ft_outro",
+      "speaker": "Narrator",
+      "text": "No one has all the answers. But for the first time, you’re not facing the future alone.",
+      "flag" : "StartCredits",
+      "next": ""
+    }
+  ]
+}
