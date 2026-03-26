@@ -15,6 +15,8 @@ inspectionSystem::inspectionSystem(SDL_Renderer *renderer, StoryFlags& flags, Di
         std::cerr<<"failed to load inpsection font: " << TTF_GetError()<< std::endl;
     }
 
+    keyIcon = IMG_LoadTexture(renderer,"../assets/textures/key_E.png");
+
 }
 inspectionSystem::~inspectionSystem() {
     if (font) TTF_CloseFont(font);
@@ -63,7 +65,8 @@ void inspectionSystem::loadItems(const std::string &jsonPath, SDL_Renderer *rend
         return a.layer < b.layer;
     });
 }
-void inspectionSystem::update(float dt) {
+void inspectionSystem::update(float dt, const SDL_Rect& playerPos) {
+    lastPlayerPos = playerPos;
     if (inspectActive){
         inspectTimer += dt;
         if (inspectTimer >= 5.0f){
@@ -77,8 +80,29 @@ void inspectionSystem::update(float dt) {
             doorCooldown = false;
         }
     }
-}
+    updatePrompt(lastPlayerPos);
+    bounceTimer += dt * 2.0f;
 
+}
+void inspectionSystem::updatePrompt(const SDL_Rect &playerPos) {
+    showPrompt = false;
+    SDL_Rect detectBox = playerPos;
+    detectBox.x -= 10;
+    detectBox.y -= 10;
+    detectBox.w += 20;
+    detectBox.h += 20;
+    for (auto& item : items) {
+        if (item.rect.w == 0 || item.rect.h == 0)continue;
+
+        if (SDL_HasIntersection(&detectBox, &item.rect)) {
+            if (item.type == "item"|| item.type == "solid_item") {
+                showPrompt = true;
+                promptText = "Press E to inspect";
+                return;
+            }
+        }
+    }
+}
 void inspectionSystem::render(SDL_Renderer *renderer) {
     for (auto &item: items) {
         if (item.texture) {
@@ -104,6 +128,20 @@ void inspectionSystem::render(SDL_Renderer *renderer) {
         SDL_FreeSurface(surface);
         SDL_DestroyTexture(texture);
     }
+    if (showPrompt && keyIcon) {
+        SDL_Rect iconRect;
+        iconRect.w = 32;
+        iconRect.h = 32;
+
+
+        int baseX = lastPlayerPos.x + (lastPlayerPos.w/2) -(iconRect.w/2);
+        int baseY = lastPlayerPos.y - 40;
+        float bounceOffset =  sin(bounceTimer) * 8.0f;
+
+        iconRect.x = baseX;
+        iconRect.y = baseY + bounceOffset;
+        SDL_RenderCopy(renderer, keyIcon, nullptr, &iconRect);
+    }
 }
 
 bool inspectionSystem::isNear(const std::string &itemName, const SDL_Rect &playerRect) {
@@ -119,11 +157,16 @@ void inspectionSystem::inspect(const SDL_Rect &playerPos, SceneManager &sceneMan
     if (doorCooldown) {
         return;
     }
+        SDL_Rect detectBox = playerPos;
+        detectBox.x -= 10;
+        detectBox.y -= 10;
+        detectBox.w += 20;
+        detectBox.h += 20;
 
     for (auto& item : items) {
         if (item.rect.w == 0 || item.rect.h == 0) continue;
 
-        if (SDL_HasIntersection(&playerPos, &item.rect)) {
+        if (SDL_HasIntersection(&detectBox, &item.rect)) {
 
             // NPC door logic
             if (item.type == "npcdoor") {

@@ -132,7 +132,7 @@ void HallwayA::update(float dt) {
         return;
     }
 
-    inspector->update(dt);
+inspector->update(dt, player->getPosition());
     if (startDialogueNextFrame){
         dialogueSystem->startDialogue(queuedNPC);
         startDialogueNextFrame = false;

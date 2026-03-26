@@ -34,7 +34,7 @@
       "w": 160,
       "h": 160,
       "texture": "/SYD_Interior_Pack_V1/Restroom/Black bed/Bed_Double_Side_4.png",
-      "type": "item",
+      "type": "solid_item",
       "targetScene": "",
       "layer": 1
     },

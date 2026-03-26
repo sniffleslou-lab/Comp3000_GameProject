@@ -126,7 +126,7 @@ void Kitchen::drawCenteredText(SDL_Renderer* renderer, TTF_Font* font, const std
 
 
 void Kitchen::update(float dt) {
-    inspector->update(dt);
+inspector->update(dt, player->getPosition());
     inspector->inspect(player->getPosition(), *sceneManager, renderer);
 
     //garrets dialogue start when the player walks into the kitchen

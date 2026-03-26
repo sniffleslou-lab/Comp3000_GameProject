@@ -10,6 +10,7 @@
 #include <SDL_ttf.h>
 #include "sceneManager.h"
 #include "storyFlags.h"
+#include <SDL_image.h>
 //same as json
 struct Item{
     int id;
@@ -31,7 +32,7 @@ public:
 
     void loadItems(const std::string& jsonPath, SDL_Renderer* renderer);
     void render(SDL_Renderer* renderer);
-    void update(float dt);
+    void update(float dt, const SDL_Rect& playerPos);
     void inspect(const SDL_Rect& playerPos, SceneManager& sceneManager, SDL_Renderer* renderer);
 
     const std::vector<Item>& getItems() const { return items;}
@@ -40,6 +41,9 @@ public:
     bool doorCooldown=false;
     float doorCooldownTimer=0.0f;
     bool isNear(const std::string& itemName, const SDL_Rect& playerRect);
+
+    void updatePrompt(const SDL_Rect& playerPos);
+
 private:
     std::vector<Item> items;
     std::string currentText;
@@ -52,5 +56,14 @@ private:
 
     StoryFlags& storyFlags;
     DialogueSystem* dialogueSystem;
+
+    //prompt
+    bool showPrompt = false;
+    std::string promptText;
+    SDL_Rect lastPlayerPos;
+
+    SDL_Texture* keyIcon = nullptr;
+
+    float bounceTimer = 0.0f;
 };
 #endif //AMIPRETTY_INSPECTIONSYSTEM_H

@@ -96,7 +96,7 @@ void OutsideScene::update(float dt) {
         }
         return;
     }
-    inspector->update(dt);
+inspector->update(dt, player->getPosition());
     inspector->inspect(player->getPosition(), *sceneManager, renderer);
 
     //after findmax scene converstation scene start

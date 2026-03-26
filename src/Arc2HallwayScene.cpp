@@ -82,7 +82,7 @@ void Arc2HallwayScene::handleEvents(SDL_Event& e) {
 }
 
 void Arc2HallwayScene::update(float dt) {
-    inspector->update(dt);
+    inspector->update(dt, player->getPosition());
 
     //Breaker dialogue trigger
     if (startDialogueNextFrame) {

@@ -129,7 +129,7 @@ void bedroom::handleEvents(SDL_Event &e) {
     }
 }
 void bedroom::update(float dt) {
-    inspector->update(dt);
+    inspector->update(dt, player->getPosition());
 
     if(showChapterCard){
         chapterCardTimer += dt;

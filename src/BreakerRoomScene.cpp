@@ -76,7 +76,7 @@ void BreakerRoomScene::handleEvents(SDL_Event &e) {
 }
 
 void BreakerRoomScene::update(float dt) {
-    inspector->update(dt);
+inspector->update(dt, player->getPosition());
     if (storyFlags.getFlag("BreakerFixed")) {
         sceneManager->changeScene(SceneID::SCENE_ARC2_HALLWAY, renderer);
     }
