@@ -133,7 +133,7 @@ void bedroom::update(float dt) {
 
     if(showChapterCard){
         chapterCardTimer += dt;
-        if(chapterCardTimer > 15.0f){
+        if(chapterCardTimer > 5.0f){
             showChapterCard = false;
 
             if (!storyFlags.getFlag("MirrorSceneDone")&& !dialogueSystem->choiceActive) {

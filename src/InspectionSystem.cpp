@@ -116,51 +116,53 @@ bool inspectionSystem::isNear(const std::string &itemName, const SDL_Rect &playe
     return false;
 }
 void inspectionSystem::inspect(const SDL_Rect &playerPos, SceneManager &sceneManager, SDL_Renderer *renderer) {
-    if(doorCooldown){
+    if (doorCooldown) {
         return;
     }
 
-    for (auto& item:items) {
-        if(item.rect.w == 0 || item.rect.h ==0)continue;
+    for (auto& item : items) {
+        if (item.rect.w == 0 || item.rect.h == 0) continue;
 
-        if(SDL_HasIntersection(&playerPos,&item.rect)){
-            //for npc door
-            if (item.type == "npcdoor"){
-                if(storyFlags.getFlag("AnnaQuestAccepted")){
+        if (SDL_HasIntersection(&playerPos, &item.rect)) {
+
+            // NPC door logic
+            if (item.type == "npcdoor") {
+                if (storyFlags.getFlag("AnnaQuestAccepted")) {
                     std::cout << "knocking on Maxwell's door \n";
                     dialogueSystem->startDialogue("Maxwell");
-                }else
-                {
+                } else {
                     currentText = "it's locked.";
                     inspectActive = true;
                     inspectTimer = 0.0f;
                 }
                 return;
             }
-            if(item.type== "door" && !doorCooldown){
+            if (item.type == "door" && !doorCooldown) {
                 SceneID target = sceneManager.sceneIdFromString(item.targetScene);
-                std::cout<< "door to " << item.targetScene << " triggered\n";
-                sceneManager.changeScene(target,renderer);
+                std::cout << "door to " << item.targetScene << " triggered\n";
+                sceneManager.changeScene(target, renderer);
 
                 doorCooldown = true;
                 doorCooldownTimer = 0.0f;
                 return;
-            }else {
-                //test
+            }
+
+            if (item.type == "item" || item.type == "solid_item") {
+
                 currentText = item.inspect;
                 std::cout << "player says: " << item.inspect << std::endl;
-                inspectTimer=0.0f;
-                inspectActive =true;
+                inspectTimer = 0.0f;
+                inspectActive = true;
 
-                //now questing
-                if(!item.flag.empty()) {
+                if (!item.flag.empty()) {
                     storyFlags.setFlag(item.flag, true);
                     item.rect = {0, 0, 0, 0};
+
                     if (item.flag == "PickedUp_batteries") {
                         storyFlags.setFlag("AnnaUnlocked", true);
                     }
                 }
-
+                return;
             }
         }
     }

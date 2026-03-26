@@ -30,7 +30,7 @@ void Character::move(int dx, int dy, const std::vector<Item> &items) {
 
     //adding collison
     for (const auto& item : items){
-        if (item.type == "solid"){
+        if (item.type == "solid" || item.type == "solid_item"){
             if (SDL_HasIntersection(&nextPos, &item.rect)){
                 return;
             }
