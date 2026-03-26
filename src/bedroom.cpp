@@ -41,24 +41,27 @@ void bedroom::enter() {
         return;
     }
     //chapter 3
-    if (!storyFlags.getFlag("SeenChapter1Card")){
-        chapterNumber = 2;
+    if (!storyFlags.getFlag("SeenChapter3Card")){
+        chapterNumber = 3;
         chapterSubtitle = "Reflections";
         showChapterCard = true;
         chapterCardTimer = 0.0f;
         storyFlags.setFlag("SeenChapter3Card", true);
         return;
     }
-    if (!storyFlags.getFlag("MirrorSceneDone")) {
+    if (!storyFlags.getFlag("MirrorSceneDone") &&
+    !dialogueSystem->isActive)
+    {
         dialogueSystem->startDialogue("PlayerThoughts_Mirror");
     }
-
-    if (storyFlags.getFlag("MirrorSceneDone")&&
-        !storyFlags.getFlag("PhoneMessageSeen")&&
-        !dialogueSystem->isActive) {
-        dialogueSystem->startDialogue("PlayerThoughts_Mirror");
+    if (storyFlags.getFlag("MirrorSceneDone") &&
+        !storyFlags.getFlag("PhoneMessageSeen") &&
+        !dialogueSystem->isActive)
+    {
+        dialogueSystem->startDialogue("Phone");
         storyFlags.setFlag("PhoneMessageSeen", true);
     }
+
 
 }
 void bedroom::drawText(SDL_Renderer *renderer, TTF_Font *font, const std::string &text, int x, int y) {
@@ -133,7 +136,7 @@ void bedroom::update(float dt) {
         if(chapterCardTimer > 15.0f){
             showChapterCard = false;
 
-            if (!storyFlags.getFlag("MirrorSceneDone")) {
+            if (!storyFlags.getFlag("MirrorSceneDone")&& !dialogueSystem->choiceActive) {
                 dialogueSystem->startDialogue("PlayerThoughts_Mirror");
             }
         }

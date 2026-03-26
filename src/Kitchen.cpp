@@ -31,6 +31,7 @@ void Kitchen::enter() {
 
     startDialogueNextFrame = true;
     arc2Font = TTF_OpenFont("../assets/font/SunLight Dreams.otf", 48);
+    creditsFont = TTF_OpenFont("../assets/font/SunLight Dreams.otf", 48);
 
 }
 
@@ -195,6 +196,27 @@ void Kitchen::update(float dt) {
         !dialogueSystem->isActive) {
         dialogueSystem->startDialogue("AnnaInterruptScene");
     }
+    //arc 5
+    if (storyFlags.getFlag("Arc5_FinalTalk")&&
+        !storyFlags.getFlag("Arc5_FinalTalk_Done") &&
+        !dialogueSystem->isActive)
+        {
+        dialogueSystem->startDialogue("StartArc5_FinalTalk");
+        storyFlags.setFlag("Arc5_FinalTalk_Done", true);
+        }
+    if (storyFlags.getFlag("StartCredits")&&
+        !showCreditsCard)
+        {
+        showCreditsCard = true;
+        creditsTimer = 0.0f;
+        }
+    if (showCreditsCard) {
+        creditsTimer += dt;
+        if (creditsTimer > 3.0f) {
+            sceneManager->changeScene(SceneID::SCENE_START, renderer);
+        }
+        return;
+    }
 /*
     if(!dialogueSystem->choiceActive) {
         const Uint8* keys = SDL_GetKeyboardState(NULL);
@@ -244,6 +266,16 @@ void Kitchen::render(SDL_Renderer *renderer) {
     }
     if (showNewsImage && newsImage) {
         SDL_RenderCopy(renderer, newsImage,NULL,NULL);
+    }
+
+    if (showCreditsCard) {
+        SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+        SDL_SetRenderDrawColor(renderer, 0,0,0,255);
+        SDL_Rect fullscreen = {0,0,1280,720};
+        SDL_RenderFillRect(renderer, &fullscreen);
+
+        drawCenteredText(renderer, creditsFont, "Made by Lou", 300);
+        drawCenteredText(renderer, creditsFont, "Thanks for playing!", 380);
     }
 
 }

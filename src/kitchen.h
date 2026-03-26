@@ -54,6 +54,10 @@ private:
     float arc2CardTimer = 0.0f;
     TTF_Font* arc2Font = nullptr;
 
+    bool showCreditsCard = false;
+    float creditsTimer = 0.0f;
+    TTF_Font* creditsFont = nullptr;
+
     SDL_Texture* newsImage= nullptr;
     bool showNewsImage = false;
     float newsTimer = 0.0f;
