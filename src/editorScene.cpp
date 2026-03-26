@@ -67,7 +67,7 @@ void editorScene::handleEvents(SDL_Event &e) {
     }
 }
 void editorScene::update(float dt) {}
-void editorScene::render(SDL_Renderer *renderer) {
+void editorScene::render(SDL_Renderer *renderer, bool debugMode) {
     for (auto& item : items){
         if (item.texture){
             SDL_RenderCopy(renderer, item.texture, nullptr, &item.rect);

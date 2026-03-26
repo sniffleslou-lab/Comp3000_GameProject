@@ -19,7 +19,7 @@ void SpareRoom::enter() {
 }
 void SpareRoom::handleEvents(SDL_Event &e) {}
 void SpareRoom::update(float dt) {}
-void SpareRoom::render(SDL_Renderer* renderer) {}
+void SpareRoom::render(SDL_Renderer* renderer, bool debugMode) {}
 void SpareRoom::exit() {
 std::cout << "SpareRoom::exit()\n";
 }

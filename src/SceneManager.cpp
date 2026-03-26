@@ -98,9 +98,10 @@ void SceneManager::handleEvents(SDL_Event &e) {
 
 }
 
-void SceneManager::render(SDL_Renderer *renderer) {
-    if (currentScene) currentScene->render(renderer);
-
+void SceneManager::render(SDL_Renderer *renderer, bool debugMode) {
+    if (currentScene) {
+        currentScene->render(renderer, debugMode);
+    }
 }
 
 SceneID SceneManager::sceneIdFromString(const std::string &name) {

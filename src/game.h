@@ -26,4 +26,7 @@ private:
 
     StoryFlags storyFlags;
     std::unique_ptr<DialogueSystem> dialogueSystem;
+
+    bool debugMode = false;
+
 };

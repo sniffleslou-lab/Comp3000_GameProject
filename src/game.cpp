@@ -57,18 +57,26 @@ void Game::run() {
         while (SDL_PollEvent(&event)){
             if(event.type == SDL_QUIT){
                 isRunning = false;
-            }else{
-                sceneManager.handleEvents(event);
             }
+            else if (event.type == SDL_KEYDOWN) {
+                if (event.key.keysym.sym == SDLK_p) {
+                    debugMode = !debugMode;
+                    std::cerr << "Debug mode: " << debugMode << std::endl;
+                }
+            }
+
+            sceneManager.handleEvents(event);
         }
+
         //framerate
         sceneManager.update(0.016f);
         SDL_SetRenderDrawColor(renderer,255,204,221,255);
         SDL_RenderClear(renderer);
 
-        sceneManager.render(renderer);
+        sceneManager.render(renderer, debugMode);
         SDL_RenderPresent(renderer);
     }
+
 
     //this is the old part that ran the controlls and displayed character
     /*Character player(renderer, "../assets/textures/testPlayer.png", 100, 100);

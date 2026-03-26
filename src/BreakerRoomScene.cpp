@@ -81,12 +81,26 @@ inspector->update(dt, player->getPosition());
         sceneManager->changeScene(SceneID::SCENE_ARC2_HALLWAY, renderer);
     }
 }
-    void BreakerRoomScene::render(SDL_Renderer* renderer) {
+    void BreakerRoomScene::render(SDL_Renderer* renderer, bool debugMode) {
         SDL_RenderCopy(renderer, roomTexture, NULL, NULL);
 
         inspector->render(renderer);
         player->draw();
         dialogueSystem->render(renderer);
+
+    //debug
+    if (debugMode) {
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+
+        for (auto& item : inspector->getItems()) {
+            SDL_RenderDrawRect(renderer, &item.rect);
+        }
+
+        SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+
+        SDL_Rect p = player->getPosition();
+        SDL_RenderDrawRect(renderer, &p);
+    }
     }
 
 

@@ -29,7 +29,7 @@ public:
     void changeScene(SceneID newScene, SDL_Renderer* renderer);
     void update(float dt);
     void handleEvents(SDL_Event& e);
-    void render(SDL_Renderer* renderer);
+    void render(SDL_Renderer* renderer, bool debugMode);
     SceneID sceneIdFromString(const std::string& name);
 
 

@@ -64,7 +64,9 @@ void MaxwellRoom::update(float dt) {
         sceneManager->changeScene(SceneID::SCENE_HALLWAYA, renderer);
     }
 }
-void MaxwellRoom::render(SDL_Renderer* renderer) {}
+void MaxwellRoom::render(SDL_Renderer* renderer, bool debugMode) {
+
+}
 
 void MaxwellRoom::exit() {
     std::cout << "Exiting Maxwells room\n";

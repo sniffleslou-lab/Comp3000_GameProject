@@ -235,7 +235,7 @@ void Kitchen::startPowerOutage() {
     //add sound
 }
 
-void Kitchen::render(SDL_Renderer *renderer) {
+void Kitchen::render(SDL_Renderer *renderer, bool debugMode) {
 
 
     SDL_SetRenderDrawColor(renderer, 253,253,100,255);
@@ -276,6 +276,19 @@ void Kitchen::render(SDL_Renderer *renderer) {
 
         drawCenteredText(renderer, creditsFont, "Made by Lou", 300);
         drawCenteredText(renderer, creditsFont, "Thanks for playing!", 380);
+    }
+    //debug
+    if (debugMode) {
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+
+        for (auto& item : inspector->getItems()) {
+            SDL_RenderDrawRect(renderer, &item.rect);
+        }
+
+        SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+
+        SDL_Rect p = player->getPosition();
+        SDL_RenderDrawRect(renderer, &p);
     }
 
 }

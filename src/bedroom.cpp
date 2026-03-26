@@ -143,7 +143,7 @@ void bedroom::update(float dt) {
     }
 }
 
-void bedroom::render(SDL_Renderer *renderer) {
+void bedroom::render(SDL_Renderer *renderer, bool debugMode) {
     inspector->render(renderer);
     player->draw();
 
@@ -159,6 +159,19 @@ void bedroom::render(SDL_Renderer *renderer) {
         drawCenteredText(renderer, chapterFont, "CHAPTER " + std::to_string(chapterNumber), 500);
         drawCenteredText(renderer, chapterFont, chapterSubtitle, 450);
 
+    }
+    //debug
+    if (debugMode) {
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+
+        for (auto& item : inspector->getItems()) {
+            SDL_RenderDrawRect(renderer, &item.rect);
+        }
+
+        SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+
+        SDL_Rect p = player->getPosition();
+        SDL_RenderDrawRect(renderer, &p);
     }
 }
 void bedroom::exit() {

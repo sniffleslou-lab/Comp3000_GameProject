@@ -56,7 +56,7 @@ void StartScene::update(float dt) {
 }
 
 
-void StartScene::render(SDL_Renderer *renderer) {
+void StartScene::render(SDL_Renderer *renderer, bool debugMode) {
     //background colour
     SDL_SetRenderDrawColor(renderer, 80,60,100,255);
     SDL_RenderClear(renderer);

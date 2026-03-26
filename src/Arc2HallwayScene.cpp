@@ -100,7 +100,7 @@ void Arc2HallwayScene::update(float dt) {
 
 }
 
-void Arc2HallwayScene::render(SDL_Renderer* renderer) {
+void Arc2HallwayScene::render(SDL_Renderer* renderer, bool debugMode) {
     SDL_SetRenderDrawColor(renderer, 20, 20, 25, 255);
     SDL_RenderClear(renderer);
 
@@ -112,6 +112,21 @@ void Arc2HallwayScene::render(SDL_Renderer* renderer) {
     inspector->render(renderer);
     player->draw();
     dialogueSystem->render(renderer);
+
+    //debug
+    if (debugMode) {
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+
+        for (auto& item : inspector->getItems()) {
+            SDL_RenderDrawRect(renderer, &item.rect);
+        }
+
+        SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+
+        SDL_Rect p = player->getPosition();
+        SDL_RenderDrawRect(renderer, &p);
+    }
+
 }
 
 void Arc2HallwayScene::exit() {

@@ -21,7 +21,7 @@ class BreakerRoomScene : public Scene {
     void enter() override;
     void handleEvents(SDL_Event& e) override;
     void update(float dt) override;
-    void render(SDL_Renderer* renderer) override;
+    void render(SDL_Renderer* renderer, bool debugMode) override;
     void exit() override;
 
     void setSceneManager(SceneManager* mgr) { sceneManager = mgr; }

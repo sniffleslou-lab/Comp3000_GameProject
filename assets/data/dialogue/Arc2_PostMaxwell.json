@@ -1,5 +1,5 @@
 {
-  "npc": "GroupArc2",
+  "npc": "PostMaxGroupArc2",
   "dialogue": [
     {"id": "postmx1","speaker": "Narrator","text": "You return to the living room.","next": "postmx2"},
     {"id": "postmx2","speaker": "Garret","text": "Hey... Sorry about earlier.","next": "postmx3"},

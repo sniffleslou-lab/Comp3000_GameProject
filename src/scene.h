@@ -15,7 +15,7 @@ public:
     virtual void enter() = 0;
     virtual void handleEvents(SDL_Event& e) = 0;
     virtual void update(float dt) =0;
-    virtual void render(SDL_Renderer* renderer)=0;
+    virtual void render(SDL_Renderer* renderer, bool debugMode)=0;
     virtual void exit()=0;
 
     virtual void setSceneManager(SceneManager* mgr) { sceneManager = mgr;}

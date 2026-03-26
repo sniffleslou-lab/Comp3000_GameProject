@@ -141,7 +141,7 @@ void OutsideScene::drawCenteredText(SDL_Renderer *renderer, TTF_Font *font, cons
     SDL_DestroyTexture(tex);
 }
 
-void OutsideScene::render(SDL_Renderer *renderer) {
+void OutsideScene::render(SDL_Renderer *renderer, bool debugMode) {
     SDL_SetRenderDrawColor(renderer, 40, 40, 60, 255);
     SDL_RenderClear(renderer);
     inspector->render(renderer);
@@ -158,6 +158,19 @@ void OutsideScene::render(SDL_Renderer *renderer) {
 
         drawCenteredText(renderer, chapterFont, "CHAPTER 5",300);
         drawCenteredText(renderer, chapterFont, "Honestly",380);
+    }
+    //debug
+    if (debugMode) {
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+
+        for (auto& item : inspector->getItems()) {
+            SDL_RenderDrawRect(renderer, &item.rect);
+        }
+
+        SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+
+        SDL_Rect p = player->getPosition();
+        SDL_RenderDrawRect(renderer, &p);
     }
 
 

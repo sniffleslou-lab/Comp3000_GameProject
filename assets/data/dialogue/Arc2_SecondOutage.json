@@ -1,5 +1,5 @@
 {
-"npc": "GroupArc2",
+"npc": "PostBrGroupArc2",
 "dialogue": [
 {
 "id": "pwr5",
@@ -32,7 +32,7 @@
 "id": "pwr9",
 "speaker": "Narrator",
 "text": "You head into the hallway",
-"next": "StartBreakerQuest"
+"flag": "StartBreakerQuest"
 }
 ]
 }
