@@ -1,5 +1,5 @@
 {
-  "npc": "PlayerThoughts",
+  "npc": "PlayerThoughts_Mirror",
   "dialogue": [
     {
       "id": "mir1",

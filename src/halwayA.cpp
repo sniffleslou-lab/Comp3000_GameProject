@@ -29,7 +29,7 @@ HallwayA::~HallwayA() {}
 
 void HallwayA::enter() {
     std::cout<<"entered hallway scene\n";
-    chapterFont = TTF_OpenFont("../assets/fonts/SunLight Dreams.ttf", 48);
+    chapterFont = TTF_OpenFont("../assets/fonts/SunLight Dreams.otf", 48);
     //chapter 4 card
     if (storyFlags.getFlag("MaxwellStormedOut")&&
         !storyFlags.getFlag("Chapter4Started")) {
@@ -114,19 +114,25 @@ void HallwayA::handleEvents(SDL_Event &e) {
             dialogueSystem->nextLine();
         }
     }
-
-
-
-
 }
 
 bool HallwayA::playerIsNearAnna() {
+    if (!annaNPC) return false;
     SDL_Rect p = player->getPosition();
     SDL_Rect a = annaNPC->getRect();
     return SDL_HasIntersection(&p,&a);
 }
 
 void HallwayA::update(float dt) {
+    if (!inspector) {
+        std::cerr << "ERROR: inspector is null in HallwayA::update\n";
+        return;
+    }
+    if (!dialogueSystem) {
+        std::cerr << "ERROR: dialogueSystem is null in HallwayA::update\n";
+        return;
+    }
+
     if (showChapter4Card) {
         chapter4Timer += dt;
         return;
@@ -162,6 +168,14 @@ inspector->update(dt, player->getPosition());
 
 }
 void HallwayA::render(SDL_Renderer *renderer, bool debugMode) {
+    if (!inspector) {
+        std::cerr << "ERROR: inspector is null in HallwayA::render\n";
+        return;
+    }
+    if (!dialogueSystem) {
+        std::cerr << "ERROR: dialogueSystem is null in HallwayA::render\n";
+        return;
+    }
     SDL_SetRenderDrawColor(renderer, 80,60,100,255);
     SDL_RenderClear(renderer);
 

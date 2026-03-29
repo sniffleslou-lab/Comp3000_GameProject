@@ -47,6 +47,7 @@ bool Kitchen::playerIsNearAnnaKitchen() {
     return SDL_HasIntersection(&p,&g);
 
 }
+
 void Kitchen::handleEvents(SDL_Event &e) {
 
 
@@ -92,6 +93,8 @@ void Kitchen::handleEvents(SDL_Event &e) {
             dialogueSystem->startDialogue("AnnaKitchen");
             return;
         }
+        inspector->inspect(player->getPosition(), *sceneManager, renderer);
+        return;
     }
     if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_f) {
         dialogueSystem->startDialogue("Garret");
@@ -127,7 +130,7 @@ void Kitchen::drawCenteredText(SDL_Renderer* renderer, TTF_Font* font, const std
 
 void Kitchen::update(float dt) {
 inspector->update(dt, player->getPosition());
-    inspector->inspect(player->getPosition(), *sceneManager, renderer);
+   // inspector->inspect(player->getPosition(), *sceneManager, renderer);
 
     //garrets dialogue start when the player walks into the kitchen
 
@@ -142,11 +145,11 @@ inspector->update(dt, player->getPosition());
     if (storyFlags.getFlag("Arc2_MaxwellSeen")&&
         !storyFlags.getFlag("Arc2Complete")&&
         !dialogueSystem->isActive) {
-        dialogueSystem->startDialogue("GroupArc2_PostMaxwell");
+        dialogueSystem->startDialogue("PostMaxGroupArc2");
 
     }
     //tranisition to chapter 3
-    if (storyFlags.getFlag("arc2Complete")&&
+    if (storyFlags.getFlag("Arc2Complete")&&
         !dialogueSystem->isActive) {
         sceneManager->changeScene(SceneID::SCENE_BEDROOM, renderer);
     }
@@ -217,6 +220,13 @@ inspector->update(dt, player->getPosition());
         }
         return;
     }
+    if (storyFlags.getFlag("Arc2Complete") &&
+    !dialogueSystem->isActive) {
+
+        storyFlags.setFlag("Arc3Start", true);
+        sceneManager->changeScene(SceneID::SCENE_BEDROOM, renderer);
+    }
+
 /*
     if(!dialogueSystem->choiceActive) {
         const Uint8* keys = SDL_GetKeyboardState(NULL);

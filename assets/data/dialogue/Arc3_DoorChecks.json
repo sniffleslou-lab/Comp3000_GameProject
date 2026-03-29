@@ -1,17 +1,19 @@
 {
-  "npc": "PlayerThoughts",
+  "npc": "PlayerThoughts_Door",
   "dialogue": [
     {
       "id": "dr1",
       "speaker": "Narrator",
-      "text": "You can hear feint movement",
-      "condition": "Knocked_Anna == true"
+      "text": "You can hear faint movement",
+      "condition": "Knocked_Anna == true",
+      "next": ""
     },
     {
       "id": "dr2",
       "speaker": "Narrator",
       "text": "You hear quiet whimpering behind the door.",
-      "condition": "Knocked_maxwell == true"
+      "condition": "Knocked_maxwell == true",
+      "next": ""
     }
   ]
 }

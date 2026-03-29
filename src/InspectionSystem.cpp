@@ -48,11 +48,23 @@ void inspectionSystem::loadItems(const std::string &jsonPath, SDL_Renderer *rend
 
         item.rect = {listitem["x"],listitem["y"],listitem["w"],listitem["h"]};
 
+        if (item.type == "trigger") {
+            item.texture = nullptr;
+        }
+        else {
+            std::string texName = listitem.value("texture", "");
+            if (texName.empty()) {
+                item.texture = nullptr;
+            } else {
+                std::string texturePath = "../assets/textures/" + texName;
+                item.texture = IMG_LoadTexture(renderer, texturePath.c_str());
 
-        std::string texturePath = "../assets/textures/" + listitem["texture"].get<std::string>();
-        item.texture = IMG_LoadTexture(renderer,texturePath.c_str());
-
-
+                if (!item.texture) {
+                    std::cerr << "failed to load texture: " << item.name
+                              << " (" << texturePath << ")\n";
+                }
+            }
+        }
         //Hiding items when player picsk them up
        if(!item.flag.empty() && storyFlags.getFlag(item.flag)){
            item.rect = {0,0,0,0};
@@ -105,14 +117,23 @@ void inspectionSystem::updatePrompt(const SDL_Rect &playerPos) {
 }
 void inspectionSystem::render(SDL_Renderer *renderer) {
     for (auto &item: items) {
+
+        // Draw only items with textures
         if (item.texture) {
             SDL_RenderCopy(renderer, item.texture, nullptr, &item.rect);
+            continue;
         }
-    else {
-        std::cerr << "Warning: failed to load texture for item: " << item.name << std::endl;
 
+        // Skip invisible items
+        if (item.type == "trigger" || item.type == "npcdoor") {
+            continue;
+        }
+
+        // Warn only for items that SHOULD have textures
+        std::cerr << "Warning: failed to load texture for item: "
+                  << item.name << std::endl;
     }
-}
+
     if (!currentText.empty()&&font){
         SDL_Rect box = {50,300,700,100};
         SDL_SetRenderDrawColor(renderer, 0,0,0,200);

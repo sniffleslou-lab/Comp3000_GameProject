@@ -82,7 +82,7 @@
       "w": 180,
       "h": 90,
       "texture": "/SYD_Interior_Pack_V1/Livingroom/Couch & Armchair/Couch_3_Front.png",
-      "type": "",
+      "type": "solid",
       "targetScene": "",
       "layer": 1
     },
@@ -95,7 +95,7 @@
       "w": 120,
       "h": 60,
       "texture": "/SYD_Interior_Pack_V1/Livingroom/Table/Table_Glas_Up.png",
-      "type": "",
+      "type": "solid",
       "targetScene": "",
       "layer": 1
     },

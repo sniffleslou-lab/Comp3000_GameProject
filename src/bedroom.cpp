@@ -41,7 +41,8 @@ void bedroom::enter() {
         return;
     }
     //chapter 3
-    if (!storyFlags.getFlag("SeenChapter3Card")){
+    if (!storyFlags.getFlag("Arc3Start")&&
+        !storyFlags.getFlag("SeenChapter3Card")){
         chapterNumber = 3;
         chapterSubtitle = "Reflections";
         showChapterCard = true;
@@ -49,18 +50,22 @@ void bedroom::enter() {
         storyFlags.setFlag("SeenChapter3Card", true);
         return;
     }
-    if (!storyFlags.getFlag("MirrorSceneDone") &&
-    !dialogueSystem->isActive)
+    if (storyFlags.getFlag("Arc3Start") &&
+     !storyFlags.getFlag("MirrorSceneDone") &&
+     !dialogueSystem->isActive)
     {
         dialogueSystem->startDialogue("PlayerThoughts_Mirror");
+        return;
     }
+
     if (storyFlags.getFlag("MirrorSceneDone") &&
-        !storyFlags.getFlag("PhoneMessageSeen") &&
-        !dialogueSystem->isActive)
+     !storyFlags.getFlag("PhoneMessageSeen") &&
+     !dialogueSystem->isActive)
     {
         dialogueSystem->startDialogue("Phone");
         storyFlags.setFlag("PhoneMessageSeen", true);
     }
+
 
 
 }
@@ -136,7 +141,10 @@ void bedroom::update(float dt) {
         if(chapterCardTimer > 5.0f){
             showChapterCard = false;
 
-            if (!storyFlags.getFlag("MirrorSceneDone")&& !dialogueSystem->choiceActive) {
+            if (storyFlags.getFlag("Arc3Start") &&
+                !storyFlags.getFlag("MirrorSceneDone") &&
+                !dialogueSystem->choiceActive)
+            {
                 dialogueSystem->startDialogue("PlayerThoughts_Mirror");
             }
         }
