@@ -41,15 +41,15 @@ void bedroom::enter() {
         return;
     }
     //chapter 3
-    if (!storyFlags.getFlag("Arc3Start")&&
-        !storyFlags.getFlag("SeenChapter3Card")){
+    if (storyFlags.getFlag("Arc3Start") &&
+     !storyFlags.getFlag("SeenChapter3Card")) {
         chapterNumber = 3;
         chapterSubtitle = "Reflections";
         showChapterCard = true;
         chapterCardTimer = 0.0f;
         storyFlags.setFlag("SeenChapter3Card", true);
         return;
-    }
+     }
     if (storyFlags.getFlag("Arc3Start") &&
      !storyFlags.getFlag("MirrorSceneDone") &&
      !dialogueSystem->isActive)

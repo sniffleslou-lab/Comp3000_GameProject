@@ -29,9 +29,41 @@ void Kitchen::enter() {
     inspector->doorCooldown = true;
     inspector->doorCooldownTimer = 0.0f;
 
-    startDialogueNextFrame = true;
+    //find couch
+    SDL_Rect couchRect= {0,0,0,0};
+    for (auto& item : inspector->getItems()) {
+        if (item.name == "Couch") {
+            couchRect = item.rect;
+            break;
+        }
+    }
+    if (garretNPC) {
+        int garretX = couchRect.x + couchRect.w/2-32;
+        int garretY = couchRect.y - 30;
+        garretNPC->setPosition(garretX,garretY);
+    }
+
+    if (storyFlags.getFlag("AnnaMoved")&& !annaNPC) {
+        std::cout << "anna spawned in the room\n";
+        int annaX = couchRect.x + couchRect.w - 40;
+        int annaY = couchRect.y - 40;
+
+        annaNPC = std::make_unique<NPC>(
+            renderer,
+            "../assets/textures/Characters/annaCha.png",
+            annaX,
+            annaY
+        );    }
+    if (!storyFlags.getFlag("AnnaMoved")) {
+        startDialogueNextFrame = true;
+    } else {
+        startDialogueNextFrame = false;
+    }
+
+   // startDialogueNextFrame = true;
     arc2Font = TTF_OpenFont("../assets/font/SunLight Dreams.otf", 48);
     creditsFont = TTF_OpenFont("../assets/font/SunLight Dreams.otf", 48);
+
 
 }
 
@@ -133,13 +165,39 @@ inspector->update(dt, player->getPosition());
    // inspector->inspect(player->getPosition(), *sceneManager, renderer);
 
     //garrets dialogue start when the player walks into the kitchen
-
+/*
     if (startDialogueNextFrame){
         dialogueSystem->choiceActive = false;
         dialogueSystem->justFinishedChoice = false;
         dialogueSystem-> selectedChoice = 0;
        dialogueSystem->startDialogue("Garret");
         startDialogueNextFrame = false;
+    }*/
+    if (startDialogueNextFrame &&
+    !storyFlags.getFlag("Arc1_Done") &&
+    !storyFlags.getFlag("AnnaMoved"))
+    {
+        dialogueSystem->choiceActive = false;
+        dialogueSystem->justFinishedChoice = false;
+        dialogueSystem->selectedChoice = 0;
+        dialogueSystem->startDialogue("Garret");
+        startDialogueNextFrame = false;
+    }
+
+    //arc 1  ending
+    if (storyFlags.getFlag("Arc1_Done")&&
+        !storyFlags.getFlag("Arc1_TvTransition")&&
+        !dialogueSystem->isActive)
+        {
+        dialogueSystem->startDialogue("LivingRoom_Arc1End");
+        }
+
+    //arc2 start trigger
+    if (storyFlags.getFlag("Arc2_PowerOutage_Start") &&
+        !storyFlags.getFlag("Arc2_PowerOutage_Triggered"))
+    {
+        startPowerOutage();
+        storyFlags.setFlag("Arc2_PowerOutage_Triggered", true);
     }
     //arc2 post maxwell hallway moment//
     if (storyFlags.getFlag("Arc2_MaxwellSeen")&&
@@ -153,11 +211,12 @@ inspector->update(dt, player->getPosition());
         !dialogueSystem->isActive) {
         sceneManager->changeScene(SceneID::SCENE_BEDROOM, renderer);
     }
+    /*
     if (storyFlags.getFlag("Arc2_PowerOutage_Start")&& !storyFlags.getFlag("Arc2_PowerOutage_Triggered"))
         {
         startPowerOutage();
         storyFlags.setFlag("Arc2_PowerOutage_Triggered", true);
-    }
+    }*/
     //arc2 scene featuring the argument
     if (storyFlags.getFlag("BreakerFixed")&&
         !storyFlags.getFlag("Arc2ArgumentSeen")&&
