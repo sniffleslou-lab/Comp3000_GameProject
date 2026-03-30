@@ -25,13 +25,19 @@
 
     {"id" :"g11", "text" :"Sorry for bringing this up.. Do you ever think about starting over? Moving away?","condition": "PickedUp_batteries == true"},
 
-    {"id" :"g12", "text" :"what do you think?", "choices" : [
-      {"text":  "yeah", "flag": "GarretOpenedUp"},
-      {"text": "no, never","flag": "GarretClosedOff"}
-    ],
-
-      "condition": "PickedUp_batteries == true",
-    "flag": "Arc1_Done"}
-
+    {
+      "id": "g12",
+      "text": "what do you think?",
+      "choices": [
+        {"text": "yeah", "flag": "GarretOpenedUp", "next": "g13"},
+        {"text": "no, never", "flag": "GarretClosedOff", "next": "g13"}
+      ],
+      "condition": "PickedUp_batteries == true"
+    },
+    {
+      "id": "g13",
+      "text": "...",
+      "flag": "Arc1_Done"
+    }
   ]
 }

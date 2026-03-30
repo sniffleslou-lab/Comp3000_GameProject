@@ -14,22 +14,16 @@
 "next": "pwr7"
 },
   {
-    "id": "pwr7",
-    "speaker": "Maxwell",
-    "text": "It's probably nothing..",
-    "next": "pwr8"
-  },
-  {
-    "id":"pwr8",
+    "id":"pwr7",
     "speaker": "Garret",
     "text":"You coming with me?",
     "choices": [
-      {"text": "Sure, I'll go.", "flag":"GoWithGarret", "next": "pwr9"},
-      {"text": "Really, do I have to?", "flag":  "ReluctantGarret", "next": "pwr9"}
+      {"text": "Sure, I'll go.", "flag":"GoWithGarret", "next": "pwr8"},
+      {"text": "Really, do I have to?", "flag":  "ReluctantGarret", "next": "pwr8"}
     ]
   },
 {
-"id": "pwr9",
+"id": "pwr8",
 "speaker": "Narrator",
 "text": "You head into the hallway",
 "flag": "StartBreakerQuest"

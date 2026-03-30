@@ -15,12 +15,6 @@
     },
     {
       "id": "pwr3",
-      "speaker": "Maxwell",
-      "text": "It'll come back.. probably, right?",
-      "next": "pwr4"
-    },
-    {
-      "id": "pwr4",
       "speaker": "Narrator",
       "text": "Room is frozen. Now one moves until the lights flicker back on.",
       "flag": "PowerOutage1Done"

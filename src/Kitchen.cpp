@@ -29,6 +29,7 @@ void Kitchen::enter() {
     inspector->doorCooldown = true;
     inspector->doorCooldownTimer = 0.0f;
 
+
     //find couch
     SDL_Rect couchRect= {0,0,0,0};
     for (auto& item : inspector->getItems()) {
@@ -63,6 +64,7 @@ void Kitchen::enter() {
    // startDialogueNextFrame = true;
     arc2Font = TTF_OpenFont("../assets/font/SunLight Dreams.otf", 48);
     creditsFont = TTF_OpenFont("../assets/font/SunLight Dreams.otf", 48);
+    staticImage = IMG_LoadTexture(renderer, "../assets/textures/breakingnews.png");
 
 
 }
@@ -162,6 +164,13 @@ void Kitchen::drawCenteredText(SDL_Renderer* renderer, TTF_Font* font, const std
 
 void Kitchen::update(float dt) {
 inspector->update(dt, player->getPosition());
+    if (showStaticFlash) {
+        staticFlashTimer += dt;
+        if (staticFlashTimer > 0.15f) { // quick flash
+            showStaticFlash = false;
+        }
+    }
+
    // inspector->inspect(player->getPosition(), *sceneManager, renderer);
 
     //garrets dialogue start when the player walks into the kitchen
@@ -196,6 +205,8 @@ inspector->update(dt, player->getPosition());
     if (storyFlags.getFlag("Arc2_PowerOutage_Start") &&
         !storyFlags.getFlag("Arc2_PowerOutage_Triggered"))
     {
+        showStaticFlash = true;
+        staticFlashTimer = 0.0f;
         startPowerOutage();
         storyFlags.setFlag("Arc2_PowerOutage_Triggered", true);
     }
@@ -319,6 +330,9 @@ void Kitchen::render(SDL_Renderer *renderer, bool debugMode) {
     dialogueSystem->render(renderer);
 
     screenFade.render(renderer);
+    if (showStaticFlash && staticImage) {
+        SDL_RenderCopy(renderer, staticImage, NULL, NULL);
+    }
 
     if (storyFlags.getFlag("Arc2_PowerOutage_Triggered")) {
         SDL_RenderCopy(renderer,blackoutImage, NULL, NULL);

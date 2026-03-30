@@ -62,6 +62,11 @@ private:
     bool showNewsImage = false;
     float newsTimer = 0.0f;
 
+    bool showStaticFlash = false;
+    float staticFlashTimer = 0.0f;
+    SDL_Texture* staticImage = nullptr;
+
+
 };
 
 #endif //AMIPRETTY_KITCHEN_H
