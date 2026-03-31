@@ -24,6 +24,10 @@ Kitchen::Kitchen(SDL_Renderer *renderer, StoryFlags &flags, DialogueSystem* dial
 
 Kitchen::~Kitchen() {}
 void Kitchen::enter() {
+
+
+    std::cout << "DEBUG: Arc1_Done = " << storyFlags.getFlag("Arc1_Done") << "\n";
+
     std::cout<< "entered kitchen scene";
    // dialogueSystem->startDialogue("Garret");
     inspector->doorCooldown = true;
@@ -64,7 +68,7 @@ void Kitchen::enter() {
    // startDialogueNextFrame = true;
     arc2Font = TTF_OpenFont("../assets/font/SunLight Dreams.otf", 48);
     creditsFont = TTF_OpenFont("../assets/font/SunLight Dreams.otf", 48);
-    staticImage = IMG_LoadTexture(renderer, "../assets/textures/breakingnews.png");
+    staticImage = IMG_LoadTexture(renderer, "../assets/textures/static.png");
 
 
 }
@@ -136,14 +140,15 @@ void Kitchen::handleEvents(SDL_Event &e) {
 
     if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE) {
 
-            if (dialogueSystem->justFinishedChoice) {
-                dialogueSystem->justFinishedChoice = false;
-                return;
-            }
-            if (!dialogueSystem->choiceActive) {
-                dialogueSystem->nextLine();
-            }
+        if (dialogueSystem->justFinishedChoice) {
+            dialogueSystem->justFinishedChoice = false;
+            dialogueSystem->nextLine();   // advance after a choice
+            return;
+        }
 
+        if (!dialogueSystem->choiceActive) {
+            dialogueSystem->nextLine();
+        }
     }
 }
 void Kitchen::drawCenteredText(SDL_Renderer* renderer, TTF_Font* font, const std::string& text, int y) {
@@ -193,13 +198,14 @@ inspector->update(dt, player->getPosition());
         startDialogueNextFrame = false;
     }
 
-    //arc 1  ending
-    if (storyFlags.getFlag("Arc1_Done")&&
-        !storyFlags.getFlag("Arc1_TvTransition")&&
+    //arc 1  ending// arc 1 ending
+    if (storyFlags.getFlag("Arc1_Done") &&
+        !storyFlags.getFlag("Arc1_TvTransition") &&
         !dialogueSystem->isActive)
-        {
+    {
         dialogueSystem->startDialogue("LivingRoom_Arc1End");
-        }
+    }
+
 
     //arc2 start trigger
     if (storyFlags.getFlag("Arc2_PowerOutage_Start") &&
@@ -317,7 +323,7 @@ void Kitchen::startPowerOutage() {
 
 void Kitchen::render(SDL_Renderer *renderer, bool debugMode) {
 
-
+//scene
     SDL_SetRenderDrawColor(renderer, 253,253,100,255);
     SDL_RenderClear(renderer);
 
@@ -325,19 +331,15 @@ void Kitchen::render(SDL_Renderer *renderer, bool debugMode) {
     garretNPC->draw(renderer);
 
     if (annaNPC) annaNPC->draw(renderer);
-
     player->draw();
     dialogueSystem->render(renderer);
-
+//fade
     screenFade.render(renderer);
+    //static flass
     if (showStaticFlash && staticImage) {
         SDL_RenderCopy(renderer, staticImage, NULL, NULL);
     }
-
-    if (storyFlags.getFlag("Arc2_PowerOutage_Triggered")) {
-        SDL_RenderCopy(renderer,blackoutImage, NULL, NULL);
-    }
-
+    //chapter 2 card
     if (showArc2Card ) {
         SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
         SDL_SetRenderDrawColor(renderer, 0,0,0,180);
@@ -347,8 +349,13 @@ void Kitchen::render(SDL_Renderer *renderer, bool debugMode) {
         drawCenteredText(renderer, arc2Font, "CHAPTER 2", 500);
         drawCenteredText(renderer,arc2Font, "Static", 450);
     }
+    //news image
     if (showNewsImage && newsImage) {
         SDL_RenderCopy(renderer, newsImage,NULL,NULL);
+    }
+    //backout
+    if (storyFlags.getFlag("Arc2_PowerOutage_Triggered")) {
+        SDL_RenderCopy(renderer, blackoutImage, NULL, NULL);
     }
 
     if (showCreditsCard) {

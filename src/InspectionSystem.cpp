@@ -178,17 +178,16 @@ void inspectionSystem::inspect(const SDL_Rect &playerPos, SceneManager &sceneMan
     if (doorCooldown) {
         return;
     }
-        SDL_Rect detectBox = playerPos;
-        detectBox.x -= 10;
-        detectBox.y -= 10;
-        detectBox.w += 20;
-        detectBox.h += 20;
+    SDL_Rect detectBox = playerPos;
+    detectBox.x -= 10;
+    detectBox.y -= 10;
+    detectBox.w += 20;
+    detectBox.h += 20;
 
     for (auto& item : items) {
         if (item.rect.w == 0 || item.rect.h == 0) continue;
 
         if (SDL_HasIntersection(&detectBox, &item.rect)) {
-
             // NPC door logic
             if (item.type == "npcdoor") {
                 if (storyFlags.getFlag("AnnaQuestAccepted")) {
@@ -219,6 +218,18 @@ void inspectionSystem::inspect(const SDL_Rect &playerPos, SceneManager &sceneMan
                 inspectActive = true;
 
                 if (!item.flag.empty()) {
+
+                    // Prevent early pickup of batteries
+                    if (item.flag == "PickedUp_batteries" &&
+                        !storyFlags.getFlag("GarretAskedForBatteries"))
+                    {
+                        currentText = "I don't need these yet.";
+                        inspectActive = true;
+                        inspectTimer = 0.0f;
+                        return;
+                    }
+
+                    // Normal pickup
                     storyFlags.setFlag(item.flag, true);
                     item.rect = {0, 0, 0, 0};
 
@@ -226,8 +237,10 @@ void inspectionSystem::inspect(const SDL_Rect &playerPos, SceneManager &sceneMan
                         storyFlags.setFlag("AnnaUnlocked", true);
                     }
                 }
+
                 return;
             }
         }
     }
 }
+

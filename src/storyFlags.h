@@ -22,6 +22,8 @@ public:
     void clearFlag(const std::string& flag);
     //testing
     void debugPrint()const;
+
+    void resetAll();
 private:
     std::unordered_map<std::string, bool> flags;
 };

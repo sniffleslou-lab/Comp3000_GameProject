@@ -26,6 +26,7 @@ StartScene::~StartScene(){
     SDL_DestroyTexture(logoTexture);
 }
 void StartScene::enter() {
+    storyFlags.resetAll();
     std::cout << "entered start scene\n";
 }
 void StartScene::handleEvents(SDL_Event &e) {

@@ -144,21 +144,24 @@ void DialogueSystem::nextLine() {
 
     currentChoices.clear();
 
-    if(justFinishedChoice){
+    if (justFinishedChoice) {
         justFinishedChoice = false;
-        if (currentIndex + 1 < currentLines.size()){
+        if (currentIndex + 1 < currentLines.size()) {
             currentIndex++;
-        }else{
+        } else {
             endDialogue();
             return;
         }
     }
-    if (currentIndex >= currentLines.size()){
+
+    if (currentIndex >= currentLines.size()) {
         endDialogue();
         return;
-    }dialogueLine& line = currentLines[currentIndex];
+    }
 
-    //skips line where the condiiton is false
+    dialogueLine& line = currentLines[currentIndex];
+
+    // skip lines whose condition is false
     while (!line.condition.empty() && !evaluteCondition(line.condition)) {
         currentIndex++;
         if (currentIndex >= currentLines.size()) {
@@ -167,35 +170,48 @@ void DialogueSystem::nextLine() {
         }
         line = currentLines[currentIndex];
     }
-    //aply flag on this
+
+    // apply flag on this line
     if (!line.flag.empty()) {
-        storyFlags.setFlag(line.flag,true);
+        std::cout << "FLAG DEBUG: line " << line.id
+                  << " setting flag " << line.flag << "\n";
+        storyFlags.setFlag(line.flag, true);
     }
-    //flow the next pointer
+
+
+    // follow the "next" pointer
     if (!line.next.empty()) {
         jumpToLine(line.next);
+
+        dialogueLine& newLine = currentLines[currentIndex];
+
+        // apply flag on the jumped line
+        if (!newLine.flag.empty()) {
+            storyFlags.setFlag(newLine.flag, true);
+        }
+
+        // if the jumped line has no next and no choices, end dialogue
+        if (newLine.next.empty() && newLine.choices.empty()) {
+            endDialogue();
+            return;
+        }
         return;
     }
-/*
-    //quest trigger for garret
-    if (line.id == "g5"){
-        storyFlags.setFlag("Quest_Batteries", true);
-        std::cout << "Quest started: Batteries\n";
 
-    }*/
-    if(!line.choices.empty()){
+    if (!line.choices.empty()) {
         choiceActive = true;
         selectedChoice = 0;
         currentChoices = line.choices;
         return;
     }
 
-    if (currentIndex + 1 < currentLines.size()){
+    if (currentIndex + 1 < currentLines.size()) {
         currentIndex++;
-    } else{
+    } else {
         endDialogue();
     }
 }
+
 void DialogueSystem::endDialogue() {
     isActive = false;
     currentLines.clear();

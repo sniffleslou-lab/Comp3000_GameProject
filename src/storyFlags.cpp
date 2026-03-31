@@ -22,3 +22,7 @@ void StoryFlags::debugPrint() const {
 
     }
 }
+
+void StoryFlags::resetAll() {
+    flags.clear();
+}
