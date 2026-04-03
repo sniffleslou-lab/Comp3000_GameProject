@@ -153,13 +153,14 @@
       "id": "13",
       "name": "Door to Arc 2 Hallway",
       "inspect": "This leads deeper into the house.",
-      "x": 650,
-      "y": 60,
+      "x": 80,
+      "y": 420,
       "w": 80,
       "h": 120,
       "texture": "door.png",
       "type": "door",
       "targetScene": "SCENE_ARC2_HALLWAY"
     }
+
   ]
 }

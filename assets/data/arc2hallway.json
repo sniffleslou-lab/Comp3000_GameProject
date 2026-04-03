@@ -2,83 +2,89 @@
   "items": [
     {
       "id": "1",
-      "name": "BreakerDoor",
-      "inspect": "The breaker room is through here",
+      "name": "Breaker Room Door",
+      "inspect": "The breaker room is through here.",
       "x": 1100,
       "y": 200,
       "w": 80,
       "h": 200,
-      "texture":"door.png",
+      "texture": "door.png",
       "type": "door",
       "targetScene": "SCENE_BREAKERROOM"
     },
+
     {
       "id": "2",
-      "name": "ApartmentDoor",
-      "inspect": "Leads back into the kitchen",
+      "name": "Apartment Door",
+      "inspect": "Leads back into the kitchen.",
       "x": 50,
       "y": 200,
       "w": 80,
       "h": 200,
-      "texture":"door.png",
+      "texture": "door.png",
       "type": "door",
       "targetScene": "SCENE_KITCHEN"
     },
+
     {
       "id": "3",
-      "name": "Front door",
-      "inspect": "door to the outside world",
+      "name": "Front Door",
+      "inspect": "The door to the outside world.",
       "x": 600,
       "y": 200,
       "w": 80,
       "h": 200,
-      "texture":"door.png",
+      "texture": "door.png",
       "type": "door",
       "targetScene": "SCENE_OUTSIDE"
     },
+
     {
       "id": "4",
-      "name": "LeftWall",
+      "name": "Left Wall",
       "inspect": "",
       "x": 0,
       "y": 0,
       "w": 20,
       "h": 720,
-      "texture":"wall.png",
-      "type": "wall"
+      "texture": "wall.png",
+      "type": "solid"
     },
+
     {
       "id": "5",
-      "name": "RightWall",
+      "name": "Right Wall",
       "inspect": "",
       "x": 1260,
       "y": 0,
       "w": 20,
       "h": 720,
       "texture": "wall.png",
-      "type": "wall"
+      "type": "solid"
     },
+
     {
       "id": "6",
-      "name": "BottomWall",
+      "name": "Bottom Wall",
       "inspect": "",
       "x": 0,
       "y": 720,
       "w": 1280,
       "h": 20,
-      "texture":"wall.png",
-      "type": "wall"
+      "texture": "wall.png",
+      "type": "solid"
     },
+
     {
       "id": "7",
-      "name": "topwall",
+      "name": "Top Wall",
       "inspect": "",
       "x": 0,
       "y": 0,
       "w": 1280,
       "h": 20,
-      "texture":"wall.png",
-      "type": "wall"
+      "texture": "wall.png",
+      "type": "solid"
     }
   ]
 }

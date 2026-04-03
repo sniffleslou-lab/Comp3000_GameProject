@@ -23,6 +23,8 @@ BreakerRoomScene::~BreakerRoomScene() {
 
 void BreakerRoomScene::enter() {
     std::cout<<"Entering the breaker room\n";
+    inspector->doorCooldown = true;
+    inspector->doorCooldownTimer = 0.0f;
 }
 
 void BreakerRoomScene::exit() {}
@@ -76,10 +78,20 @@ void BreakerRoomScene::handleEvents(SDL_Event &e) {
 }
 
 void BreakerRoomScene::update(float dt) {
-inspector->update(dt, player->getPosition());
-    if (storyFlags.getFlag("BreakerFixed")) {
+    inspector->update(dt, player->getPosition());
+
+    //start breaker dialogue
+    if (!storyFlags.getFlag("BreakerDialogueDone") &&
+        !dialogueSystem->isActive) {
+        dialogueSystem->startDialogue("BreakerBoxScene");
+        storyFlags.setFlag("BreakerDialogueDone", true);
+    }
+    //leave the room after fixing breaker
+    if (storyFlags.getFlag("BreakerFixed")&&
+        !dialogueSystem->isActive) {
         sceneManager->changeScene(SceneID::SCENE_ARC2_HALLWAY, renderer);
     }
+
 }
     void BreakerRoomScene::render(SDL_Renderer* renderer, bool debugMode) {
         SDL_RenderCopy(renderer, roomTexture, NULL, NULL);

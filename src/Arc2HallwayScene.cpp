@@ -23,6 +23,8 @@ Arc2HallwayScene::Arc2HallwayScene(SDL_Renderer* renderer, StoryFlags& flags, Di
     inspector->loadItems("../assets/data/arc2hallway.json", renderer);
 
     breakerDoor = { 1100, 200, 80, 200 };
+    startDialogueNextFrame = false;
+    anxietyTriggered = false;
 }
 
 
@@ -84,19 +86,13 @@ void Arc2HallwayScene::handleEvents(SDL_Event& e) {
 void Arc2HallwayScene::update(float dt) {
     inspector->update(dt, player->getPosition());
 
-    //Breaker dialogue trigger
-    if (startDialogueNextFrame) {
-        dialogueSystem->startDialogue("BreakerBoxScene");
-        startDialogueNextFrame = false;
+    //axienty scene after fixing breaker
+    if (storyFlags.getFlag("BreakerFixed") &&
+        !storyFlags.getFlag("Arc2_AnxietySeen") &&
+        !dialogueSystem->isActive) {
+        dialogueSystem->startDialogue("HalPlayThoughts");
+        storyFlags.setFlag("Arc2_AnxietySeen", true);
     }
-
-    SDL_Rect p = player->getPosition();
-
-    // Trigger breaker dialogue when near door
-    if (SDL_HasIntersection(&p, &breakerDoor) && !dialogueSystem->isActive) {
-        startDialogueNextFrame = true;
-    }
-
 
 }
 
@@ -104,14 +100,17 @@ void Arc2HallwayScene::render(SDL_Renderer* renderer, bool debugMode) {
     SDL_SetRenderDrawColor(renderer, 20, 20, 25, 255);
     SDL_RenderClear(renderer);
 
-    SDL_Rect topWall = { 0, 0, 1280, 100 };
-    SDL_Rect bottomWall = { 0, 620, 1280, 100 };
 
-    SDL_RenderCopy(renderer, wallTexture, NULL, &topWall);
-    SDL_RenderCopy(renderer, wallTexture, NULL, &bottomWall);
     inspector->render(renderer);
     player->draw();
     dialogueSystem->render(renderer);
+
+    if (storyFlags.getFlag("BreakerFixed")) {
+        SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 120);
+        SDL_Rect darkOverlay = {0, 0, 1280, 720};
+        SDL_RenderFillRect(renderer, &darkOverlay);
+    }
 
     //debug
     if (debugMode) {

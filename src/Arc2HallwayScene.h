@@ -32,7 +32,6 @@ class Arc2HallwayScene : public Scene {
     SDL_Renderer* renderer;
     StoryFlags& storyFlags;
     DialogueSystem* dialogueSystem;
-    SceneManager* sceneManager = nullptr;
 
     std::unique_ptr<Character> player;
     std::unique_ptr<inspectionSystem> inspector;
@@ -42,8 +41,8 @@ class Arc2HallwayScene : public Scene {
     SDL_Texture* wallTexture;
 
     SDL_Rect breakerDoor;
-    SDL_Rect apartmentDoor;
 
     bool startDialogueNextFrame = false;
+    bool anxietyTriggered = false;
 };
 #endif //AMIPRETTY_ARC2HALLWAYSCENE_H
