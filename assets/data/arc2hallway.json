@@ -2,41 +2,41 @@
   "items": [
     {
       "id": "1",
-      "name": "Breaker Room Door",
-      "inspect": "The breaker room is through here.",
-      "x": 1100,
-      "y": 200,
-      "w": 80,
-      "h": 200,
-      "texture": "door.png",
-      "type": "door",
-      "targetScene": "SCENE_BREAKERROOM"
-    },
-
-    {
-      "id": "2",
-      "name": "Apartment Door",
+      "name": "Kitchen Door",
       "inspect": "Leads back into the kitchen.",
-      "x": 50,
-      "y": 200,
+      "x": 80,
+      "y": 300,
       "w": 80,
-      "h": 200,
+      "h": 180,
       "texture": "door.png",
       "type": "door",
       "targetScene": "SCENE_KITCHEN"
     },
 
     {
-      "id": "3",
-      "name": "Front Door",
+      "id": "2",
+      "name": "Outside Door",
       "inspect": "The door to the outside world.",
-      "x": 600,
-      "y": 200,
+      "x": 360,
+      "y": 300,
       "w": 80,
-      "h": 200,
+      "h": 180,
       "texture": "door.png",
       "type": "door",
       "targetScene": "SCENE_OUTSIDE"
+    },
+
+    {
+      "id": "3",
+      "name": "Breaker Room Door",
+      "inspect": "The breaker room is through here.",
+      "x": 640,
+      "y": 300,
+      "w": 80,
+      "h": 180,
+      "texture": "door.png",
+      "type": "door",
+      "targetScene": "SCENE_BREAKERROOM"
     },
 
     {
@@ -45,8 +45,8 @@
       "inspect": "",
       "x": 0,
       "y": 0,
-      "w": 20,
-      "h": 720,
+      "w": 40,
+      "h": 600,
       "texture": "wall.png",
       "type": "solid"
     },
@@ -55,34 +55,34 @@
       "id": "5",
       "name": "Right Wall",
       "inspect": "",
-      "x": 1260,
+      "x": 760,
       "y": 0,
-      "w": 20,
-      "h": 720,
+      "w": 40,
+      "h": 600,
       "texture": "wall.png",
       "type": "solid"
     },
 
     {
       "id": "6",
-      "name": "Bottom Wall",
+      "name": "Top Wall",
       "inspect": "",
       "x": 0,
-      "y": 720,
-      "w": 1280,
-      "h": 20,
+      "y": 0,
+      "w": 800,
+      "h": 60,
       "texture": "wall.png",
       "type": "solid"
     },
 
     {
       "id": "7",
-      "name": "Top Wall",
+      "name": "Bottom Wall",
       "inspect": "",
       "x": 0,
-      "y": 0,
-      "w": 1280,
-      "h": 20,
+      "y": 540,
+      "w": 800,
+      "h": 60,
       "texture": "wall.png",
       "type": "solid"
     }

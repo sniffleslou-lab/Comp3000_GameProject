@@ -98,15 +98,27 @@ void inspectionSystem::update(float dt, const SDL_Rect& playerPos) {
 }
 void inspectionSystem::updatePrompt(const SDL_Rect &playerPos) {
     showPrompt = false;
+    showDoorName = false;
+    showDoorPrompt = false;
+
+    nearbyDoorName.clear();
+    promptText.clear();
+
     SDL_Rect detectBox = playerPos;
     detectBox.x -= 10;
     detectBox.y -= 10;
     detectBox.w += 20;
     detectBox.h += 20;
+
     for (auto& item : items) {
         if (item.rect.w == 0 || item.rect.h == 0)continue;
-
         if (SDL_HasIntersection(&detectBox, &item.rect)) {
+            if (item.type == "door" || item.type == "npcdoor") {
+                showDoorName = true;
+                showDoorPrompt = true;
+                nearbyDoorName = item.name;
+                promptText = "Press E to enter";
+            }
             if (item.type == "item"|| item.type == "solid_item") {
                 showPrompt = true;
                 promptText = "Press E to inspect";
@@ -133,6 +145,23 @@ void inspectionSystem::render(SDL_Renderer *renderer) {
         std::cerr << "Warning: failed to load texture for item: "
                   << item.name << std::endl;
     }
+    if (showDoorName && !nearbyDoorName.empty()&& font) {
+        SDL_Color white = {255,255,255,255};
+        SDL_Surface* surf = TTF_RenderText_Blended(font, nearbyDoorName.c_str(), white);
+        SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, surf);
+
+        SDL_Rect dst;
+        dst.w = surf->w;
+        dst.h = surf->h;
+        dst.x = lastPlayerPos.x + (lastPlayerPos.w / 2) - (dst.w / 2);
+        dst.y = lastPlayerPos.y - 60; // above the E prompt
+
+        SDL_RenderCopy(renderer, tex, nullptr, &dst);
+
+        SDL_FreeSurface(surf);
+        SDL_DestroyTexture(tex);
+
+    }
 
     if (!currentText.empty()&&font){
         SDL_Rect box = {50,300,700,100};
@@ -149,7 +178,7 @@ void inspectionSystem::render(SDL_Renderer *renderer) {
         SDL_FreeSurface(surface);
         SDL_DestroyTexture(texture);
     }
-    if (showPrompt && keyIcon) {
+    if (showPrompt || showDoorPrompt && keyIcon) {
         SDL_Rect iconRect;
         iconRect.w = 32;
         iconRect.h = 32;
@@ -163,6 +192,7 @@ void inspectionSystem::render(SDL_Renderer *renderer) {
         iconRect.y = baseY + bounceOffset;
         SDL_RenderCopy(renderer, keyIcon, nullptr, &iconRect);
     }
+
 }
 
 bool inspectionSystem::isNear(const std::string &itemName, const SDL_Rect &playerRect) {

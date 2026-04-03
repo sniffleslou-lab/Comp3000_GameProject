@@ -12,6 +12,7 @@
 #include "BreakerRoomScene.h"
 #include "Arc2HallwayScene.h"
 #include "MaxwellRoom.h"
+#include "OutsideScene.h"
 #include "SpareRoom.h"
 
 SceneManager::SceneManager(SDL_Renderer *renderer, StoryFlags& flags, DialogueSystem* dialogue)
@@ -72,6 +73,18 @@ std::unique_ptr<Scene>SceneManager::createScene(SceneID scene, SDL_Renderer *ren
             s->setSceneManager(this);
             return s;
         }
+        case SceneID::SCENE_OUTSIDE: {
+        std::cout << "loaded outside room scene\n";
+        auto s = std::make_unique<OutsideScene>(renderer, storyFlags, dialogueSystem);
+        s->setSceneManager(this);
+        return s;
+        }
+        case SceneID::SCENE_SPAREROOM: {
+            std::cout << "loaded spareroom scene\n";
+            auto s = std::make_unique<SpareRoom>(renderer, storyFlags, dialogueSystem);
+            s->setSceneManager(this);
+            return s;
+        }
         case SceneID::SCENE_EDITOR: {
             std::cout << "loaded spare room scene\n";
             auto s = std::make_unique<SpareRoom>(renderer, storyFlags, dialogueSystem);
@@ -114,6 +127,7 @@ SceneID SceneManager::sceneIdFromString(const std::string &name) {
     if (name == "SCENE_BREAKERROOM") return SceneID::SCENE_BREAKERROOM;
     if (name == "SCENE_MAXWELLROOM")return SceneID::SCENE_MAXWELLROOM;
     if (name == "SCENE_SPAREROOM")return SceneID::SCENE_SPAREROOM;
+    if (name == "SCENE_OUTSIDE")return SceneID::SCENE_OUTSIDE;
 
     return SceneID::SCENE_START;
 

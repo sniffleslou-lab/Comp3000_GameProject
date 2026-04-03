@@ -19,7 +19,9 @@ enum SceneID{
     SCENE_BREAKERROOM,
     //ARC3
     SCENE_MAXWELLROOM,
-    SCENE_SPAREROOM
+    SCENE_SPAREROOM,
+    //outside
+    SCENE_OUTSIDE
 };
 
 class SceneManager{

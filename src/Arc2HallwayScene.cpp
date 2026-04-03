@@ -14,7 +14,7 @@ Arc2HallwayScene::Arc2HallwayScene(SDL_Renderer* renderer, StoryFlags& flags, Di
     player = std::make_unique<Character>(
         renderer,
         "../assets/textures/Characters/playerChar.png",
-        100, 300
+        100, 450
     );
 
     wallTexture = IMG_LoadTexture(renderer, "../assets/textures/wall.png");
@@ -22,7 +22,6 @@ Arc2HallwayScene::Arc2HallwayScene(SDL_Renderer* renderer, StoryFlags& flags, Di
     inspector = std::make_unique<inspectionSystem>(renderer, storyFlags, dialogueSystem);
     inspector->loadItems("../assets/data/arc2hallway.json", renderer);
 
-    breakerDoor = { 1100, 200, 80, 200 };
     startDialogueNextFrame = false;
     anxietyTriggered = false;
 }
@@ -37,6 +36,9 @@ void Arc2HallwayScene::enter() {
     std::cout << "Entered Arc2 hallway\n";
     inspector->doorCooldown = true;
     inspector->doorCooldownTimer = 0.0f;
+    if (sceneManager == nullptr)
+        std::cout << "ERROR: sceneManager is NULL in Arc2HallwayScene!\n";
+
 }
 
 void Arc2HallwayScene::handleEvents(SDL_Event& e) {
@@ -108,7 +110,7 @@ void Arc2HallwayScene::render(SDL_Renderer* renderer, bool debugMode) {
     if (storyFlags.getFlag("BreakerFixed")) {
         SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 120);
-        SDL_Rect darkOverlay = {0, 0, 1280, 720};
+        SDL_Rect darkOverlay = {0, 0, 800, 600};
         SDL_RenderFillRect(renderer, &darkOverlay);
     }
 

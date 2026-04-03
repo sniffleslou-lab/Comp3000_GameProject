@@ -1,11 +1,10 @@
-
 {
   "items": [
     {
       "id": "1",
       "name": "BreakerBox",
       "inspect": "The breaker box looks damaged.",
-      "x": 900,
+      "x": 550,
       "y": 250,
       "w": 120,
       "h": 200,
@@ -14,6 +13,7 @@
       "dialogue": "BreakerBoxScene",
       "flag": "BreakerFixed"
     },
+
     {
       "id": "2",
       "name": "ExitDoor",
@@ -26,5 +26,4 @@
       "type": "door",
       "targetScene": "SCENE_ARC2_HALLWAY"
     }
-  ]
-}
+]}

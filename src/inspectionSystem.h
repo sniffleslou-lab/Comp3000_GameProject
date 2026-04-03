@@ -65,5 +65,10 @@ private:
     SDL_Texture* keyIcon = nullptr;
 
     float bounceTimer = 0.0f;
+
+    //door prompt
+    std::string nearbyDoorName;
+    bool showDoorName = false;
+    bool showDoorPrompt = false;
 };
 #endif //AMIPRETTY_INSPECTIONSYSTEM_H

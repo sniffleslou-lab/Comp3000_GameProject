@@ -4,8 +4,9 @@
 OutsideScene::OutsideScene(SDL_Renderer* renderer, StoryFlags& flags, DialogueSystem* dialogue)
 : renderer(renderer), storyFlags(flags), dialogueSystem(dialogue)
 {
-    player = std::make_unique<Character>(renderer, "../assets/textures/Characters/playerCha.png", 600,500);
+    player = std::make_unique<Character>(renderer, "../assets/textures/Characters/PlayerCha.png", 600,500);
     inspector = std::make_unique<inspectionSystem>(renderer, storyFlags,dialogueSystem);
+    inspector->loadItems("../assets/data/outsideScene.json", renderer);
 
     //for arc4 when max appears outside storming out
     if (!storyFlags.getFlag("Chapter4_MaxwellGone")) {
@@ -18,8 +19,6 @@ OutsideScene::~OutsideScene() {}
 
 void OutsideScene::enter() {
     std::cout<<" entered outside scene\n";
-
-    inspector->loadItems("../assets/data/outside.json", renderer);
 
     chapterFont = TTF_OpenFont("../assets/font/SunLight Dreams.otf", 48);
 
@@ -97,7 +96,6 @@ void OutsideScene::update(float dt) {
         return;
     }
 inspector->update(dt, player->getPosition());
-    inspector->inspect(player->getPosition(), *sceneManager, renderer);
 
     //after findmax scene converstation scene start
     if (storyFlags.getFlag("Chapter4_FindMaxwellDone")&&
@@ -133,7 +131,7 @@ void OutsideScene::drawCenteredText(SDL_Renderer *renderer, TTF_Font *font, cons
 
     int w = surf->w;
     int h = surf->h;
-    SDL_Rect dst = {(1280 - w )/ 2, y, w, h};
+    SDL_Rect dst = {(800 - w )/ 2, y, w, h};
 
     SDL_RenderCopy(renderer, tex, NULL, &dst);
 
@@ -153,7 +151,7 @@ void OutsideScene::render(SDL_Renderer *renderer, bool debugMode) {
     if (showChapter5Card) {
         SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 180);
-        SDL_Rect fullscreen = {0,0,1280,720};
+        SDL_Rect fullscreen = {0,0,800,600};
         SDL_RenderFillRect(renderer, &fullscreen);
 
         drawCenteredText(renderer, chapterFont, "CHAPTER 5",300);

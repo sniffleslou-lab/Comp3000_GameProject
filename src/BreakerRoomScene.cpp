@@ -15,6 +15,9 @@ BreakerRoomScene::BreakerRoomScene(SDL_Renderer *renderer, StoryFlags &flags, Di
 
     inspector = std::make_unique<inspectionSystem>(renderer, storyFlags, dialogueSystem);
     inspector->loadItems("../assets/data/breakerRoom.json", renderer);
+
+    garretNPC = std::make_unique<NPC>(
+        renderer,"../assets/textures/Characters/garretCha.png",300,250);
 }
 
 BreakerRoomScene::~BreakerRoomScene() {
@@ -97,6 +100,7 @@ void BreakerRoomScene::update(float dt) {
         SDL_RenderCopy(renderer, roomTexture, NULL, NULL);
 
         inspector->render(renderer);
+        garretNPC->draw(renderer);
         player->draw();
         dialogueSystem->render(renderer);
 

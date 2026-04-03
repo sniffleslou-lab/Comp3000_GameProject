@@ -12,7 +12,7 @@ int main (int argc, char * argv[]) {
         return 1;
 
     }
-
+//800 and 600
     Game game;
     if(!game.init("Am I Enough?",800,600)){
         std::cerr<<"game failed to launch: " << std::endl;

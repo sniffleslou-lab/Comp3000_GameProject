@@ -13,6 +13,7 @@
 #include "sceneManager.h"
 #include "inspectionSystem.h"
 #include "dialogueSystem.h"
+#include "NPC.h"
 class BreakerRoomScene : public Scene {
     public:
     BreakerRoomScene(SDL_Renderer* renderer, StoryFlags& flags, DialogueSystem* dialogue);
@@ -37,6 +38,8 @@ private:
     SDL_Texture* roomTexture;
 
     Controls controls;
+
+    std::unique_ptr<NPC> garretNPC;
 };
 
 #endif //AMIPRETTY_BREAKERROOMSCENE_H
