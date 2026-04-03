@@ -25,10 +25,15 @@ class FadeEffect {
         if (alpha >= targetAlpha) {
             alpha = targetAlpha;
             active = false;
+
+
+            if (targetAlpha == 255) {
+                alpha = 0;
+            }
         }
     }
     void render(SDL_Renderer* renderer) {
-        if (!active && alpha == 0) return;
+        if (!active) return;
 
         SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
         SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, (Uint8)alpha);

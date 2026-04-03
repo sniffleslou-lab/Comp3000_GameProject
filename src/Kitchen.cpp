@@ -17,6 +17,22 @@ Kitchen::Kitchen(SDL_Renderer *renderer, StoryFlags &flags, DialogueSystem* dial
         annaNPC = std::make_unique<NPC>(renderer, "../assets/textures/Characters/annaCha.png",350,200);
     }
 
+   // newsImage = nullptr;
+    blackoutImage = nullptr;
+    staticImage = nullptr;
+
+    arc2Font = nullptr;
+    creditsFont = nullptr;
+
+//    showArc2Card = false;
+    showStaticFlash = false;
+    showCreditsCard = false;
+
+    arc2CardTimer = 0.0f;
+   // newsTimer = 0.0f;
+    staticFlashTimer = 0.0f;
+    creditsTimer = 0.0f;
+
 
     //dialogueSystem = std::make_unique<DialogueSystem>(storyFlags);
     //dialogueSystem->loadAllDialogue("../assets/data/dialogue/");
@@ -140,17 +156,19 @@ void Kitchen::handleEvents(SDL_Event &e) {
 
     if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE) {
 
-        if (dialogueSystem->justFinishedChoice) {
-            dialogueSystem->justFinishedChoice = false;
-            dialogueSystem->nextLine();   // advance after a choice
-            return;
+            if (dialogueSystem->justFinishedChoice) {
+                dialogueSystem->justFinishedChoice = false;
+                dialogueSystem->nextLine();   // advance after a choice
+                return;
+            }
+
+            if (!dialogueSystem->choiceActive) {
+                dialogueSystem->nextLine();
+            }
         }
 
-        if (!dialogueSystem->choiceActive) {
-            dialogueSystem->nextLine();
-        }
-    }
 }
+
 void Kitchen::drawCenteredText(SDL_Renderer* renderer, TTF_Font* font, const std::string& text, int y) {
     SDL_Color white = {255,255,255,255};
 
@@ -168,28 +186,39 @@ void Kitchen::drawCenteredText(SDL_Renderer* renderer, TTF_Font* font, const std
 
 
 void Kitchen::update(float dt) {
-inspector->update(dt, player->getPosition());
+
+    // --- ALWAYS UPDATE FADE FIRST ---
+    screenFade.update(dt);
+
+    // --- CHAPTER 2 CARD ---
+    if (showArc2Card) {
+        arc2CardTimer += dt;
+        if (arc2CardTimer > 3.0f) {
+            showArc2Card = false;
+        }
+
+        // After 3 seconds, show the news image
+
+        ; // freeze gameplay
+    }
+
+
+
+    // --- STATIC FLASH ---
     if (showStaticFlash) {
         staticFlashTimer += dt;
-        if (staticFlashTimer > 0.15f) { // quick flash
+        if (staticFlashTimer > 0.15f) {
             showStaticFlash = false;
         }
     }
 
-   // inspector->inspect(player->getPosition(), *sceneManager, renderer);
+    // --- NORMAL GAMEPLAY ---
+    inspector->update(dt, player->getPosition());
 
-    //garrets dialogue start when the player walks into the kitchen
-/*
-    if (startDialogueNextFrame){
-        dialogueSystem->choiceActive = false;
-        dialogueSystem->justFinishedChoice = false;
-        dialogueSystem-> selectedChoice = 0;
-       dialogueSystem->startDialogue("Garret");
-        startDialogueNextFrame = false;
-    }*/
+    // --- START GARRET DIALOGUE IF ENTERING KITCHEN EARLY ---
     if (startDialogueNextFrame &&
-    !storyFlags.getFlag("Arc1_Done") &&
-    !storyFlags.getFlag("AnnaMoved"))
+        !storyFlags.getFlag("Arc1_Done") &&
+        !storyFlags.getFlag("AnnaMoved"))
     {
         dialogueSystem->choiceActive = false;
         dialogueSystem->justFinishedChoice = false;
@@ -198,7 +227,7 @@ inspector->update(dt, player->getPosition());
         startDialogueNextFrame = false;
     }
 
-    //arc 1  ending// arc 1 ending
+    // --- ARC 1 ENDING ---
     if (storyFlags.getFlag("Arc1_Done") &&
         !storyFlags.getFlag("Arc1_TvTransition") &&
         !dialogueSystem->isActive)
@@ -206,8 +235,7 @@ inspector->update(dt, player->getPosition());
         dialogueSystem->startDialogue("LivingRoom_Arc1End");
     }
 
-
-    //arc2 start trigger
+    // --- ARC 2: FIRST OUTAGE TRIGGER ---
     if (storyFlags.getFlag("Arc2_PowerOutage_Start") &&
         !storyFlags.getFlag("Arc2_PowerOutage_Triggered"))
     {
@@ -216,79 +244,83 @@ inspector->update(dt, player->getPosition());
         startPowerOutage();
         storyFlags.setFlag("Arc2_PowerOutage_Triggered", true);
     }
-    //arc2 post maxwell hallway moment//
-    if (storyFlags.getFlag("Arc2_MaxwellSeen")&&
-        !storyFlags.getFlag("Arc2Complete")&&
-        !dialogueSystem->isActive) {
-        dialogueSystem->startDialogue("PostMaxGroupArc2");
 
+    // --- ARC 2: FIRST OUTAGE DIALOGUE ---
+    if (storyFlags.getFlag("Arc2_PowerOutage_Triggered") &&
+        !storyFlags.getFlag("Arc2_PowerOutage_DialogueStarted") &&
+        !dialogueSystem->isActive)
+    {
+        dialogueSystem->startDialogue("pwGroupArc2");
+        storyFlags.setFlag("Arc2_PowerOutage_DialogueStarted", true);
     }
-    //tranisition to chapter 3
-    if (storyFlags.getFlag("Arc2Complete")&&
-        !dialogueSystem->isActive) {
-        sceneManager->changeScene(SceneID::SCENE_BEDROOM, renderer);
-    }
-    /*
-    if (storyFlags.getFlag("Arc2_PowerOutage_Start")&& !storyFlags.getFlag("Arc2_PowerOutage_Triggered"))
-        {
-        startPowerOutage();
-        storyFlags.setFlag("Arc2_PowerOutage_Triggered", true);
-    }*/
-    //arc2 scene featuring the argument
-    if (storyFlags.getFlag("BreakerFixed")&&
-        !storyFlags.getFlag("Arc2ArgumentSeen")&&
-        !dialogueSystem->isActive) {
 
-        dialogueSystem->startDialogue("GroupArc2");
-    }
-    screenFade.update(dt);
-    if (storyFlags.getFlag("Arc2_PowerOutage_Triggered")&& !showArc2Card) {
+    // --- ARC 2: SHOW CHAPTER CARD AFTER FIRST OUTAGE ---
+    if (storyFlags.getFlag("Arc2_PowerOutage_Triggered") &&
+        !storyFlags.getFlag("Arc2_ChapterCardShown"))
+    {
         showArc2Card = true;
         arc2CardTimer = 0.0f;
+        storyFlags.setFlag("Arc2_ChapterCardShown", true);
     }
-    if (showArc2Card) {
-        arc2CardTimer += dt;
 
-        if (arc2CardTimer > 3.0f && !showNewsImage) {
-            newsImage = IMG_LoadTexture(renderer, "../assets/textures/breakingnews.png");
-            showNewsImage = true;
-            newsTimer = 0.0f;
-        }
+    // --- ARC 2: SECOND OUTAGE DIALOGUE (AFTER NEWS IMAGE) ---
+    if (storyFlags.getFlag("Arc2_PowerOutage_DialogueStarted") &&
+        !storyFlags.getFlag("Arc2_SecondOutage_Done") &&
+        !dialogueSystem->isActive)
+    {
+        dialogueSystem->startDialogue("PostBrGroupArc2");
+        storyFlags.setFlag("Arc2_SecondOutage_Done", true);
     }
-    if (showNewsImage) {
-        newsTimer += dt;
-        if (newsTimer > 3.0f) {
-            showNewsImage = false;
-            SDL_DestroyTexture(newsImage);
-            newsImage = nullptr;
-        }
+
+    // --- ARC 2 ARGUMENT SCENE ---
+    if (storyFlags.getFlag("BreakerFixed") &&
+        !storyFlags.getFlag("Arc2ArgumentSeen") &&
+        !dialogueSystem->isActive)
+    {
+        dialogueSystem->startDialogue("GroupArc2");
     }
-    //arc3 garret living room talk
+
+    // --- ARC 2 COMPLETE → MOVE TO BEDROOM ---
+    if (storyFlags.getFlag("Arc2Complete") &&
+        !dialogueSystem->isActive)
+    {
+        storyFlags.setFlag("Arc3Start", true);
+        sceneManager->changeScene(SceneID::SCENE_BEDROOM, renderer);
+    }
+
+    // --- ARC 3 GARRET TALK ---
     if (storyFlags.getFlag("CalledToLivingRoom") &&
         !storyFlags.getFlag("GarretTalkDone") &&
-            !dialogueSystem->isActive) {
+        !dialogueSystem->isActive)
+    {
         dialogueSystem->startDialogue("CalledToLivingRoom");
     }
-    //arc3 anna storms in
-    if (storyFlags.getFlag("GarretTalkDone")&&
-        !storyFlags.getFlag("StartMaxwellInvestigation")&&
-        !dialogueSystem->isActive) {
+
+    // --- ARC 3 ANNA INTERRUPTS ---
+    if (storyFlags.getFlag("GarretTalkDone") &&
+        !storyFlags.getFlag("StartMaxwellInvestigation") &&
+        !dialogueSystem->isActive)
+    {
         dialogueSystem->startDialogue("AnnaInterruptScene");
     }
-    //arc 5
-    if (storyFlags.getFlag("Arc5_FinalTalk")&&
+
+    // --- ARC 5 FINAL TALK ---
+    if (storyFlags.getFlag("Arc5_FinalTalk") &&
         !storyFlags.getFlag("Arc5_FinalTalk_Done") &&
         !dialogueSystem->isActive)
-        {
+    {
         dialogueSystem->startDialogue("StartArc5_FinalTalk");
         storyFlags.setFlag("Arc5_FinalTalk_Done", true);
-        }
-    if (storyFlags.getFlag("StartCredits")&&
+    }
+
+    // --- CREDITS ---
+    if (storyFlags.getFlag("StartCredits") &&
         !showCreditsCard)
-        {
+    {
         showCreditsCard = true;
         creditsTimer = 0.0f;
-        }
+    }
+
     if (showCreditsCard) {
         creditsTimer += dt;
         if (creditsTimer > 3.0f) {
@@ -296,23 +328,6 @@ inspector->update(dt, player->getPosition());
         }
         return;
     }
-    if (storyFlags.getFlag("Arc2Complete") &&
-    !dialogueSystem->isActive) {
-
-        storyFlags.setFlag("Arc3Start", true);
-        sceneManager->changeScene(SceneID::SCENE_BEDROOM, renderer);
-    }
-
-/*
-    if(!dialogueSystem->choiceActive) {
-        const Uint8* keys = SDL_GetKeyboardState(NULL);
-        bool eDown = keys[SDL_SCANCODE_E];
-        if (eDown && !eWasDown) {
-            dialogueSystem->nextLine();
-        }
-        eWasDown = eDown;
-    }*/
-
 }
 
 void Kitchen::startPowerOutage() {
@@ -349,15 +364,15 @@ void Kitchen::render(SDL_Renderer *renderer, bool debugMode) {
         drawCenteredText(renderer, arc2Font, "CHAPTER 2", 500);
         drawCenteredText(renderer,arc2Font, "Static", 450);
     }
-    //news image
-    if (showNewsImage && newsImage) {
-        SDL_RenderCopy(renderer, newsImage,NULL,NULL);
-    }
+
     //backout
-    if (storyFlags.getFlag("Arc2_PowerOutage_Triggered")) {
+    if (storyFlags.getFlag("Arc2_PowerOutage_Triggered") &&
+    !storyFlags.getFlag("Arc2_PowerOutage_DialogueStarted") &&
+    !showArc2Card &&
+    screenFade.isActive())
+    {
         SDL_RenderCopy(renderer, blackoutImage, NULL, NULL);
     }
-
     if (showCreditsCard) {
         SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
         SDL_SetRenderDrawColor(renderer, 0,0,0,255);

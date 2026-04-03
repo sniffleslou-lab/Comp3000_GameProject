@@ -57,16 +57,16 @@ private:
     bool showCreditsCard = false;
     float creditsTimer = 0.0f;
     TTF_Font* creditsFont = nullptr;
-
+/* just causing issues
     SDL_Texture* newsImage= nullptr;
     bool showNewsImage = false;
     float newsTimer = 0.0f;
-
+*/
     bool showStaticFlash = false;
     float staticFlashTimer = 0.0f;
     SDL_Texture* staticImage = nullptr;
 
-
+    bool spaceWaDown = false;
 };
 
 #endif //AMIPRETTY_KITCHEN_H

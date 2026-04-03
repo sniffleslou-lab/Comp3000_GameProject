@@ -190,21 +190,22 @@ void DialogueSystem::nextLine() {
             storyFlags.setFlag(newLine.flag, true);
         }
 
-        // if the jumped line has no next and no choices, end dialogue
-        if (newLine.next.empty() && newLine.choices.empty()) {
-            endDialogue();
-            return;
-        }
         return;
     }
+    //if the line has no next and no cgoice, show it once then end on next SPACE
 
+    /*if (line.next.empty() && line.choices.empty()) {
+        endDialogue();
+        return;
+    }*/
+    //CHOICES
     if (!line.choices.empty()) {
         choiceActive = true;
         selectedChoice = 0;
         currentChoices = line.choices;
         return;
     }
-
+//NORMAL ADVANCE
     if (currentIndex + 1 < currentLines.size()) {
         currentIndex++;
     } else {

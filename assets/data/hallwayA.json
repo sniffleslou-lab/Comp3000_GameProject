@@ -1,9 +1,9 @@
 {
-  "items":[
+  "items": [
     {
       "id": "1",
-      "name": "hallway door to bedroom",
-      "inspect": "this door leads back to the bedroom",
+      "name": "Door to Bedroom",
+      "inspect": "This door leads back to the bedroom.",
       "x": 200,
       "y": 200,
       "w": 50,
@@ -12,10 +12,11 @@
       "type": "door",
       "targetScene": "SCENE_BEDROOM"
     },
+
     {
       "id": "2",
-      "name": "hallway door to kitchen",
-      "inspect": "this door leads to the kitchen",
+      "name": "Door to Kitchen",
+      "inspect": "This door leads to the kitchen.",
       "x": 40,
       "y": 250,
       "w": 50,
@@ -24,105 +25,106 @@
       "type": "door",
       "targetScene": "SCENE_KITCHEN"
     },
+
     {
       "id": "5",
-      "name": "Top WALL",
+      "name": "Top Wall",
       "inspect": "",
       "x": 0,
       "y": 0,
       "w": 800,
       "h": 200,
       "texture": "wall.png",
-      "type": "solid",
-      "targetScene": ""
+      "type": "solid"
     },
+
     {
       "id": "6",
-      "name": "left WALL",
+      "name": "Left Wall",
       "inspect": "",
       "x": 0,
       "y": 0,
       "w": 40,
       "h": 800,
       "texture": "wall.png",
-      "type": "solid",
-      "targetScene": ""
+      "type": "solid"
     },
+
     {
       "id": "7",
-      "name": "right WALL",
+      "name": "Right Wall",
       "inspect": "",
       "x": 760,
       "y": 0,
       "w": 40,
       "h": 800,
       "texture": "wall.png",
-      "type": "solid",
-      "targetScene": ""
+      "type": "solid"
     },
+
     {
       "id": "8",
-      "name": "bottom WALL",
+      "name": "Bottom Wall",
       "inspect": "",
       "x": 0,
       "y": 400,
       "w": 800,
       "h": 200,
       "texture": "wall.png",
-      "type": "solid",
-      "targetScene": ""
+      "type": "solid"
     },
+
     {
       "id": "9",
-      "name": "MaxwellDoor",
-      "inspect": "",
+      "name": "Maxwell's Door",
+      "inspect": "Maxwell's room.",
       "x": 710,
       "y": 250,
       "w": 50,
       "h": 80,
       "texture": "door.png",
-      "type": "npcdoor",
-      "targetScene": ""
+      "type": "npcdoor"
     },
+
     {
       "id": "10",
-      "name": "Garret door",
-      "inspect": "Garrets room",
+      "name": "Garret's Door",
+      "inspect": "Garret's room.",
       "x": 300,
       "y": 200,
       "w": 50,
       "h": 80,
       "texture": "door.png",
-      "type": "npcdoor",
-      "targetScene": ""
+      "type": "npcdoor"
     },
+
     {
       "id": "11",
-      "name": "Anna's door",
-      "inspect": "Anna's room",
+      "name": "Anna's Door",
+      "inspect": "Anna's room.",
       "x": 450,
       "y": 200,
       "w": 50,
       "h": 80,
       "texture": "door.png",
-      "type": "npcdoor",
-      "targetScene": ""
+      "type": "npcdoor"
     },
+
     {
       "id": "13",
-      "name": "The sparedoor",
-      "inspect": "Dave's old room, shame what happened",
+      "name": "Spare Room Door",
+      "inspect": "Dave's old room. Shame what happened.",
       "x": 650,
       "y": 200,
       "w": 50,
       "h": 80,
       "texture": "door.png",
-      "type": "npcdoor",
-      "targetScene": ""
+      "type": "npcdoor"
     },
+
     {
       "id": "14",
-      "name": "MaxwellTrigger",
+      "name": "Maxwell Trigger",
       "inspect": "",
       "x": 600,
       "y": 250,
@@ -133,4 +135,5 @@
       "dialogue": "MaxwellHall",
       "flag": "Arc2_MaxwellSeen"
     }
-  ]}
+  ]
+}

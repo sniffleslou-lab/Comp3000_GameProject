@@ -38,7 +38,9 @@
       "id": "ret6",
       "speaker": "Narrator",
       "text": "Both fall silent, embarrassed.",
-      "flag": "Arc2ArgumentSeen"
+      "flag": "Arc2ArgumentSeen",
+      "next": ""
+
     }
   ]
 }
