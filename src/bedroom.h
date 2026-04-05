@@ -11,6 +11,7 @@
 #include "controls.h"
 #include "inspectionSystem.h"
 #include "dialogueSystem.h"
+#include "QTEManager.h"
 
 class bedroom: public Scene{
 public:
@@ -48,6 +49,8 @@ private:
 
     int chapterNumber = 0;
     std::string chapterSubtitle = "";
+
+    std::unique_ptr<QTEManager> qteDebug;
 
 
 };

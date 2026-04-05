@@ -18,6 +18,7 @@ bedroom::bedroom(SDL_Renderer *renderer, StoryFlags& flags, DialogueSystem* dial
     if(!chapterFont){
         std::cout << "failed to load font: "<<TTF_GetError()<< std::endl;
     }
+    qteDebug = std::make_unique<QTEManager>(renderer);
 
     //dialogueSystem = std::make_unique<DialogueSystem>(storyFlags);
     //dialogueSystem->loadAllDialogue("../assets/data/dialogue/");
@@ -99,6 +100,37 @@ void bedroom::drawCenteredText(SDL_Renderer *renderer, TTF_Font *font, const std
     SDL_DestroyTexture(tex);
 }
 void bedroom::handleEvents(SDL_Event &e) {
+    // DEBUG: Press F6 to start a random QTE test
+    if (qteDebug->isActive()) {
+        qteDebug->handleEvents(e);
+        return;
+    }
+
+    if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_F6) {
+
+        QTEEvents testEvent;
+
+        // Random sequence length 3–5
+        int len = 3 + (rand() % 3);
+
+        for (int i = 0; i < len; i++) {
+            int r = rand() % 5;
+            switch (r) {
+                case 0: testEvent.sequence.push_back(SDLK_w); break;
+                case 1: testEvent.sequence.push_back(SDLK_a); break;
+                case 2: testEvent.sequence.push_back(SDLK_s); break;
+                case 3: testEvent.sequence.push_back(SDLK_d); break;
+                case 4: testEvent.sequence.push_back(SDLK_SPACE); break;
+            }
+        }
+
+        testEvent.timePerKey = 5.0f;
+        testEvent.successGain = 0.5f;
+        testEvent.failPenalty = 0.1f;
+
+        qteDebug->start(testEvent);
+        std::cout << "DEBUG: Started random QTE in bedroom\n";
+    }
 
     if(dialogueSystem->choiceActive){
         if (e.type == SDL_KEYDOWN){
@@ -134,6 +166,21 @@ void bedroom::handleEvents(SDL_Event &e) {
     }
 }
 void bedroom::update(float dt) {
+
+    //QTE debug s active update
+    if (qteDebug->isActive()) {
+        qteDebug->update(dt);
+        return;
+    }
+    //after qte
+    if (qteDebug->isSuccess()) {
+        std::cout << "DEBUG: QTE success\n";
+    }
+
+    if (qteDebug->isFailure()) {
+        std::cout << "DEBUG: QTE fail\n";
+    }
+
     inspector->update(dt, player->getPosition());
 
     if(showChapterCard){
@@ -181,6 +228,7 @@ void bedroom::render(SDL_Renderer *renderer, bool debugMode) {
         SDL_Rect p = player->getPosition();
         SDL_RenderDrawRect(renderer, &p);
     }
+    qteDebug->render(renderer);
 }
 void bedroom::exit() {
     std::cout<<"exited bedroom scene";

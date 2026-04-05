@@ -30,7 +30,7 @@ public:
     void setSceneManager(SceneManager* mgr) { sceneManager = mgr; }
     bool playerIsNearAnna();
     bool playerIsNearGarret();
-
+    bool playerIsNearMaxwell();
 
 private:
     StoryFlags& storyFlags;
@@ -40,6 +40,8 @@ private:
     std::unique_ptr<Character> player;
     std::unique_ptr<inspectionSystem> inspector;
     std::unique_ptr<NPC> annaNPC;
+    std::unique_ptr<NPC> maxwellNPC;
+
 
     SDL_Renderer* renderer;
     SceneManager* sceneManager= nullptr;

@@ -9,7 +9,7 @@
       "w": 120,
       "h": 200,
       "texture": "breaker.png",
-      "type": "interact",
+      "type": "item",
       "dialogue": "BreakerBoxScene",
       "flag": "BreakerFixed"
     },

@@ -21,6 +21,14 @@ HallwayA::HallwayA(SDL_Renderer *renderer, StoryFlags &flags, DialogueSystem* di
         annaNPC = std::make_unique<NPC>(renderer, "../assets/textures/Characters/annaCha.png", 500,300);
         std::cout << "anna spawned in hallway\n";
     }
+
+    //spawn maxwell in arc2
+    if (storyFlags.getFlag("Arc2ArgumentSeen")&&
+        !storyFlags.getFlag("Arc2_MaxwellSeen")) {
+        maxwellNPC = std::make_unique<NPC>(renderer,
+        "../assets/textures/Characters/maxwellChar.png", 600, 250);
+        std::cout << "Maxwell spawned in hallway\n";
+    }
     //dialogueSystem = std::make_unique<DialogueSystem>(storyFlags);
     //dialogueSystem->loadAllDialogue("../assets/data/dialogue/");
 }
@@ -89,6 +97,11 @@ void HallwayA::handleEvents(SDL_Event &e) {
             startDialogueNextFrame = true;
             return;
         }
+        if (maxwellNPC && playerIsNearMaxwell()) {
+            queuedNPC = "MaxwellHall";
+            startDialogueNextFrame = true;
+            return;
+        }
         if(inspector->isNear("MaxwellDoor", player->getPosition())){
             queuedNPC = "Maxwell";
             startDialogueNextFrame = true;
@@ -122,6 +135,12 @@ bool HallwayA::playerIsNearAnna() {
     SDL_Rect a = annaNPC->getRect();
     return SDL_HasIntersection(&p,&a);
 }
+bool HallwayA::playerIsNearMaxwell() {
+    if (!maxwellNPC) return false;
+    SDL_Rect p = player->getPosition();
+    SDL_Rect m = maxwellNPC->getRect();
+    return SDL_HasIntersection(&p, &m);
+}
 
 void HallwayA::update(float dt) {
     if (!inspector) {
@@ -146,19 +165,13 @@ inspector->update(dt, player->getPosition());
     //maxwell hallway moment in arc2
     if (storyFlags.getFlag("Arc2ArgumentSeen")&&
         !storyFlags.getFlag("Arc2_MaxwellSeen")&&
-        inspector->isNear("MaxwellTrigger", player->getPosition())&&
+        inspector->isNear("Maxwell Trigger", player->getPosition())&&
         !dialogueSystem->isActive) {
         dialogueSystem->startDialogue("MaxwellHall");
         storyFlags.setFlag("Arc2_MaxwellSeen", true);
     }
 
     //max investigaiton in arc3
-
-    if (storyFlags.getFlag("StartMaxwellInvestigation")&&
-        !storyFlags.getFlag("ReachedMaxwellDoor")&&
-        !dialogueSystem->isActive) {
-        dialogueSystem->startDialogue("InvestigationScene");
-    }
 
     if (storyFlags.getFlag("StartMaxwellInvestigation")&&
         !storyFlags.getFlag("ReachedMaxwellDoor")&&
@@ -180,9 +193,11 @@ void HallwayA::render(SDL_Renderer *renderer, bool debugMode) {
     SDL_RenderClear(renderer);
 
     inspector->render(renderer);
-    player->draw();
     if (annaNPC) annaNPC->draw(renderer);
+    if (maxwellNPC) maxwellNPC->draw(renderer);
+    player->draw();
     dialogueSystem->render(renderer);
+
 
     //chapter card
     if (showChapter4Card) {

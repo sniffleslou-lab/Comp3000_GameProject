@@ -47,7 +47,10 @@ add_executable(${PROJECT_NAME}
         src/MaxwellRoom.h
         src/MaxwellRoom.cpp
         src/OutsideScene.h
-        src/OutSideScene.cpp)
+        src/OutSideScene.cpp
+        src/QTEEvents.h
+        src/QTEManager.h
+        src/QTEManager.cpp)
 
 #packages and links
 find_package(SDL2 CONFIG REQUIRED)

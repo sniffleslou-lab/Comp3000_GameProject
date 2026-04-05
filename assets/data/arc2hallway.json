@@ -19,7 +19,7 @@
       "inspect": "The door to the outside world.",
       "x": 360,
       "y": 300,
-      "w": 80,
+      "w": 100,
       "h": 180,
       "texture": "door.png",
       "type": "door",
