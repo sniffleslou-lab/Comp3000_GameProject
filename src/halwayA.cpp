@@ -162,13 +162,22 @@ inspector->update(dt, player->getPosition());
         dialogueSystem->startDialogue(queuedNPC);
         startDialogueNextFrame = false;
     }
-    //maxwell hallway moment in arc2
+    /*maxwell hallway moment in arc2
     if (storyFlags.getFlag("Arc2ArgumentSeen")&&
         !storyFlags.getFlag("Arc2_MaxwellSeen")&&
         inspector->isNear("Maxwell Trigger", player->getPosition())&&
         !dialogueSystem->isActive) {
         dialogueSystem->startDialogue("MaxwellHall");
         storyFlags.setFlag("Arc2_MaxwellSeen", true);
+    }*/
+    //max talk -> teleport into maxs room
+    if (storyFlags.getFlag("MaxwellHallDone") &&
+        !storyFlags.getFlag("TeleportedToMaxwellRoom"))
+    {
+        storyFlags.setFlag("TeleportedToMaxwellRoom", true);
+        sceneManager->changeScene(SceneID::SCENE_MAXWELLROOM, renderer);
+
+        return;
     }
 
     //max investigaiton in arc3
