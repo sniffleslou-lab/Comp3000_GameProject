@@ -10,6 +10,7 @@
 #include "dialogueSystem.h"
 #include <SDL.h>
 #include "inspectionSystem.h"
+#include "QTEManager.h"
 
 class MaxwellRoom : public Scene {
 public:
@@ -25,10 +26,13 @@ public:
 
 
 private:
-    StoryFlags& storyFlags;
-    DialogueSystem* dialogueSystem;
-    std::unique_ptr<inspectionSystem> inspector;
     SDL_Renderer* renderer;
+    StoryFlags& storyFlags;
+    DialogueSystem* dialogueSystem = nullptr;
+
+    std::unique_ptr<inspectionSystem> inspector;
+    std::unique_ptr<QTEManager> qteManager;
+
     SceneManager* sceneManager = nullptr;
 };
 

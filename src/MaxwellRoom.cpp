@@ -3,23 +3,38 @@
 #include <iostream>
 
 MaxwellRoom::MaxwellRoom(SDL_Renderer* renderer, StoryFlags& flags, DialogueSystem* dialogue)
-: renderer(renderer), storyFlags(flags), dialogueSystem(dialogue) {}
-
-MaxwellRoom::~MaxwellRoom() {
+: renderer(renderer), storyFlags(flags), dialogueSystem(dialogue) {
+    inspector = std::make_unique<inspectionSystem>(renderer, storyFlags, dialogueSystem);
+    qteManager = std::make_unique<QTEManager>(renderer);
 
 }
+
+MaxwellRoom::~MaxwellRoom() {}
 
 void MaxwellRoom::enter() {
     std::cout << "Entering Maxwells room\n";
 
     //load room
     inspector->loadItems("../assets/data/MaxwellRoom.json", renderer);
-    //trigger for the confrontation
+    //trigger for the confrontation ARC4
     if (!storyFlags.getFlag("MaxwellStormedOut")) {
         dialogueSystem->startDialogue("MaxwellConfrontationScene");
+        return;
     }
+    //arc2
+    if (!storyFlags.getFlag("MaxwellRoomDialogueDone")) {
+        dialogueSystem->startDialogue("MaxwellConversationScene");
+        return;
+    }
+
 }
 void MaxwellRoom::handleEvents(SDL_Event &e) {
+//qte
+    if (qteManager->isActive()) {
+        qteManager->handleEvents(e);
+        return;
+    }
+
     if(dialogueSystem->choiceActive){
         if (e.type == SDL_KEYDOWN){
             if (e.key.repeat != 0) return;
@@ -58,6 +73,43 @@ void MaxwellRoom::handleEvents(SDL_Event &e) {
     }
 }
 void MaxwellRoom::update(float dt) {
+    //qtw is active, update and pause everything
+    if (qteManager->isActive()) {
+        qteManager->update(dt);
+        return;
+    }
+    //when macwellroom dialogue ends -> it should start the qte
+    if (storyFlags.getFlag("StartMaxwellMinigame")&&
+        !storyFlags.getFlag("MaxwellQTEStarted")) {
+        storyFlags.setFlag("MaxwellQTEStarted", true);
+
+        QTEEvents event;
+        event.sequence = {SDLK_w, SDLK_a, SDLK_d};
+        event.timePerKey = 2.0f;
+        event.successGain = 0.5f;
+        event.failPenalty = 0.1f;
+
+        qteManager->start(event);
+        return;
+    }
+    //qte finished, when akward goodbye
+    if (storyFlags.getFlag("MaxwellQTEStarted") &&
+        qteManager->isSuccess() &&
+        !storyFlags.getFlag("MaxwellPostQTEStarted"))
+    {
+        storyFlags.setFlag("MaxwellPostQTEStarted", true);
+        dialogueSystem->startDialogue("MaxwellPostQTE");
+        return;
+    }
+
+    // After awkward goodbye → return to hallway
+    if (storyFlags.getFlag("MaxwellPostQTEDone") &&
+        !dialogueSystem->isActive)
+    {
+        sceneManager->changeScene(SceneID::SCENE_HALLWAYA, renderer);
+        return;
+    }
+
     //after maxwell storms out, will auto transition back to the hallway
     if (storyFlags.getFlag("MaxwellStormedOut")&&
         !dialogueSystem->isActive) {
@@ -65,6 +117,9 @@ void MaxwellRoom::update(float dt) {
     }
 }
 void MaxwellRoom::render(SDL_Renderer* renderer, bool debugMode) {
+    inspector->render(renderer);
+    dialogueSystem->render(renderer);
+    qteManager->render(renderer);
 
 }
 

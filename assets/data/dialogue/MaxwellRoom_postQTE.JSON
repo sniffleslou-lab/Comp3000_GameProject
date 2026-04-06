@@ -1,0 +1,47 @@
+{
+  "npc": "MaxwellPostQTE",
+  "dialogue": [
+    {
+      "id": "mxp1",
+      "speaker": "Maxwell",
+      "text": "Oh— you actually… finished it.",
+      "next": "mxp2"
+    },
+    {
+      "id": "mxp2",
+      "speaker": "Maxwell",
+      "text": "I mean, I knew you could, I just… didn’t think you’d actually try.",
+      "next": "mxp3"
+    },
+    {
+      "id": "mxp3",
+      "speaker": "Maxwell",
+      "text": "Um. Thanks. Really. That… meant more than I thought it would.",
+      "next": "mxp4"
+    },
+    {
+      "id": "mxp4",
+      "speaker": "Player",
+      "text": "It was fun.",
+      "next": "mxp5"
+    },
+    {
+      "id": "mxp5",
+      "speaker": "Maxwell",
+      "text": "Right. Yeah. Cool. Fun. Totally.",
+      "next": "mxp6"
+    },
+    {
+      "id": "mxp6",
+      "speaker": "Maxwell",
+      "text": "So I guess I’ll… uh… let you get back to whatever you were doing.",
+      "next": "mxp7"
+    },
+    {
+      "id": "mxp7",
+      "speaker": "Maxwell",
+      "text": "…well. Ehh. See you later.",
+      "flag": "MaxwellPostQTEDone"
+    }
+  ]
+}
