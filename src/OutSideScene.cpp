@@ -8,6 +8,8 @@ OutsideScene::OutsideScene(SDL_Renderer* renderer, StoryFlags& flags, DialogueSy
     inspector = std::make_unique<inspectionSystem>(renderer, storyFlags,dialogueSystem);
     inspector->loadItems("../assets/data/outsideScene.json", renderer);
 
+    qteManager = std::make_unique<QTEManager>(renderer);
+
     //for arc4 when max appears outside storming out
     if (!storyFlags.getFlag("Chapter4_MaxwellGone")) {
         maxwellNPC = std::make_unique<NPC>(renderer,
@@ -21,7 +23,12 @@ void OutsideScene::enter() {
     std::cout<<" entered outside scene\n";
 
     chapterFont = TTF_OpenFont("../assets/font/SunLight Dreams.otf", 48);
-
+    //Axiety attack intro for the first time
+    if (!storyFlags.getFlag("OutsideAnxietySeen")) {
+        storyFlags.setFlag("OutsideAnxietySeen", true);
+        dialogueSystem->startDialogue("OutsideAnxietyIntro");
+        return;
+    }
     //findmaxwel json
     if (!storyFlags.getFlag("Chapter4_FindMaxwellDone")) {
         storyFlags.setFlag("Chapter4_FindMaxwellDone", true);
@@ -30,6 +37,11 @@ void OutsideScene::enter() {
 }
 
 void OutsideScene::handleEvents(SDL_Event &e) {
+    if (qteManager->isActive()) {
+        qteManager->handleEvents(e);
+        return;
+    }
+
     if (showChapter5Card) {
         return;
     }
@@ -97,20 +109,46 @@ void OutsideScene::update(float dt) {
     }
 inspector->update(dt, player->getPosition());
 
+
+
+    if (storyFlags.getFlag("StartAnxietyQTE") &&
+       !storyFlags.getFlag("AnxietyQTE_Started"))
+    {
+        storyFlags.setFlag("AnxietyQTE_Started", true);
+
+        QTEEvents event;
+        event.sequence = {SDLK_a, SDLK_s, SDLK_d};
+        event.timePerKey = 1.5f;
+        event.successGain = 0.4f;
+        event.failPenalty = 0.2f;
+
+        qteManager->start(event);
+        return;
+    }
+    //aftert axienty qte
+    if (storyFlags.getFlag("AnxietyQTE_Started") &&
+       qteManager->isSuccess() &&
+       !storyFlags.getFlag("Chapter4_FindMaxwellDone"))
+    {
+        storyFlags.setFlag("Chapter4_FindMaxwellDone", true);
+        dialogueSystem->startDialogue("FindMaxwellScene");
+        return;
+    }
     //after findmax scene converstation scene start
     if (storyFlags.getFlag("Chapter4_FindMaxwellDone")&&
         !storyFlags.getFlag("Chapter4_ConversationDone")&&
         !dialogueSystem->isActive) {
         storyFlags.setFlag("Chapter4_ConversationDone", true);
         dialogueSystem->startDialogue("MaxwellConversationScene");
-    }
+        }
+
     //chapter 5 card
     if (storyFlags.getFlag("Chapter4_ConversationDone")&&
         !showChapter5Card &&
         !dialogueSystem->isActive) {
         showChapter5Card = true;
         chapter5Timer = 0.0f;
-    }
+        }
 }
 
 void OutsideScene::exit() {
@@ -147,6 +185,7 @@ void OutsideScene::render(SDL_Renderer *renderer, bool debugMode) {
     if (maxwellNPC) maxwellNPC->draw(renderer);
     player->draw();
     dialogueSystem->render(renderer);
+    qteManager->render(renderer);
 
     if (showChapter5Card) {
         SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);

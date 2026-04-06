@@ -1,10 +1,16 @@
 {
   "npc": "AnnaKitchen",
   "dialogue": [
-    {"id": "ak1","text": "Oh! You got the cup! Thanks",
-      "condition": "GotCup == true", "flag": "AnnaMoved",
+    {"id": "ak1",
+      "speaker": "Anna",
+      "text": "Oh! You got the cup! Thanks",
+      "condition": "GotCup == true",
+      "flag": "AnnaMoved",
     "next" :  "ak2"},
-    {"id" : "ak2","text":  "he's a lot, but not scary. He's just shy.",
-      "condition": "GotCup == true","flag": "AnnaKitchen_Done"}
+    {"id" : "ak2",
+      "speaker": "Anna",
+      "text":  "he's a lot, but not scary. He's just shy.",
+      "condition": "GotCup == true",
+      "flag": "AnnaKitchen_Done"}
   ]
 }

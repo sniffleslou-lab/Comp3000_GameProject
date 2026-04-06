@@ -13,6 +13,7 @@
 #include "controls.h"
 #include <SDL.h>
 #include <SDL_ttf.h>
+#include "QTEManager.h"
 
 class OutsideScene : public Scene {
 public:
@@ -39,6 +40,7 @@ private:
     SceneManager* sceneManager = nullptr;
 
     Controls controls;
+    std::unique_ptr<QTEManager> qteManager;
 
     bool startDialogueNextFrame = false;
 

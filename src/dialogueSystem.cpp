@@ -72,6 +72,11 @@ void DialogueSystem::loadDialogueFile(const std::string &jsonPath) {
         if (lineJson.contains("condition")){
             line.condition = lineJson["condition"];
         }
+        if (lineJson.contains("speaker"))
+            line.speaker = lineJson["speaker"];
+        else
+            line.speaker = npc.displayName; // fallback to old behavior
+
 
         //updated
         if (lineJson.contains("next"))line.next = lineJson["next"];
@@ -115,13 +120,14 @@ void DialogueSystem::startDialogue(const std::string &npcId) {
                 }
             }
             //name
-            currentNPCName = npc.displayName;
-            ///portrait
+            currentNPCName = "";
+            currentPortrait = nullptr;
+            /*portrait
             if(portraitMap.find(npcId)!= portraitMap.end()){
                 currentPortrait = portraitMap[npcId];
             }else  {
                 currentPortrait = nullptr;
-            }
+            }*/
             ///lines
             for (auto& line : npc.lines){
                 //if (evaluteCondition(line.condition)){
@@ -317,21 +323,32 @@ void DialogueSystem::render(SDL_Renderer *renderer) {
         renderText(renderer, currentChoices[1].text,right.x + 20, right.y + 15);
         return;
     }
-    //portrait
+    /*oldportrait
     if (currentPortrait){
         SDL_Rect portraitRect = {30,230,200,200};
         SDL_RenderCopy(renderer, currentPortrait, NULL, &portraitRect);
-    }
+    }*/
+    const dialogueLine& line = currentLines[currentIndex];
     //dialogue
     SDL_Rect box = {0,420,800,180};
     SDL_SetRenderDrawColor(renderer, 0,0,0,200);
     SDL_RenderFillRect(renderer, &box);
+    SDL_Texture* portrait = nullptr;
+    if (portraitMap.find(line.speaker) != portraitMap.end()) {
+        portrait = portraitMap[line.speaker];
+    }
 
-    //name tag
-    renderText(renderer, currentNPCName, 230,435);
+    if (portrait) {
+        SDL_Rect portraitRect = {30,230,200,200};
+        SDL_RenderCopy(renderer, portrait, NULL, &portraitRect);
+    }
+
+    if (!line.speaker.empty() && line.speaker != "Narrator") {
+        renderText(renderer, line.speaker, 230, 435);
+    }
+
 
     //wrap text
-    const dialogueLine& line = currentLines[currentIndex];
     SDL_Color white = {255,255,255,255};
 
     int textX = 230;

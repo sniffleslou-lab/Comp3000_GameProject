@@ -17,11 +17,14 @@ void MaxwellRoom::enter() {
     //load room
     inspector->loadItems("../assets/data/MaxwellRoom.json", renderer);
     //trigger for the confrontation ARC4
-    if (!storyFlags.getFlag("MaxwellStormedOut")) {
+    if (storyFlags.getFlag("StartMaxwellInvestigation") &&
+       !storyFlags.getFlag("MaxwellStormedOut"))
+    {
         dialogueSystem->startDialogue("MaxwellConfrontationScene");
         return;
     }
-    //arc2
+
+    // ARC2 soft intro
     if (!storyFlags.getFlag("MaxwellRoomDialogueDone")) {
         dialogueSystem->startDialogue("MaxwellConversationScene");
         return;
