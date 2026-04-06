@@ -1,0 +1,11 @@
+{
+  "npc": "PhoneMessageKitchen",
+  "dialogue": [
+    {
+      "id": "msg1",
+      "speaker": "Phone",
+      "text": "Can you come to the kitchen please?",
+      "flag": "KitchenMessageSeen"
+    }
+  ]
+}

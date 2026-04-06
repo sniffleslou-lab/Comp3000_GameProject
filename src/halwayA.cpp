@@ -45,6 +45,13 @@ void HallwayA::enter() {
         showChapter4Card = true;
         chapter4Timer = 0.0f;
     }
+    //message after maxwell hang out and qte
+    if (storyFlags.getFlag("MaxwellPostQTEDone") &&
+    !storyFlags.getFlag("KitchenMessageSeen"))
+    {
+        dialogueSystem->startDialogue("PhoneMessageKitchen");
+    }
+
 
     //rests diaglogue state
     queuedNPC = "";

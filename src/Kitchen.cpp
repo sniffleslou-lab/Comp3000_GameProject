@@ -80,6 +80,12 @@ void Kitchen::enter() {
     } else {
         startDialogueNextFrame = false;
     }
+    //end of arc2
+    if (storyFlags.getFlag("MaxwellPostQTEDone") &&
+    !storyFlags.getFlag("Arc2Complete"))
+    {
+        dialogueSystem->startDialogue("PostMaxGroupArc2");
+    }
 
    // startDialogueNextFrame = true;
     arc2Font = TTF_OpenFont("../assets/font/SunLight Dreams.otf", 48);
