@@ -72,6 +72,20 @@
       "texture": "wall.png",
       "type": "solid",
       "targetScene": ""
+    },
+    {
+      "id": "KeyItem",
+      "name": "MaxwellKey",
+      "flag": "FoundMaxwellKey",
+      "inspect": "A small brass key. It looks like it belongs to Maxwell.",
+      "x": 420,
+      "y": 280,
+      "w": 32,
+      "h": 32,
+      "texture": "key.png",
+      "type": "item",
+      "targetScene": ""
     }
+
   ]
 }

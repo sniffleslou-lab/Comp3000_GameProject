@@ -10,6 +10,9 @@
 #include "dialogueSystem.h"
 #include <SDL.h>
 #include "inspectionSystem.h"
+#include "character.h"
+#include "sceneManager.h"
+#include "controls.h"
 
 class SpareRoom : public Scene {
     public:
@@ -25,11 +28,17 @@ class SpareRoom : public Scene {
     void setSceneManager(SceneManager* mgr) override { sceneManager = mgr; }
 
     private:
+    SDL_Renderer* renderer;
     StoryFlags& storyFlags;
     DialogueSystem* dialogueSystem;
-    SDL_Renderer* renderer;
-    std::unique_ptr<inspectionSystem> inspector;
     SceneManager* sceneManager = nullptr;
+
+    std::unique_ptr<Character> player;
+    std::unique_ptr<inspectionSystem> inspector;
+
+    Controls controls;
+    SDL_Texture* darknessOverlay = nullptr;
+
 
 };
 

@@ -29,6 +29,7 @@ HallwayA::HallwayA(SDL_Renderer *renderer, StoryFlags &flags, DialogueSystem* di
         "../assets/textures/Characters/maxwellChar.png", 600, 250);
         std::cout << "Maxwell spawned in hallway\n";
     }
+
     //dialogueSystem = std::make_unique<DialogueSystem>(storyFlags);
     //dialogueSystem->loadAllDialogue("../assets/data/dialogue/");
 }
@@ -72,6 +73,7 @@ void HallwayA::handleEvents(SDL_Event &e) {
             if (e.key.keysym.sym == SDLK_a){
                 dialogueSystem->selectedChoice=0;
             }
+
             if (e.key.keysym.sym == SDLK_d){
                 dialogueSystem->selectedChoice=1;
             }
@@ -95,8 +97,26 @@ void HallwayA::handleEvents(SDL_Event &e) {
     controls.handleInput(e, *player, *inspector);
 
     if (e.type == SDL_KEYDOWN && e.key.keysym.sym==SDLK_e){
+
+        if (storyFlags.getFlag("StartMaxwellInvestigation") &&
+            inspector->isNear("Spare Room Door", player->getPosition()))
+        {
+            std::cout << "Entering Spare Room...\n";
+            sceneManager->changeScene(SceneID::SCENE_SPAREROOM, renderer);
+            return;
+        }
+        if (inspector->isNear("MaxwellDoor", player->getPosition()) &&
+       storyFlags.getFlag("FoundMaxwellKey"))
+        {
+            std::cout << "Unlocking Maxwell's room...\n";
+            sceneManager->changeScene(SceneID::SCENE_MAXWELLROOM, renderer);
+            return;
+        }
         inspector->inspect(player->getPosition(),*sceneManager, renderer);
+
+
     }
+
 
     if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_f){
         if (annaNPC && playerIsNearAnna()){
@@ -114,6 +134,7 @@ void HallwayA::handleEvents(SDL_Event &e) {
             startDialogueNextFrame = true;
             return;
         }
+
 
         /*if(playerIsNearGarret()){
             queuedNPC = "Garret";
