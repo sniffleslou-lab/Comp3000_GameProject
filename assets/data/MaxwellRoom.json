@@ -59,5 +59,114 @@
     "texture": "wall.png",
     "type": "solid",
     "targetScene": ""
+  },
+  {
+    "id": "6",
+    "name": "carpet",
+    "inspect": "Carpet hasn't been cleaned in a while",
+    "x": 80,
+    "y": 80,
+    "w": 640,
+    "h": 440,
+    "texture": "/SYD_Interior_Pack_V1/Livingroom/Carpet/Carpet_Orange_3x3.png",
+    "type": "item",
+    "targetScene": "",
+    "layer": "0"
+  },
+  {
+    "id": "7",
+    "name": "UnmadeBed",
+    "inspect": "The sheets are tangled and unwashed.",
+    "x": 120,
+    "y": 120,
+    "w": 220,
+    "h": 140,
+    "texture": "/SYD_Interior_Pack_V1/Restroom/Blue Bed/Bed_Double_Side_2.png",
+    "type": "solid_item",
+    "layer": 1
+  },
+  {
+    "id": "8",
+    "name": "ClothesPile1",
+    "inspect": "A pile of clothes. Mostly dirty.",
+    "x": 380,
+    "y": 180,
+    "w": 70,
+    "h": 50,
+    "texture": "clothesPile.png",
+    "type": "solid_item",
+    "layer": 1
+  },
+  {
+    "id": "9",
+    "name": "ClothesPile2",
+    "inspect": "Mores dirty clothes. Maxwell needs to tidy.",
+    "x": 200,
+    "y": 420,
+    "w": 80,
+    "h": 60,
+    "texture": "clothesPile.png",
+    "type": "solid_item",
+    "layer": 1
+  },
+  {
+    "id": "10",
+    "name": "Desk",
+    "inspect": "A cluttered desk covered in papers and empty cans.",
+    "x": 520,
+    "y": 140,
+    "w": 180,
+    "h": 100,
+    "texture": "/SYD_Interior_Pack_V1/Livingroom/Table/Table_Up_1.png",
+    "type": "solid_item",
+    "layer": 1
+  },
+  {
+    "id": "11",
+    "name": "Chair",
+    "inspect": "A chair .",
+    "x": 500,
+    "y": 220,
+    "w": 80,
+    "h": 80,
+    "texture": "/SYD_Interior_Pack_V1/Livingroom/Chair/Seat_1.png",
+    "type": "solid_item",
+    "layer": 1
+  },
+  {
+    "id": "12",
+    "name": "Trashbin",
+    "inspect": "bin filled with rubbish",
+    "x": 600,
+    "y": 350,
+    "w": 80,
+    "h": 90,
+    "texture": "/SYD_Interior_Pack_V1/Kitchen/Trashcan/Trashcan_4.png",
+    "type": "solid_item",
+    "layer": 1
+  },
+  {
+    "id": "13",
+    "name": "Laptop",
+    "inspect": "A laptop with a cracked screen.",
+    "x": 550,
+    "y": 150,
+    "w": 60,
+    "h": 40,
+    "texture": "laptop.png",
+    "type": "solid_item",
+    "layer": 2
+  },
+  {
+    "id": "14",
+    "name": "FoodContainer",
+    "inspect": "An old takeaway container. Gross.",
+    "x": 450,
+    "y": 300,
+    "w": 50,
+    "h": 40,
+    "texture": "foodContainer.png",
+    "type": "solid_item",
+    "layer": 2
   }
-  ]}
+]}

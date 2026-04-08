@@ -40,6 +40,9 @@ private:
     Controls controls;
 
     std::unique_ptr<NPC> garretNPC;
+
+    //dark ovverlay
+    SDL_Texture* darknessOverlay = nullptr;
 };
 
 #endif //AMIPRETTY_BREAKERROOMSCENE_H

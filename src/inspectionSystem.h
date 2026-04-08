@@ -70,5 +70,12 @@ private:
     std::string nearbyDoorName;
     bool showDoorName = false;
     bool showDoorPrompt = false;
+
+    //thumbs up
+    SDL_Texture* thumbsUpIcon = nullptr;
+    bool showThumbsUp = false;
+    float thumbsUpTimer = 0.0f;
+
+
 };
 #endif //AMIPRETTY_INSPECTIONSYSTEM_H

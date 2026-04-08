@@ -18,6 +18,12 @@ BreakerRoomScene::BreakerRoomScene(SDL_Renderer *renderer, StoryFlags &flags, Di
 
     garretNPC = std::make_unique<NPC>(
         renderer,"../assets/textures/Characters/garretCha.png",300,250);
+
+    darknessOverlay = IMG_LoadTexture(renderer, "../assets/textures/darkness_overlay1.png");
+    if (!darknessOverlay) {
+        std::cerr << "Failed to load darkness overlay\n";
+    }
+
 }
 
 BreakerRoomScene::~BreakerRoomScene() {
@@ -98,6 +104,27 @@ void BreakerRoomScene::update(float dt) {
 }
     void BreakerRoomScene::render(SDL_Renderer* renderer, bool debugMode) {
         SDL_RenderCopy(renderer, roomTexture, NULL, NULL);
+
+    //breaker
+    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+    SDL_SetRenderDrawColor(renderer, 255, 200, 50, 80); // warm glow
+
+    SDL_Rect glow = { 540, 240, 140, 220 }; 
+    SDL_RenderFillRect(renderer, &glow);
+
+    // DARKNESS OVERLAY
+    SDL_Rect lightRect;
+    lightRect.w = 800;
+    lightRect.h = 600;
+
+    // Move overlay so the hole centers on the player
+    lightRect.x = player->getPosition().x - 400;
+    lightRect.y = player->getPosition().y - 300;
+
+    SDL_SetTextureBlendMode(darknessOverlay, SDL_BLENDMODE_BLEND);
+    SDL_SetTextureAlphaMod(darknessOverlay, 255);
+    SDL_RenderCopy(renderer, darknessOverlay, NULL, &lightRect);
+
 
         inspector->render(renderer);
         garretNPC->draw(renderer);

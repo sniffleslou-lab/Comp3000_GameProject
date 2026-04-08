@@ -17,6 +17,10 @@ inspectionSystem::inspectionSystem(SDL_Renderer *renderer, StoryFlags& flags, Di
 
     keyIcon = IMG_LoadTexture(renderer,"../assets/textures/key_E.png");
 
+    thumbsUpIcon = IMG_LoadTexture(renderer, "../assets/textures/thumbsUpIcon.png");
+    if (!thumbsUpIcon) {
+        std::cerr << "failed to load thumbsUpIcon\n";
+    }
 }
 inspectionSystem::~inspectionSystem() {
     if (font) TTF_CloseFont(font);
@@ -94,6 +98,13 @@ void inspectionSystem::update(float dt, const SDL_Rect& playerPos) {
     }
     updatePrompt(lastPlayerPos);
     bounceTimer += dt * 2.0f;
+
+    if (showThumbsUp) {
+        thumbsUpTimer += dt;
+        if (thumbsUpTimer > 2.0f) {
+            showThumbsUp = false;
+        }
+    }
 
 }
 void inspectionSystem::updatePrompt(const SDL_Rect &playerPos) {
@@ -192,6 +203,15 @@ void inspectionSystem::render(SDL_Renderer *renderer) {
         iconRect.y = baseY + bounceOffset;
         SDL_RenderCopy(renderer, keyIcon, nullptr, &iconRect);
     }
+    if (showThumbsUp && thumbsUpIcon) {
+        SDL_Rect r;
+        r.w = 48;
+        r.h = 48;
+        r.x = lastPlayerPos.x + (lastPlayerPos.w / 2) - (r.w / 2);
+        r.y = lastPlayerPos.y - 80;
+
+        SDL_RenderCopy(renderer, thumbsUpIcon, nullptr, &r);
+    }
 
 }
 
@@ -266,6 +286,13 @@ void inspectionSystem::inspect(const SDL_Rect &playerPos, SceneManager &sceneMan
                     if (item.flag == "PickedUp_batteries") {
                         storyFlags.setFlag("AnnaUnlocked", true);
                     }
+                    if (storyFlags.getFlag("PickedUp_batteries") &&
+                        storyFlags.getFlag("FoundMaxwellKey"))
+                    {
+                        showThumbsUp = true;
+                        thumbsUpTimer = 0.0f;
+                    }
+
                 }
 
                 return;

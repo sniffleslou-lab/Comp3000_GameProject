@@ -45,7 +45,7 @@ void SpareRoom::render(SDL_Renderer* renderer, bool debugMode) {
 
     // Draw darkness overlay
     SDL_SetTextureBlendMode(darknessOverlay, SDL_BLENDMODE_BLEND);
-    SDL_SetTextureAlphaMod(darknessOverlay, 220);
+    SDL_SetTextureAlphaMod(darknessOverlay, 180);
     SDL_RenderCopy(renderer, darknessOverlay, NULL, NULL);
 
     // Light circle around player
