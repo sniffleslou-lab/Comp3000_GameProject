@@ -17,15 +17,18 @@ void MaxwellRoom::enter() {
     //load room
     inspector->loadItems("../assets/data/MaxwellRoom.json", renderer);
     //trigger for the confrontation ARC4
-    if (storyFlags.getFlag("StartMaxwellInvestigation") &&
-       !storyFlags.getFlag("MaxwellStormedOut"))
+    if (storyFlags.getFlag("StartMaxwellConfrontation") &&
+        !storyFlags.getFlag("MaxwellStormedOut"))
     {
         dialogueSystem->startDialogue("MaxwellConfrontationScene");
         return;
     }
 
+
     // ARC2 soft intro
-    if (!storyFlags.getFlag("MaxwellRoomDialogueDone")) {
+    if (storyFlags.getFlag("EnterMaxwellRoom") &&
+        !storyFlags.getFlag("MaxwellRoomDialogueDone"))
+    {
         dialogueSystem->startDialogue("MaxwellConversationScene");
         return;
     }
@@ -79,6 +82,20 @@ void MaxwellRoom::update(float dt) {
     //qtw is active, update and pause everything
     if (qteManager->isActive()) {
         qteManager->update(dt);
+        return;
+    }
+    //replay minigame
+    if (storyFlags.getFlag("ReplayMaxwellMinigame") &&
+        !qteManager->isActive()) {
+        storyFlags.setFlag("ReplayMaxwellMinigame", false);
+        storyFlags.setFlag("MaxwellQTEStarted", true);
+        QTEEvents event;
+        event.sequence = {SDLK_w, SDLK_a, SDLK_d};
+        event.timePerKey = 2.0f;
+        event.successGain = 0.5f;
+        event.failPenalty = 0.1f;
+
+        qteManager->start(event);
         return;
     }
     //when macwellroom dialogue ends -> it should start the qte

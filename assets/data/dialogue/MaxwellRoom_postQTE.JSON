@@ -40,8 +40,24 @@
     {
       "id": "mxp7",
       "speaker": "Maxwell",
-      "text": "…well. Ehh. See you later.",
-      "flag": "MaxwellPostQTEDone"
+      "text": "If you want… you can try it again.",
+      "choices": [
+        {
+          "text": "Replay the minigame",
+          "flag": "ReplayMaxwellMinigame",
+          "next": "mxp8"
+        },
+        {
+          "text": "Maybe later",
+          "flag": "MaxwellPostQTEDone"
+        }
+      ]
+    },
+    {
+      "id": "mxp8",
+      "speaker": "Maxwell",
+      "text": "Alright… whenever you’re ready.",
+      "flag": "StartMaxwellMinigame"
     }
   ]
 }

@@ -3,18 +3,27 @@
   "dialogue": [
     {"id": "mx1","speaker": "Maxwell","text": "Rough night?","next": "mx2"},
     {"id": "mx2","speaker": "Player","text": "Seems like it..","next": "mx3"},
-    {"id": "mx3",
+    {
+      "id": "mx3",
       "speaker": "Maxwell",
       "text": "Want to hang out..? I've got something to show you.",
       "choices": [
         {"text": "Sure.","flag": "EnterMaxwellRoom","next":"mx4"},
-        {"text": "Maybe later.","flag": "DeclineMaxwell"}
+        {"text": "Maybe later.","flag": "DeclineMaxwell","next":"mx5"}
       ]
     },
     {
-      "id": "mx4","speaker": "Narrator","text": "You enter Maxwell's room.","flag": "StartMaxwellMinigame"
+      "id": "mx4",
+      "speaker": "Narrator",
+      "text": "You enter Maxwell's room.",
+      "flag": "EnterMaxwellRoom",
+      "next": "mx5"
+    },
+    {
+      "id": "mx5",
+      "speaker": "Narrator",
+      "text": "",
+      "flag": "MaxwellHallDone"
     }
-
-
   ]
 }

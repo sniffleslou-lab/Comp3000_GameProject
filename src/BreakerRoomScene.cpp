@@ -19,7 +19,7 @@ BreakerRoomScene::BreakerRoomScene(SDL_Renderer *renderer, StoryFlags &flags, Di
     garretNPC = std::make_unique<NPC>(
         renderer,"../assets/textures/Characters/garretCha.png",300,250);
 
-    darknessOverlay = IMG_LoadTexture(renderer, "../assets/textures/darkness_overlay1.png");
+    darknessOverlay = IMG_LoadTexture(renderer, "../assets/textures/dark_overlay.png");
     if (!darknessOverlay) {
         std::cerr << "Failed to load darkness overlay\n";
     }
@@ -105,31 +105,38 @@ void BreakerRoomScene::update(float dt) {
     void BreakerRoomScene::render(SDL_Renderer* renderer, bool debugMode) {
         SDL_RenderCopy(renderer, roomTexture, NULL, NULL);
 
-    //breaker
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+    SDL_SetRenderDrawColor(renderer, 0,0,0,140);
+    SDL_Rect darken = {0,0,800,600};
+    SDL_RenderFillRect(renderer, &darken);
+    //breaker
     SDL_SetRenderDrawColor(renderer, 255, 200, 50, 80); // warm glow
 
-    SDL_Rect glow = { 540, 240, 140, 220 }; 
+    SDL_Rect glow = { 540, 240, 140, 220 };
     SDL_RenderFillRect(renderer, &glow);
 
-    // DARKNESS OVERLAY
-    SDL_Rect lightRect;
-    lightRect.w = 800;
-    lightRect.h = 600;
+    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 220);
+    SDL_Rect fullDark = {0, 0, 800, 600};
+    SDL_RenderFillRect(renderer, &fullDark);
 
-    // Move overlay so the hole centers on the player
-    lightRect.x = player->getPosition().x - 400;
-    lightRect.y = player->getPosition().y - 300;
+    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 
-    SDL_SetTextureBlendMode(darknessOverlay, SDL_BLENDMODE_BLEND);
-    SDL_SetTextureAlphaMod(darknessOverlay, 255);
-    SDL_RenderCopy(renderer, darknessOverlay, NULL, &lightRect);
+    SDL_Rect p = player->getPosition();
+    SDL_Rect spotlight = {
+        p.x + p.w/2 - 150,
+        p.y + p.h/2 - 150,
+        300,
+        300
+    };
 
+    SDL_RenderFillRect(renderer, &spotlight);
 
-        inspector->render(renderer);
-        garretNPC->draw(renderer);
-        player->draw();
-        dialogueSystem->render(renderer);
+    inspector->render(renderer);
+    garretNPC->draw(renderer);
+    player->draw();
+    dialogueSystem->render(renderer);
 
     //debug
     if (debugMode) {

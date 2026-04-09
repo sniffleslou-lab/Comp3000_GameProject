@@ -91,7 +91,7 @@ void OutsideScene::handleEvents(SDL_Event &e) {
     // Talk to Maxwell
     if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_f) {
         if (maxwellNPC && playerIsNearMaxwell()) {
-            dialogueSystem->startDialogue("MaxwellConversationScene");
+            dialogueSystem->startDialogue("MaxwellConversationSceneOut");
             return;
         }
     }
@@ -117,10 +117,10 @@ inspector->update(dt, player->getPosition());
         storyFlags.setFlag("AnxietyQTE_Started", true);
 
         QTEEvents event;
-        event.sequence = {SDLK_a, SDLK_s, SDLK_d};
-        event.timePerKey = 1.5f;
-        event.successGain = 0.4f;
-        event.failPenalty = 0.2f;
+        event.sequence = {SDLK_a, SDLK_s};
+        event.timePerKey = 3.5f;
+        event.successGain = 1.4f;
+        event.failPenalty = 0.0f;
 
         qteManager->start(event);
         return;
@@ -139,7 +139,7 @@ inspector->update(dt, player->getPosition());
         !storyFlags.getFlag("Chapter4_ConversationDone")&&
         !dialogueSystem->isActive) {
         storyFlags.setFlag("Chapter4_ConversationDone", true);
-        dialogueSystem->startDialogue("MaxwellConversationScene");
+        dialogueSystem->startDialogue("MaxwellConversationSceneOut");
         }
 
     //chapter 5 card

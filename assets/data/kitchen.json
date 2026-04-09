@@ -101,18 +101,6 @@
     },
 
     {
-      "id": "9",
-      "name": "Side Top Wall",
-      "inspect": "",
-      "x": 30,
-      "y": 50,
-      "w": 40,
-      "h": 40,
-      "texture": "wall.png",
-      "type": "solid"
-    },
-
-    {
       "id": "10",
       "name": "Fridge",
       "inspect": "God, I wish I brought those fancy burgers.",
@@ -160,6 +148,30 @@
       "texture": "door.png",
       "type": "door",
       "targetScene": "SCENE_ARC2_HALLWAY"
+    },
+    {
+      "id": "14",
+      "name": "CounterHorizontal",
+      "inspect": "A dusty kitchen counter.",
+      "x": 40,
+      "y": 40,
+      "w": 260,
+      "h": 60,
+      "texture": "/SYD_Interior_Pack_V1/Kitchen/Sink/Sink_Up.png",
+      "type": "solid_item",
+      "layer": 0
+    },
+    {
+      "id": "15",
+      "name": "CounterVertical",
+      "inspect": "Part of the kitchen counter.",
+      "x": 40,
+      "y": 100,
+      "w": 60,
+      "h": 100,
+      "texture": "/SYD_Interior_Pack_V1/Kitchen/Sink/Sink_Side.png",
+      "type": "solid_item",
+      "layer": 0
     }
 
   ]

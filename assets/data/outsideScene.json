@@ -1,71 +1,64 @@
 {
-  "items":[
+  "items": [
     {
       "id": "1",
       "name": "BackDoor",
-      "inspect": "leads back inside apartment",
-      "x": "600",
-      "y": "500",
-      "w": "80",
-      "h": "200",
+      "inspect": "Leads back inside the apartment.",
+      "x": 600,
+      "y": 500,
+      "w": 80,
+      "h": 200,
       "texture": "door.png",
       "type": "door",
       "targetScene": "SCENE_ARC2_HALLWAY"
     },
+
     {
       "id": "2",
-      "name": "wallLeft",
-      "x": "0",
-      "y": "0",
-      "w": "20",
-      "h": "720",
+      "name": "WallLeft",
+      "inspect": "",
+      "x": 0,
+      "y": 0,
+      "w": 20,
+      "h": 720,
       "texture": "wall.png",
-      "type": "wall"
+      "type": "solid"
     },
+
     {
       "id": "3",
-      "name": "wallRight",
-      "inspect": "1260",
-      "x": "0",
-      "y": "0",
-      "w": "20",
-      "h": "720",
+      "name": "WallRight",
+      "inspect": "",
+      "x": 1260,
+      "y": 0,
+      "w": 20,
+      "h": 720,
       "texture": "wall.png",
-      "type": "wall"
+      "type": "solid"
     },
+
     {
       "id": "4",
-      "name": "wallTop",
-      "inspect": "wallTop",
-      "x": "0",
-      "y": "0",
-      "w": "1280",
-      "h": "20",
+      "name": "WallTop",
+      "inspect": "",
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 20,
       "texture": "wall.png",
-      "type": "wall"
+      "type": "solid"
     },
-    {
-      "id": "",
-      "name": "",
-      "inspect": "",
-      "x": "",
-      "y": "",
-      "w": "",
-      "h": "",
-      "texture": "",
-      "type": ""
-    },
-    {
-      "id": "",
-      "name": "",
-      "inspect": "",
-      "x": "",
-      "y": "",
-      "w": "",
-      "h": "",
-      "texture": "",
-      "type": ""
-    }
 
-]
+    {
+      "id": "5",
+      "name": "WallBottom",
+      "inspect": "",
+      "x": 0,
+      "y": 700,
+      "w": 1280,
+      "h": 20,
+      "texture": "wall.png",
+      "type": "solid"
+    }
+  ]
 }
