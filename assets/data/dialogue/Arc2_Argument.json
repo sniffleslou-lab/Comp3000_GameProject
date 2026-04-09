@@ -30,8 +30,8 @@
       "speaker": "Narrator",
       "text": "They stop when they notice you.",
       "choices": [
-        {"text": "Are you both okay?", "flag": "SideNeutral", "next": "ret6"},
-        {"text": "Are I.. leave?", "flag": "SideAvoid", "next": "ret6"}
+        {"text": "both okay?", "flag": "SideNeutral", "next": "ret6"},
+        {"text": "ehhh?", "flag": "SideAvoid", "next": "ret6"}
         ]
     },
     {

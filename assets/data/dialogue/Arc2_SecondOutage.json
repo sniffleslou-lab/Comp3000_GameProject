@@ -18,8 +18,8 @@
     "speaker": "Garret",
     "text":"You coming with me?",
     "choices": [
-      {"text": "Sure, I'll go.", "flag":"GoWithGarret", "next": "pwr8"},
-      {"text": "Really, do I have to?", "flag":  "ReluctantGarret", "next": "pwr8"}
+      {"text": "Sure", "flag":"GoWithGarret", "next": "pwr8"},
+      {"text": "Really?", "flag":  "ReluctantGarret", "next": "pwr8"}
     ]
   },
 {

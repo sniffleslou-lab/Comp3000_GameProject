@@ -11,6 +11,9 @@
 #include <SDL.h>
 #include "inspectionSystem.h"
 #include "QTEManager.h"
+#include  "NPC.h"
+#include "Character.h"
+#include "controls.h"
 
 class MaxwellRoom : public Scene {
 public:
@@ -34,6 +37,9 @@ private:
     std::unique_ptr<QTEManager> qteManager;
 
     SceneManager* sceneManager = nullptr;
+    std::unique_ptr<Character> player;
+    std::unique_ptr<NPC> maxwellNPC;
+    Controls controls;
 };
 
 #endif //AMIPRETTY_MAXWELLROOM_H

@@ -7,13 +7,20 @@ MaxwellRoom::MaxwellRoom(SDL_Renderer* renderer, StoryFlags& flags, DialogueSyst
     inspector = std::make_unique<inspectionSystem>(renderer, storyFlags, dialogueSystem);
     qteManager = std::make_unique<QTEManager>(renderer);
 
+    player = std::make_unique<Character>(
+    renderer,"../assets/textures/Characters/playerChar.png",
+    400, 300
+);
+
+
 }
 
 MaxwellRoom::~MaxwellRoom() {}
 
 void MaxwellRoom::enter() {
     std::cout << "Entering Maxwells room\n";
-
+    maxwellNPC = std::make_unique<NPC>(
+        renderer,"../assets/textures/Characters/MaxwellChar.png", 500, 200);
     //load room
     inspector->loadItems("../assets/data/MaxwellRoom.json", renderer);
     //trigger for the confrontation ARC4
@@ -64,7 +71,7 @@ void MaxwellRoom::handleEvents(SDL_Event &e) {
                 }
             }
         }
-        return;
+
     }
     if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE) {
 
@@ -77,6 +84,8 @@ void MaxwellRoom::handleEvents(SDL_Event &e) {
             dialogueSystem->nextLine();
         }
     }
+    controls.handleInput(e, *player, *inspector);
+
 }
 void MaxwellRoom::update(float dt) {
     //qtw is active, update and pause everything
@@ -137,7 +146,10 @@ void MaxwellRoom::update(float dt) {
     }
 }
 void MaxwellRoom::render(SDL_Renderer* renderer, bool debugMode) {
+
     inspector->render(renderer);
+    if (maxwellNPC)maxwellNPC->draw(renderer);
+    player->draw();
     dialogueSystem->render(renderer);
     qteManager->render(renderer);
 
