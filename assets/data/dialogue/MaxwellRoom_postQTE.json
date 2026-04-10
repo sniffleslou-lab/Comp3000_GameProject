@@ -57,7 +57,7 @@
       "id": "mxp8",
       "speaker": "Maxwell",
       "text": "Alright… whenever you’re ready.",
-      "flag": "StartMaxwellMinigame"
+      "flag": "MaxwellPostQTEDone"
     }
   ]
 }

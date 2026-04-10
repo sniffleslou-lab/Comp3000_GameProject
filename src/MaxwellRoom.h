@@ -40,6 +40,9 @@ private:
     std::unique_ptr<Character> player;
     std::unique_ptr<NPC> maxwellNPC;
     Controls controls;
+
+    bool startQTE_NextFrame = false;
+    bool replayQTE_NextFrame = false;
 };
 
 #endif //AMIPRETTY_MAXWELLROOM_H

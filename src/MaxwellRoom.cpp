@@ -93,32 +93,44 @@ void MaxwellRoom::update(float dt) {
         qteManager->update(dt);
         return;
     }
-    //replay minigame
-    if (storyFlags.getFlag("ReplayMaxwellMinigame") &&
-        !qteManager->isActive()) {
-        storyFlags.setFlag("ReplayMaxwellMinigame", false);
+    if (replayQTE_NextFrame){
+    replayQTE_NextFrame = false;
+
+    storyFlags.setFlag("MaxwellQTEStarted", true);
+
+    QTEEvents event;
+    event.sequence = {SDLK_w, SDLK_a, SDLK_d};
+    event.timePerKey = 10.0f;
+    event.successGain = 0.25f;
+    event.failPenalty = 0.05f;
+
+    qteManager->start(event);
+    return;
+}
+    //oneframe delay
+    if (startQTE_NextFrame) {
+        startQTE_NextFrame = false;
         storyFlags.setFlag("MaxwellQTEStarted", true);
+
         QTEEvents event;
         event.sequence = {SDLK_w, SDLK_a, SDLK_d};
-        event.timePerKey = 2.0f;
-        event.successGain = 0.5f;
-        event.failPenalty = 0.1f;
+        event.timePerKey = 10.0f;
+        event.successGain = 0.25f;
+        event.failPenalty = 0.5f;
 
         qteManager->start(event);
         return;
     }
+   if (storyFlags.getFlag("ReplayMaxwellMinigame") &&
+       !qteManager->isActive()) {
+       storyFlags.setFlag("ReplayMaxwellMinigame", false);
+        replayQTE_NextFrame = true;
+       return;
+   }
     //when macwellroom dialogue ends -> it should start the qte
     if (storyFlags.getFlag("StartMaxwellMinigame")&&
         !storyFlags.getFlag("MaxwellQTEStarted")) {
-        storyFlags.setFlag("MaxwellQTEStarted", true);
-
-        QTEEvents event;
-        event.sequence = {SDLK_w, SDLK_a, SDLK_d};
-        event.timePerKey = 2.0f;
-        event.successGain = 0.5f;
-        event.failPenalty = 0.1f;
-
-        qteManager->start(event);
+        startQTE_NextFrame = true;
         return;
     }
     //qte finished, when akward goodbye
@@ -133,16 +145,18 @@ void MaxwellRoom::update(float dt) {
 
     // After awkward goodbye → return to hallway
     if (storyFlags.getFlag("MaxwellPostQTEDone") &&
-        !dialogueSystem->isActive)
+     !dialogueSystem->isActive)
     {
         sceneManager->changeScene(SceneID::SCENE_HALLWAYA, renderer);
         return;
     }
 
-    //after maxwell storms out, will auto transition back to the hallway
-    if (storyFlags.getFlag("MaxwellStormedOut")&&
-        !dialogueSystem->isActive) {
+    // After Maxwell storms out
+    if (storyFlags.getFlag("MaxwellStormedOut") &&
+     !dialogueSystem->isActive)
+    {
         sceneManager->changeScene(SceneID::SCENE_HALLWAYA, renderer);
+        return;
     }
 }
 void MaxwellRoom::render(SDL_Renderer* renderer, bool debugMode) {

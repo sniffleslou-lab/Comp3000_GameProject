@@ -11,8 +11,8 @@
 struct QTEEvents {
     std::vector<SDL_KeyCode> sequence; //key press order
     float timePerKey = 1.0f;
-    float failPenalty = 0.25f;
-    float successGain = 0.25f;
+    float failPenalty = 0.1f;
+    float successGain = 0.2f;
 };
 
 #endif //AMIPRETTY_QTEEVENTS_H
