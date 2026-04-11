@@ -6,6 +6,7 @@
 
 #include "storyFlags.h"
 #include "dialogueSystem.h"
+#include "sceneManager.h"
 
 class Game {
 public:
@@ -23,6 +24,8 @@ private:
     SDL_Window* window;
     SDL_Renderer *renderer;
     bool isRunning;
+    std::unique_ptr<SceneManager> sceneManager;
+
 
     StoryFlags storyFlags;
     std::unique_ptr<DialogueSystem> dialogueSystem;

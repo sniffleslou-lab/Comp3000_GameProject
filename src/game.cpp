@@ -45,6 +45,8 @@ dialogueSystem = std::make_unique<DialogueSystem>(storyFlags, renderer);
 dialogueSystem->loadAllDialogue("../assets/data/dialogue/");
 //dialogueSystem->startDialogue("Garret");
 
+    sceneManager = std::make_unique<SceneManager>(renderer, storyFlags, dialogueSystem.get());
+
 
     isRunning = true;
     return true;

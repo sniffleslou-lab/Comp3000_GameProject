@@ -32,6 +32,7 @@ void bedroom::enter() {
     inspector->doorCooldown = true;
     inspector->doorCooldownTimer = 0.0f;
 
+    if (!dialogueSystem) return;
     //title card
     if (!storyFlags.getFlag("SeenChapter1Card")){
         chapterNumber = 1;
@@ -131,6 +132,14 @@ void bedroom::handleEvents(SDL_Event &e) {
         qteDebug->start(testEvent);
         std::cout << "DEBUG: Started random QTE in bedroom\n";
     }
+    if (!dialogueSystem) {
+        controls.handleInput(e, *player, *inspector);
+
+        if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_e && sceneManager) {
+            inspector->inspect(player->getPosition(), *sceneManager, renderer);
+        }
+        return;
+    }
 
     if(dialogueSystem->choiceActive){
         if (e.type == SDL_KEYDOWN){
@@ -188,7 +197,8 @@ void bedroom::update(float dt) {
         if(chapterCardTimer > 5.0f){
             showChapterCard = false;
 
-            if (storyFlags.getFlag("Arc3Start") &&
+            if (dialogueSystem &&
+                storyFlags.getFlag("Arc3Start") &&
                 !storyFlags.getFlag("MirrorSceneDone") &&
                 !dialogueSystem->choiceActive)
             {
@@ -201,7 +211,7 @@ void bedroom::update(float dt) {
 void bedroom::render(SDL_Renderer *renderer, bool debugMode) {
     inspector->render(renderer);
     player->draw();
-
+    if (dialogueSystem)
     dialogueSystem->render(renderer);
 
     //title card

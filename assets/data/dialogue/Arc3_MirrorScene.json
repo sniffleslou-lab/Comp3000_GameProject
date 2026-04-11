@@ -8,7 +8,7 @@
       "next": "mir2"
     },
     {
-      "id": "mir2",
+      "id":  "mir2",
       "speaker": "Player",
       "text": "....",
       "next": "mir3"
