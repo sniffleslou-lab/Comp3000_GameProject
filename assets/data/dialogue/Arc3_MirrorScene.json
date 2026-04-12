@@ -23,7 +23,8 @@
       "id": "mir4",
       "speaker": "Narrator",
       "text": "Your body finally responds.",
-      "flag": "MirrorSceneDone"
+      "flag": "MirrorSceneDone",
+      "next": ""
     }
-  ]
+]
 }

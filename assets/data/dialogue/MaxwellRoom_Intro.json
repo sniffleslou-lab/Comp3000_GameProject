@@ -4,45 +4,45 @@
     {
       "id": "mxr1",
       "speaker": "Maxwell",
-      "text": "Oh hey. Um… thanks for coming in. I didn’t want to talk out there.",
+      "text": "Oh hey. Um... thanks for coming in. I didn't want to talk out there.",
       "next": "mxr2"
     },
     {
       "id": "mxr2",
       "speaker": "Maxwell",
-      "text": "I know I sounded intense. I’m not trying to be weird, I just",
+      "text": "I know I sounded intense. I'm not trying to be weird, I just",
       "next": "mxr3"
     },
     {
       "id": "mxr3",
       "speaker": "Maxwell",
-      "text": "…okay, this is already coming out wrong. Never mind. Forget it ",
+      "text": "...okay, this is already coming out wrong. Never mind. Forget it.",
       "next": "mxr4"
     },
     {
       "id": "mxr4",
       "speaker": "Player",
-      "text": "Maxwell. It’s fine. Just tell me.",
+      "text": "Maxwell. It's fine. Just tell me.",
       "next": "mxr5"
     },
     {
       "id": "mxr5",
       "speaker": "Maxwell",
-      "text": "Right. Okay. So I made something. A game. It’s nothing big, I just ",
+      "text": "Right. Okay. So I made something. A game. It's nothing big, I just",
       "next": "mxr6"
     },
     {
       "id": "mxr6",
       "speaker": "Maxwell",
-      "text": "I wanted to show you. If you want. You don’t have to. Obviously.",
+      "text": "I wanted to show you. If you want. You don't have to. Obviously.",
       "choices": [
         {
-          "text": "Yeah, I’ll try it.",
+          "text": "Yeah",
           "flag": "MaxwellRoomDialogueDone",
           "next": "mxr7"
         },
         {
-          "text": "Maybe another time.",
+          "text": "another time.",
           "flag": "DeclineMaxwellRoom"
         }
       ]
@@ -50,7 +50,7 @@
     {
       "id": "mxr7",
       "speaker": "Maxwell",
-      "text": "Okay. Um… when you’re ready… hit the first key.",
+      "text": "Okay. Um... when you're ready... hit the first key.",
       "flag": "StartMaxwellMinigame"
     }
   ]

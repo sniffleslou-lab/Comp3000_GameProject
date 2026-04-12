@@ -67,7 +67,9 @@ void Kitchen::enter() {
         garretNPC->setPosition(garretX,garretY);
     }
 
-    if (storyFlags.getFlag("AnnaMoved")&& !annaNPC) {
+    if (storyFlags.getFlag("AnnaMoved") &&
+        !storyFlags.getFlag("Arc3Start") &&
+        !annaNPC) {
         std::cout << "anna spawned in the room\n";
         int annaX = couchRect.x + couchRect.w - 40;
         int annaY = couchRect.y - 40;
@@ -288,10 +290,9 @@ void Kitchen::update(float dt) {
     {
         dialogueSystem->startDialogue("GroupArc2");
     }
-
     // --- ARC 2 COMPLETE → MOVE TO BEDROOM ---
     if (storyFlags.getFlag("Arc2Complete") &&
-        !storyFlags.getFlag("Arc3Start") &&
+        !storyFlags.getFlag("Arc3Start")&&
         !dialogueSystem->isActive)
     {
         storyFlags.setFlag("Arc3Start", true);
@@ -299,12 +300,13 @@ void Kitchen::update(float dt) {
         return;
     }
 
+
     // --- ARC 3 GARRET TALK ---
     if (storyFlags.getFlag("CalledToLivingRoom") &&
         !storyFlags.getFlag("GarretTalkDone") &&
         !dialogueSystem->isActive)
     {
-        dialogueSystem->startDialogue("CalledToLivingRoom");
+        dialogueSystem->startDialogue("GarretLivingRoomScene");
     }
 
     // --- ARC 3 ANNA INTERRUPTS ---

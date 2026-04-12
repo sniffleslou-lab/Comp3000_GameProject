@@ -4,19 +4,19 @@
     {
       "id": "mxp1",
       "speaker": "Maxwell",
-      "text": "Oh— you actually… finished it.",
+      "text": "Oh-- you actually... finished it.",
       "next": "mxp2"
     },
     {
       "id": "mxp2",
       "speaker": "Maxwell",
-      "text": "I mean, I knew you could, I just… didn’t think you’d actually try.",
+      "text": "I mean, I knew you could, I just... didn't think you'd actually try.",
       "next": "mxp3"
     },
     {
       "id": "mxp3",
       "speaker": "Maxwell",
-      "text": "Um. Thanks. Really. That… meant more than I thought it would.",
+      "text": "Um. Thanks. Really. That... meant more than I thought it would.",
       "next": "mxp4"
     },
     {
@@ -34,13 +34,13 @@
     {
       "id": "mxp6",
       "speaker": "Maxwell",
-      "text": "So I guess I’ll… uh… let you get back to whatever you were doing.",
+      "text": "So I guess I'll... uh... let you get back to whatever you were doing.",
       "next": "mxp7"
     },
     {
       "id": "mxp7",
       "speaker": "Maxwell",
-      "text": "If you want… You can try it again.",
+      "text": "If you want... you can try it again.",
       "choices": [
         {
           "text": "Replay the minigame",
@@ -56,7 +56,7 @@
     {
       "id": "mxp8",
       "speaker": "Maxwell",
-      "text": "Alright… whenever you’re ready.",
+      "text": "Alright... whenever you're ready.",
       "flag": "MaxwellPostQTEDone"
     }
   ]
