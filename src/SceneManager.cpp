@@ -21,6 +21,8 @@ SceneManager::SceneManager(SDL_Renderer *renderer, StoryFlags& flags, DialogueSy
     currentSceneID = SceneID::SCENE_START;
     currentScene = createScene(currentSceneID,renderer);
     if (currentScene)currentScene->enter();
+    std::cout << "SceneManager StoryFlags at " << &storyFlags << "\n";
+
 }
 void SceneManager::changeScene(SceneID newScene, SDL_Renderer *renderer)  {
     dialogueSystem->endDialogue();

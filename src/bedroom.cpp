@@ -17,6 +17,9 @@ bedroom::bedroom(SDL_Renderer *renderer, StoryFlags& flags, DialogueSystem* dial
     chapterFont = TTF_OpenFont("../assets/font/SunLight Dreams.otf", 48);
     if(!chapterFont){
         std::cout << "failed to load font: "<<TTF_GetError()<< std::endl;
+    }else {
+        std::cout << "Bedroom chapterFont loaded at " << chapterFont << "\n";
+
     }
     qteDebug = std::make_unique<QTEManager>(renderer);
 
@@ -60,13 +63,6 @@ void bedroom::enter() {
         return;
     }
 
-    if (storyFlags.getFlag("MirrorSceneDone") &&
-     !storyFlags.getFlag("PhoneMessageSeen") &&
-     !dialogueSystem->isActive)
-    {
-        dialogueSystem->startDialogue("Phone");
-        storyFlags.setFlag("PhoneMessageSeen", true);
-    }
 
 
 
@@ -83,6 +79,7 @@ void bedroom::drawText(SDL_Renderer *renderer, TTF_Font *font, const std::string
     SDL_DestroyTexture(tex);
 }
 void bedroom::drawCenteredText(SDL_Renderer *renderer, TTF_Font *font, const std::string &text, int y) {
+    if (!font) return;
     SDL_Color white = {255,255,255,255};
 
     SDL_Surface* surf = TTF_RenderText_Blended(font,text.c_str(),white);
@@ -206,6 +203,15 @@ void bedroom::update(float dt) {
             }
         }
     }
+    if (storyFlags.getFlag("MirrorSceneDone") &&
+    !storyFlags.getFlag("PhoneMessageSeen") &&
+    !dialogueSystem->isActive)
+    {
+        dialogueSystem->startDialogue("Phone");
+        storyFlags.setFlag("PhoneMessageSeen", true);
+        return;
+    }
+
 }
 
 void bedroom::render(SDL_Renderer *renderer, bool debugMode) {
@@ -215,7 +221,7 @@ void bedroom::render(SDL_Renderer *renderer, bool debugMode) {
     dialogueSystem->render(renderer);
 
     //title card
-    if(showChapterCard){
+    if(showChapterCard && chapterFont){
         SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
         SDL_SetRenderDrawColor(renderer,0,0,0,180);
         SDL_Rect fullscreen = {0,0,1280,720};

@@ -6,13 +6,16 @@
 
 Kitchen::Kitchen(SDL_Renderer *renderer, StoryFlags &flags, DialogueSystem* dialogue)
 :storyFlags(flags), renderer(renderer), dialogueSystem(dialogue) {
+    std::cout << "Kitchen StoryFlags at " << &storyFlags << "\n";
+
     player = std::make_unique<Character>(renderer,"../assets/textures/Characters/playerChar.png",100,200);
     inspector= std::make_unique<inspectionSystem>(renderer,storyFlags,dialogueSystem);
     inspector->loadItems("../assets/data/kitchen.json",renderer);
 
     garretNPC = std::make_unique<NPC>(renderer, "../assets/textures/Characters/garretCha.png",300,200);
 
-    if(storyFlags.getFlag("AnnaMoved")){
+    if(storyFlags.getFlag("AnnaMoved")&&
+        !storyFlags.getFlag("Arc3Start")){
         std::cout << "Anna moved flag detected — spawning Anna in kitchen.\n";
         annaNPC = std::make_unique<NPC>(renderer, "../assets/textures/Characters/annaCha.png",350,200);
     }
@@ -288,10 +291,12 @@ void Kitchen::update(float dt) {
 
     // --- ARC 2 COMPLETE → MOVE TO BEDROOM ---
     if (storyFlags.getFlag("Arc2Complete") &&
+        !storyFlags.getFlag("Arc3Start") &&
         !dialogueSystem->isActive)
     {
         storyFlags.setFlag("Arc3Start", true);
         sceneManager->changeScene(SceneID::SCENE_BEDROOM, renderer);
+        return;
     }
 
     // --- ARC 3 GARRET TALK ---
@@ -307,7 +312,15 @@ void Kitchen::update(float dt) {
         !storyFlags.getFlag("StartMaxwellInvestigation") &&
         !dialogueSystem->isActive)
     {
+        if (!annaNPC) {
+            annaNPC = std::make_unique<NPC>(
+                renderer,
+                "../assets/textures/Characters/annaCha.png",
+                350, 200
+            );
+        }
         dialogueSystem->startDialogue("AnnaInterruptScene");
+        return;
     }
 
     // --- ARC 5 FINAL TALK ---

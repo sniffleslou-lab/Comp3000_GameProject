@@ -23,12 +23,19 @@ HallwayA::HallwayA(SDL_Renderer *renderer, StoryFlags &flags, DialogueSystem* di
     }
 
     //spawn maxwell in arc2
-    if (storyFlags.getFlag("Arc2ArgumentSeen")&&
-        !storyFlags.getFlag("Arc2_MaxwellSeen")) {
+    if (storyFlags.getFlag("Arc2ArgumentSeen") &&
+    !storyFlags.getFlag("Arc2_MaxwellSeen") &&
+    !storyFlags.getFlag("Arc2Complete"))
+    {
         maxwellNPC = std::make_unique<NPC>(renderer,
-        "../assets/textures/Characters/maxwellChar.png", 600, 250);
+            "../assets/textures/Characters/maxwellChar.png", 600, 250);
         std::cout << "Maxwell spawned in hallway\n";
     }
+    if (storyFlags.getFlag("Arc2Complete")) {
+        maxwellNPC.reset();
+    }
+
+
 
     //dialogueSystem = std::make_unique<DialogueSystem>(storyFlags);
     //dialogueSystem->loadAllDialogue("../assets/data/dialogue/");

@@ -25,18 +25,13 @@
       "text": "What do you think?",
       "choices": [
         {
-          "text": "I'm scared too.",
+          "text": "I'm scared ",
           "flag": "PlayerOpenedUp",
           "next": "gl5"
         },
         {
           "text": "I don't know",
           "flag": "PlayerUnsure",
-          "next": "gl5"
-        },
-        {
-          "text": "I.. I'm trying",
-          "flag": "PlayerTrying",
           "next": "gl5"
         }
       ]

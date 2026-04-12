@@ -42,6 +42,7 @@ bool Game::init(const char *title, int width, int height) {
 
     //loads dialoge
 dialogueSystem = std::make_unique<DialogueSystem>(storyFlags, renderer);
+    std::cout << "Game StoryFlags at " << &storyFlags << "\n";
 dialogueSystem->loadAllDialogue("../assets/data/dialogue/");
 //dialogueSystem->startDialogue("Garret");
 
@@ -53,11 +54,10 @@ dialogueSystem->loadAllDialogue("../assets/data/dialogue/");
 }
 void Game::run() {
     SDL_Event event;
-    SceneManager sceneManager(renderer,storyFlags, dialogueSystem.get());
 
-    while (isRunning){
-        while (SDL_PollEvent(&event)){
-            if(event.type == SDL_QUIT){
+    while (isRunning) {
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
                 isRunning = false;
             }
             else if (event.type == SDL_KEYDOWN) {
@@ -67,17 +67,18 @@ void Game::run() {
                 }
             }
 
-            sceneManager.handleEvents(event);
+            sceneManager->handleEvents(event);
         }
 
-        //framerate
-        sceneManager.update(0.016f);
-        SDL_SetRenderDrawColor(renderer,255,204,221,255);
+        sceneManager->update(0.016f);
+
+        SDL_SetRenderDrawColor(renderer, 255, 204, 221, 255);
         SDL_RenderClear(renderer);
 
-        sceneManager.render(renderer, debugMode);
+        sceneManager->render(renderer, debugMode);
         SDL_RenderPresent(renderer);
     }
+
 
 
     //this is the old part that ran the controlls and displayed character
