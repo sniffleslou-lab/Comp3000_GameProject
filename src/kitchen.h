@@ -43,6 +43,7 @@ private:
     DialogueSystem* dialogueSystem;
     std::unique_ptr<NPC> garretNPC;
     std::unique_ptr<NPC> annaNPC;
+    std::unique_ptr<NPC> maxwellNPC;
     bool eWasDown = false;
     bool startDialogueNextFrame = false;
 

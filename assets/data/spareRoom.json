@@ -11,7 +11,7 @@
       "texture": "door.png",
       "type": "door",
       "targetScene": "SCENE_HALLWAYA",
-      "layer": 0
+      "layer": 1
     },
     {
       "id": "2",
@@ -24,7 +24,7 @@
       "texture": "door.png",
       "type": "door",
       "targetScene": "SCENE_MAXWELLROOM",
-      "layer": 0
+      "layer": 1
     },
 
     {
@@ -81,7 +81,7 @@
     },
 
     {
-      "id": "KeyItem",
+      "id": "8",
       "name": "MaxwellKey",
       "flag": "FoundMaxwellKey",
       "inspect": "A small brass key. It looks like it belongs to Maxwell.",

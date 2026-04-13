@@ -71,7 +71,6 @@ void MaxwellRoom::handleEvents(SDL_Event &e) {
                 }
             }
         }
-
     }
     if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE) {
 
@@ -142,18 +141,28 @@ void MaxwellRoom::update(float dt) {
         dialogueSystem->startDialogue("MaxwellPostQTE");
         return;
     }
+    bool inArc2 = !storyFlags.getFlag("StartMaxwellInvestigation");
 
-    // After awkward goodbye → return to hallway
-    if (storyFlags.getFlag("MaxwellPostQTEDone") &&
-     !dialogueSystem->isActive)
-    {
-        sceneManager->changeScene(SceneID::SCENE_HALLWAYA, renderer);
-        return;
+    if (inArc2) {
+        // After awkward goodbye → return to hallway
+        if (storyFlags.getFlag("MaxwellPostQTEDone") &&
+         !dialogueSystem->isActive)
+        {
+            sceneManager->changeScene(SceneID::SCENE_HALLWAYA, renderer);
+            return;
+        }
+
+        // After Maxwell storms out
+        if (storyFlags.getFlag("MaxwellStormedOut") &&
+         !dialogueSystem->isActive)
+        {
+            sceneManager->changeScene(SceneID::SCENE_HALLWAYA, renderer);
+            return;
+        }
     }
-
-    // After Maxwell storms out
     if (storyFlags.getFlag("MaxwellStormedOut") &&
-     !dialogueSystem->isActive)
+    storyFlags.getFlag("StartMaxwellInvestigation") &&
+    !dialogueSystem->isActive)
     {
         sceneManager->changeScene(SceneID::SCENE_HALLWAYA, renderer);
         return;

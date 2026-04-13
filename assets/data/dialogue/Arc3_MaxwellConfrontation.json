@@ -13,7 +13,6 @@
       "text": "Do you think I could ever be like you?",
       "choices":[
         {"text": "Yes.","flag": "ToldMaxwellYes","next": "mxC3"},
-        {"text": "Maybe..","flag": "ToldMaxwellMaybe","next": "mxC3"},
         {"text": "No","flag": "ToldMaxwellNo","next": "mxC3"}
 
       ]

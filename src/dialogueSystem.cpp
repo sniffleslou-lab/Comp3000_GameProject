@@ -23,6 +23,7 @@ DialogueSystem::DialogueSystem(StoryFlags &flags, SDL_Renderer* renderer)
 
     portraitMap["Maxwell"] = IMG_LoadTexture(renderer,"../assets/textures/portraits/maxwell.png");
     portraitMap["player"] = IMG_LoadTexture(renderer,"../assets/textures/portraits/player.png");
+    portraitMap["Player"] = IMG_LoadTexture(renderer,"../assets/textures/portraits/player.png");
 
     for (auto& p : portraitMap){
         if(!p.second){

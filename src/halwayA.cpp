@@ -45,7 +45,7 @@ HallwayA::~HallwayA() {}
 
 void HallwayA::enter() {
     std::cout<<"entered hallway scene\n";
-    chapterFont = TTF_OpenFont("../assets/fonts/SunLight Dreams.otf", 48);
+    chapterFont = TTF_OpenFont("../assets/font/SunLight Dreams.otf", 48);
     //chapter 4 card
     if (storyFlags.getFlag("MaxwellStormedOut")&&
         !storyFlags.getFlag("Chapter4Started")) {
@@ -112,13 +112,15 @@ void HallwayA::handleEvents(SDL_Event &e) {
             sceneManager->changeScene(SceneID::SCENE_SPAREROOM, renderer);
             return;
         }
-        if (inspector->isNear("MaxwellDoor", player->getPosition()) &&
-       storyFlags.getFlag("FoundMaxwellKey"))
+        if (inspector->isNear("Maxwells Door", player->getPosition()) &&
+             storyFlags.getFlag("FoundMaxwellKey"))
         {
+            storyFlags.setFlag("StartMaxwellConfrontation", true);
             std::cout << "Unlocking Maxwell's room...\n";
             sceneManager->changeScene(SceneID::SCENE_MAXWELLROOM, renderer);
             return;
         }
+
         inspector->inspect(player->getPosition(),*sceneManager, renderer);
 
 
@@ -136,7 +138,14 @@ void HallwayA::handleEvents(SDL_Event &e) {
             startDialogueNextFrame = true;
             return;
         }
-        if(inspector->isNear("MaxwellDoor", player->getPosition())){
+        //if(inspector->isNear("MaxwellDoor", player->getPosition())){
+          // queuedNPC = "Maxwell";
+            //startDialogueNextFrame = true;
+            //return;
+        //}
+        if (inspector->isNear("Maxwells Door", player->getPosition()) &&
+           !storyFlags.getFlag("FoundMaxwellKey"))
+        {
             queuedNPC = "Maxwell";
             startDialogueNextFrame = true;
             return;
@@ -189,6 +198,9 @@ void HallwayA::update(float dt) {
 
     if (showChapter4Card) {
         chapter4Timer += dt;
+        if (chapter4Timer > 3.0f) {
+            showChapter4Card = false;
+        }
         return;
     }
 
@@ -270,13 +282,20 @@ void HallwayA::render(SDL_Renderer *renderer, bool debugMode) {
 }
 
 void HallwayA::drawCenteredText(SDL_Renderer *renderer, TTF_Font *font, const std::string &text, int y) {
+    if (!font) return;
     SDL_Color white = {255,255,255};
-    SDL_Surface* surf = TTF_RenderText_Solid(font, text.c_str(), white);
+    SDL_Surface* surf = TTF_RenderText_Blended(font, text.c_str(), white);
     SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, surf);
 
-    int w = surf->w;
-    int h = surf->h;
-    SDL_Rect dst = {(1280 - w )/ 2, y, w, h};
+    int screenW = 1280;
+    int textW = surf->w;
+
+    SDL_Rect dst;
+    dst.x = (screenW - textW) / 2;
+    dst.y = y;
+    dst.w = surf->w;
+    dst.h = surf->h;
+
 
     SDL_RenderCopy(renderer, tex, NULL, &dst);
 

@@ -4,7 +4,11 @@
 OutsideScene::OutsideScene(SDL_Renderer* renderer, StoryFlags& flags, DialogueSystem* dialogue)
 : renderer(renderer), storyFlags(flags), dialogueSystem(dialogue)
 {
-    player = std::make_unique<Character>(renderer, "../assets/textures/Characters/PlayerCha.png", 600,500);
+    player = std::make_unique<Character>(
+            renderer,
+            "../assets/textures/Characters/playerChar.png",
+            350, 400
+        );
     inspector = std::make_unique<inspectionSystem>(renderer, storyFlags,dialogueSystem);
     inspector->loadItems("../assets/data/outsideScene.json", renderer);
 
@@ -13,7 +17,7 @@ OutsideScene::OutsideScene(SDL_Renderer* renderer, StoryFlags& flags, DialogueSy
     //for arc4 when max appears outside storming out
     if (!storyFlags.getFlag("Chapter4_MaxwellGone")) {
         maxwellNPC = std::make_unique<NPC>(renderer,
-            "../assets/textures/Characters/maxwellNPC.png",650,350);
+            "../assets/textures/Characters/MaxwellChar.png",650,350);
     }
 }
 
@@ -136,10 +140,12 @@ inspector->update(dt, player->getPosition());
     }
     //after findmax scene converstation scene start
     if (storyFlags.getFlag("Chapter4_FindMaxwellDone")&&
-        !storyFlags.getFlag("Chapter4_ConversationDone")&&
-        !dialogueSystem->isActive) {
+    !storyFlags.getFlag("Chapter4_ConversationDone") &&
+    !dialogueSystem->isActive)
+        {
         storyFlags.setFlag("Chapter4_ConversationDone", true);
         dialogueSystem->startDialogue("MaxwellConversationSceneOut");
+        return;
         }
 
     //chapter 5 card

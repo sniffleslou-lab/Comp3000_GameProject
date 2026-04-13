@@ -330,7 +330,22 @@ void Kitchen::update(float dt) {
         !storyFlags.getFlag("Arc5_FinalTalk_Done") &&
         !dialogueSystem->isActive)
     {
+        if (!annaNPC) {
+            annaNPC = std::make_unique<NPC>(
+                renderer,
+                "../assets/textures/Characters/annaCha.png",
+                400, 200
+            );
+        }
+        if (!maxwellNPC) {
+            maxwellNPC = std::make_unique<NPC>(
+                renderer,
+                "../assets/textures/Characters/MaxwellChar.png",
+                500, 200
+            );
+        }
         dialogueSystem->startDialogue("StartArc5_FinalTalk");
+
         storyFlags.setFlag("Arc5_FinalTalk_Done", true);
     }
 
