@@ -1,5 +1,5 @@
 {
-  "npc": "Arc5_FinalTalk",
+  "npc": "StartArc5_FinalTalk",
   "dialogue": [
     {
       "id":"a5ft_intro1",

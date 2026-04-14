@@ -97,7 +97,7 @@ void OutsideScene::update(float dt) {
     //chapter card
     if (showChapter5Card) {
         chapter5Timer += dt;
-        if (chapter5Timer > 3.0f) {
+        if (chapter5Timer > 5.0f) {
             showChapter5Card = false;
             sceneManager->changeScene(SceneID::SCENE_ARC2_HALLWAY, renderer);
         }
@@ -167,13 +167,13 @@ bool OutsideScene::playerIsNearMaxwell() {
 
 void OutsideScene::drawCenteredText(SDL_Renderer *renderer, TTF_Font *font, const std::string &text, int y) {
     SDL_Color white = {255,255,255,255};
-    SDL_Surface* surf = TTF_RenderText_Solid(font, text.c_str(), white);
+    SDL_Surface* surf = TTF_RenderText_Blended(font, text.c_str(), white);
     SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, surf);
 
-    int w = surf->w;
-    int h = surf->h;
-    SDL_Rect dst = {(800 - w )/ 2, y, w, h};
+    int screenW = 1280;
+    int textW = surf->w;
 
+    SDL_Rect dst = { (screenW - textW) / 2, y, surf->w, surf->h };
     SDL_RenderCopy(renderer, tex, NULL, &dst);
 
     SDL_FreeSurface(surf);
@@ -193,11 +193,11 @@ void OutsideScene::render(SDL_Renderer *renderer, bool debugMode) {
     if (showChapter5Card) {
         SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 180);
-        SDL_Rect fullscreen = {0,0,800,600};
+        SDL_Rect fullscreen = {0,0,1280,180};
         SDL_RenderFillRect(renderer, &fullscreen);
 
-        drawCenteredText(renderer, chapterFont, "CHAPTER 5",300);
-        drawCenteredText(renderer, chapterFont, "Honestly",380);
+        drawCenteredText(renderer, chapterFont, "CHAPTER 5",500);
+        drawCenteredText(renderer, chapterFont, "Honestly",450);
     }
     //debug
     if (debugMode) {

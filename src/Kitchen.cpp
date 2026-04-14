@@ -54,7 +54,7 @@ void Kitchen::enter() {
 
 
     //find couch
-    SDL_Rect couchRect= {0,0,0,0};
+    couchRect= {0,0,0,0};
     for (auto& item : inspector->getItems()) {
         if (item.name == "Couch") {
             couchRect = item.rect;
@@ -75,7 +75,7 @@ void Kitchen::enter() {
             renderer,
             "../assets/textures/Characters/annaCha.png",
             couchRect.x + 100,
-            couchRect.y + 20
+            couchRect.y + 10
         );    }
     if (!storyFlags.getFlag("AnnaMoved")) {
         startDialogueNextFrame = true;
@@ -317,7 +317,8 @@ void Kitchen::update(float dt) {
             annaNPC = std::make_unique<NPC>(
                 renderer,
                 "../assets/textures/Characters/annaCha.png",
-                350, 200
+                couchRect.x + 100,
+                couchRect.y + 10
             );
         }
         dialogueSystem->startDialogue("AnnaInterruptScene");
@@ -329,20 +330,34 @@ void Kitchen::update(float dt) {
         !storyFlags.getFlag("Arc5_FinalTalk_Done") &&
         !dialogueSystem->isActive)
     {
+        if (garretNPC) {
+            garretNPC->setPosition(couchRect.x + 20, couchRect.y + 10);
+        }
+
         if (!annaNPC) {
             annaNPC = std::make_unique<NPC>(
                 renderer,
                 "../assets/textures/Characters/annaCha.png",
-                400, 200
+                couchRect.x + 70,
+                couchRect.y + 10
+
             );
+        } } else {
+            annaNPC->setPosition(couchRect.x + 70, couchRect.y + 10);
         }
         if (!maxwellNPC) {
             maxwellNPC = std::make_unique<NPC>(
                 renderer,
                 "../assets/textures/Characters/MaxwellChar.png",
-                500, 200
+                couchRect.x + 120,
+                couchRect.y + 10
+
             );
         }
+        else {
+            maxwellNPC->setPosition(couchRect.x + 120, couchRect.y + 10);
+        }
+
         dialogueSystem->startDialogue("StartArc5_FinalTalk");
 
         storyFlags.setFlag("Arc5_FinalTalk_Done", true);

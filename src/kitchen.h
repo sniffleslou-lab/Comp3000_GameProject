@@ -68,6 +68,9 @@ private:
     SDL_Texture* staticImage = nullptr;
 
     bool spaceWaDown = false;
+
+    SDL_Rect couchRect;
+
 };
 
 #endif //AMIPRETTY_KITCHEN_H
