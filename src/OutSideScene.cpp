@@ -33,11 +33,7 @@ void OutsideScene::enter() {
         dialogueSystem->startDialogue("OutsideAnxietyIntro");
         return;
     }
-    //findmaxwel json
-    if (!storyFlags.getFlag("Chapter4_FindMaxwellDone")) {
-        storyFlags.setFlag("Chapter4_FindMaxwellDone", true);
-        dialogueSystem->startDialogue("FindMaxwellScene");
-    }
+
 }
 
 void OutsideScene::handleEvents(SDL_Event &e) {
@@ -108,15 +104,17 @@ void OutsideScene::update(float dt) {
 
         if (chapter5Timer > 3.0f) {
             showChapter5Card = false;
+            sceneManager->changeScene(SceneID::SCENE_ARC2_HALLWAY, renderer);
+
         }
         return;
     }
 inspector->update(dt, player->getPosition());
 
 
-
+//qte
     if (storyFlags.getFlag("StartAnxietyQTE") &&
-       !storyFlags.getFlag("AnxietyQTE_Started"))
+      !storyFlags.getFlag("AnxietyQTE_Started"))
     {
         storyFlags.setFlag("AnxietyQTE_Started", true);
 
@@ -131,29 +129,32 @@ inspector->update(dt, player->getPosition());
     }
     //aftert axienty qte
     if (storyFlags.getFlag("AnxietyQTE_Started") &&
-       qteManager->isSuccess() &&
-       !storyFlags.getFlag("Chapter4_FindMaxwellDone"))
+        qteManager->isSuccess() &&
+        !storyFlags.getFlag("Chapter4_FindMaxwellDone"))
     {
         storyFlags.setFlag("Chapter4_FindMaxwellDone", true);
         dialogueSystem->startDialogue("FindMaxwellScene");
         return;
     }
+
     //after findmax scene converstation scene start
-    if (storyFlags.getFlag("Chapter4_FindMaxwellDone")&&
-    !storyFlags.getFlag("Chapter4_ConversationDone") &&
-    !dialogueSystem->isActive)
-        {
+    if (storyFlags.getFlag("Chapter4_FindMaxwellDone") &&
+        !storyFlags.getFlag("Chapter4_ConversationDone") &&
+        !dialogueSystem->isActive)
+    {
         storyFlags.setFlag("Chapter4_ConversationDone", true);
         dialogueSystem->startDialogue("MaxwellConversationSceneOut");
         return;
-        }
+    }
 
     //chapter 5 card
     if (storyFlags.getFlag("Chapter4_ConversationDone")&&
         !showChapter5Card &&
         !dialogueSystem->isActive) {
+
         showChapter5Card = true;
         chapter5Timer = 0.0f;
+        return;
         }
 }
 
@@ -215,6 +216,10 @@ void OutsideScene::render(SDL_Renderer *renderer, bool debugMode) {
         SDL_Rect p = player->getPosition();
         SDL_RenderDrawRect(renderer, &p);
     }
+    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+    SDL_SetRenderDrawColor(renderer, 200, 200, 200, 40);
+    SDL_Rect FogRect = {0,0,800,600};
+    SDL_RenderFillRect(renderer, &FogRect);
 
 
 }

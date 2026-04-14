@@ -3,8 +3,8 @@
   "dialogue": [
     {
       "id": "txt1",
-      "speaker": "Garret",
-      "text": "Can we talk? Living room.",
+      "speaker": "Phone",
+      "text": "Garret : Can we talk? Living room.",
       "flag": "CalledToLivingRoom"
     }
   ]

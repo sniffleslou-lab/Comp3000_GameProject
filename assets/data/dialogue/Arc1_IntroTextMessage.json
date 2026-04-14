@@ -1,0 +1,23 @@
+{
+  "npc": "PhoneIntro",
+  "dialogue": [
+    {
+      "id": "tm1",
+      "speaker": "Phone",
+      "text": "*Bzzz Bzzz*",
+      "next": "tm2"
+    },
+    {
+      "id": "tm2",
+      "speaker": "Phone",
+      "text": "Boss: You're late again. Where are you?",
+      "next": "tm3"
+    },
+    {
+      "id": "tm3",
+      "speaker": "Phone",
+      "text": "Boss: Get here ASAP.",
+      "flag": "StartMorningRoutine"
+    }
+  ]
+}

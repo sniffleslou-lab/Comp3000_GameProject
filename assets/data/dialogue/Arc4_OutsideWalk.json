@@ -3,13 +3,13 @@
   "dialogue": [
     {
       "id": "out1",
-      "speaker": "Narrator",
+      "speaker": "Player",
       "text": "You step outside. The air feels heavier than you expected.",
       "next": "out2"
     },
     {
       "id": "out2",
-      "speaker": "Narrator",
+      "speaker": "Player",
       "text": "Your chest tightens. A quick-time event begins",
       "flag": "StartAnxietyQTE"
     }

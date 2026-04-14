@@ -194,6 +194,8 @@ void bedroom::update(float dt) {
         if(chapterCardTimer > 5.0f){
             showChapterCard = false;
 
+            storyFlags.setFlag("Chapter1CardDone", true);
+
             if (dialogueSystem &&
                 storyFlags.getFlag("Arc3Start") &&
                 !storyFlags.getFlag("MirrorSceneDone") &&
@@ -203,7 +205,16 @@ void bedroom::update(float dt) {
             }
         }
     }
-    if (storyFlags.getFlag("MirrorSceneDone") &&
+    if (storyFlags.getFlag("Chapter1CardDone") &&
+    !storyFlags.getFlag("MorningTextSeen") &&
+    !dialogueSystem->isActive)
+    {
+        storyFlags.setFlag("MorningTextSeen", true);
+        dialogueSystem->startDialogue("PhoneIntro");
+    }
+
+    if (storyFlags.getFlag("Arc3Start") &&
+    storyFlags.getFlag("MirrorSceneDone") &&
     !storyFlags.getFlag("PhoneMessageSeen") &&
     !dialogueSystem->isActive)
     {
@@ -211,6 +222,7 @@ void bedroom::update(float dt) {
         storyFlags.setFlag("PhoneMessageSeen", true);
         return;
     }
+
 
 }
 
