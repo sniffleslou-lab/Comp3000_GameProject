@@ -62,23 +62,20 @@ void Kitchen::enter() {
         }
     }
     if (garretNPC) {
-        int garretX = couchRect.x + couchRect.w/2-32;
-        int garretY = couchRect.y - 30;
-        garretNPC->setPosition(garretX,garretY);
+        garretNPC->setPosition(couchRect.x + 20, couchRect.y + 20);
+
     }
 
     if (storyFlags.getFlag("AnnaMoved") &&
         !storyFlags.getFlag("Arc3Start") &&
         !annaNPC) {
-        std::cout << "anna spawned in the room\n";
-        int annaX = couchRect.x + couchRect.w - 40;
-        int annaY = couchRect.y - 40;
+
 
         annaNPC = std::make_unique<NPC>(
             renderer,
             "../assets/textures/Characters/annaCha.png",
-            annaX,
-            annaY
+            couchRect.x + 100,
+            couchRect.y + 20
         );    }
     if (!storyFlags.getFlag("AnnaMoved")) {
         startDialogueNextFrame = true;
@@ -302,11 +299,13 @@ void Kitchen::update(float dt) {
 
 
     // --- ARC 3 GARRET TALK ---
-    if (storyFlags.getFlag("CalledToLivingRoom") &&
-        !storyFlags.getFlag("GarretTalkDone") &&
-        !dialogueSystem->isActive)
-    {
-        dialogueSystem->startDialogue("GarretLivingRoomScene");
+    if (!storyFlags.getFlag("Arc5_FinalTalk")) {
+        if (storyFlags.getFlag("CalledToLivingRoom") &&
+            !storyFlags.getFlag("GarretTalkDone") &&
+            !dialogueSystem->isActive)
+        {
+            dialogueSystem->startDialogue("GarretLivingRoomScene");
+        }
     }
 
     // --- ARC 3 ANNA INTERRUPTS ---
@@ -375,7 +374,7 @@ void Kitchen::startPowerOutage() {
 void Kitchen::render(SDL_Renderer *renderer, bool debugMode) {
 
 //scene
-    SDL_SetRenderDrawColor(renderer, 253,253,100,255);
+    SDL_SetRenderDrawColor(renderer, 140, 120, 90, 255);
     SDL_RenderClear(renderer);
 
     inspector->render(renderer);

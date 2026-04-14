@@ -65,10 +65,11 @@
       "id": "6",
       "name": "Carpet",
       "inspect": "",
-      "x": 400,
-      "y": 300,
-      "w": 100,
-      "h": 100,
+      "x": 350,
+      "y": 260,
+      "w": 260,
+      "h": 160,
+
       "texture": "/SYD_Interior_Pack_V1/Livingroom/Carpet/Carpet_Wheat_3x2.png",
       "type": "",
       "layer": 0

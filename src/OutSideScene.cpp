@@ -29,10 +29,12 @@ void OutsideScene::enter() {
     chapterFont = TTF_OpenFont("../assets/font/SunLight Dreams.otf", 48);
     //Axiety attack intro for the first time
     if (!storyFlags.getFlag("OutsideAnxietySeen")) {
+        std::cout << "Starting OutsideAnxietyIntro\n";
         storyFlags.setFlag("OutsideAnxietySeen", true);
         dialogueSystem->startDialogue("OutsideAnxietyIntro");
         return;
     }
+
 
 }
 
@@ -88,24 +90,16 @@ void OutsideScene::handleEvents(SDL_Event &e) {
         inspector->inspect(player->getPosition(), *sceneManager, renderer);
     }
 
-    // Talk to Maxwell
-    if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_f) {
-        if (maxwellNPC && playerIsNearMaxwell()) {
-            dialogueSystem->startDialogue("MaxwellConversationSceneOut");
-            return;
-        }
-    }
+
 }
 
 void OutsideScene::update(float dt) {
     //chapter card
     if (showChapter5Card) {
         chapter5Timer += dt;
-
         if (chapter5Timer > 3.0f) {
             showChapter5Card = false;
             sceneManager->changeScene(SceneID::SCENE_ARC2_HALLWAY, renderer);
-
         }
         return;
     }
@@ -114,14 +108,15 @@ inspector->update(dt, player->getPosition());
 
 //qte
     if (storyFlags.getFlag("StartAnxietyQTE") &&
-      !storyFlags.getFlag("AnxietyQTE_Started"))
+         !storyFlags.getFlag("AnxietyQTE_Started"))
     {
         storyFlags.setFlag("AnxietyQTE_Started", true);
 
+        //for testing
         QTEEvents event;
         event.sequence = {SDLK_a, SDLK_s};
-        event.timePerKey = 3.5f;
-        event.successGain = 1.4f;
+        event.timePerKey = 9999.0f;
+        event.successGain = 9999.0f;
         event.failPenalty = 0.0f;
 
         qteManager->start(event);
@@ -129,8 +124,8 @@ inspector->update(dt, player->getPosition());
     }
     //aftert axienty qte
     if (storyFlags.getFlag("AnxietyQTE_Started") &&
-        qteManager->isSuccess() &&
-        !storyFlags.getFlag("Chapter4_FindMaxwellDone"))
+          qteManager->isSuccess() &&
+          !storyFlags.getFlag("Chapter4_FindMaxwellDone"))
     {
         storyFlags.setFlag("Chapter4_FindMaxwellDone", true);
         dialogueSystem->startDialogue("FindMaxwellScene");
@@ -139,8 +134,8 @@ inspector->update(dt, player->getPosition());
 
     //after findmax scene converstation scene start
     if (storyFlags.getFlag("Chapter4_FindMaxwellDone") &&
-        !storyFlags.getFlag("Chapter4_ConversationDone") &&
-        !dialogueSystem->isActive)
+       !storyFlags.getFlag("Chapter4_ConversationDone") &&
+       !dialogueSystem->isActive)
     {
         storyFlags.setFlag("Chapter4_ConversationDone", true);
         dialogueSystem->startDialogue("MaxwellConversationSceneOut");
@@ -148,13 +143,14 @@ inspector->update(dt, player->getPosition());
     }
 
     //chapter 5 card
-    if (storyFlags.getFlag("Chapter4_ConversationDone")&&
+    //
+    if (storyFlags.getFlag("Chapter4_ConversationDone") &&
         !showChapter5Card &&
-        !dialogueSystem->isActive) {
-
-        showChapter5Card = true;
-        chapter5Timer = 0.0f;
-        return;
+        !dialogueSystem->isActive)
+        {
+            showChapter5Card = true;
+            chapter5Timer = 0.0f;
+            return;
         }
 }
 
