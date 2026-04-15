@@ -70,7 +70,7 @@
     {
       "id": "a5ft_garret1",
       "speaker": "Garret",
-      "text": "I’ve been thinking about leaving. Going home, or just… disappearing.",
+      "text": "I’ve been thinking about leaving. Going home, or just . . . disappearing.",
       "next": "a5ft_garret2"
     },
     {
@@ -82,7 +82,7 @@
     {
       "id": "a5ft_garret3",
       "speaker": "Garret",
-      "text": "Taking a plane and starting a new life. I’d be broke, homeless… but it’s possible.",
+      "text": "Taking a plane and starting a new life. I’d be broke, homeless . . . but it’s possible.",
       "next": "a5ft_garret4"
     },
     {
@@ -112,7 +112,7 @@
     {
       "id":"a5ft_maxwell3",
       "speaker": "Maxwell",
-      "text": "Say one thing. I am going to change, I just need time, but you guys are cool and I want to be your friends.",
+      "text": "Say one thing. I am going to change, I just need time, but you guys are cool, and I want to be your friends.",
       "next": "a5ft_playerStart"
     },
     {

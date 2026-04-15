@@ -3,24 +3,53 @@
   "dialogue": [
     {
       "id": "mxC1",
-      "speaker": "Narrator",
+      "speaker": "Maxwell",
       "text": "Why are you here...?",
+      "next": "mxC1b"
+    },
+    {
+      "id": "mxC1b",
+      "speaker": "Maxwell",
+      "text": "You keep showing up. You keep trying to talk to me. Why?",
       "next": "mxC2"
     },
     {
       "id": "mxC2",
-      "speaker": "Narrator",
+      "speaker": "Maxwell",
       "text": "Do you think I could ever be like you?",
-      "choices":[
-        {"text": "Yes.","flag": "ToldMaxwellYes","next": "mxC3"},
-        {"text": "No","flag": "ToldMaxwellNo","next": "mxC3"}
-
+      "choices": [
+        {"text": "Yes.", "flag": "ToldMaxwellYes", "next": "mxC2b"},
+        {"text": "No.", "flag": "ToldMaxwellNo", "next": "mxC2b"}
       ]
+    },
+    {
+      "id": "mxC2b",
+      "speaker": "Maxwell",
+      "text": "You say that so easily...",
+      "next": "mxC2c"
+    },
+    {
+      "id": "mxC2c",
+      "speaker": "Maxwell",
+      "text": "You do not know what it is like to wake up every day and feel like you are already failing.",
+      "next": "mxC2d"
+    },
+    {
+      "id": "mxC2d",
+      "speaker": "Maxwell",
+      "text": "I try. I really do. But every time I look at you, I see everything I am not.",
+      "next": "mxC3"
     },
     {
       "id": "mxC3",
       "speaker": "Narrator",
-      "text": "Maxwell turns away and storms out.",
+      "text": "Maxwell's voice cracks. He turns away, shoulders tense.",
+      "next": "mxC4"
+    },
+    {
+      "id": "mxC4",
+      "speaker": "Narrator",
+      "text": "He does not wait for you to speak. He storms out of the room.",
       "flag": "MaxwellStormedOut"
     }
   ]

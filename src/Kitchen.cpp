@@ -194,7 +194,6 @@ void Kitchen::drawCenteredText(SDL_Renderer* renderer, TTF_Font* font, const std
 
 
 void Kitchen::update(float dt) {
-
     // --- ALWAYS UPDATE FADE FIRST ---
     screenFade.update(dt);
 
@@ -330,36 +329,36 @@ void Kitchen::update(float dt) {
         !storyFlags.getFlag("Arc5_FinalTalk_Done") &&
         !dialogueSystem->isActive)
     {
+        // Garret (left seat)
         if (garretNPC) {
             garretNPC->setPosition(couchRect.x + 20, couchRect.y + 10);
         }
 
+        // Anna (middle seat)
         if (!annaNPC) {
             annaNPC = std::make_unique<NPC>(
                 renderer,
                 "../assets/textures/Characters/annaCha.png",
                 couchRect.x + 70,
                 couchRect.y + 10
-
             );
-        } } else {
+        } else {
             annaNPC->setPosition(couchRect.x + 70, couchRect.y + 10);
         }
+
+        // Maxwell (right seat)
         if (!maxwellNPC) {
             maxwellNPC = std::make_unique<NPC>(
                 renderer,
                 "../assets/textures/Characters/MaxwellChar.png",
                 couchRect.x + 120,
                 couchRect.y + 10
-
             );
-        }
-        else {
+        } else {
             maxwellNPC->setPosition(couchRect.x + 120, couchRect.y + 10);
         }
 
         dialogueSystem->startDialogue("StartArc5_FinalTalk");
-
         storyFlags.setFlag("Arc5_FinalTalk_Done", true);
     }
 
@@ -379,7 +378,6 @@ void Kitchen::update(float dt) {
         return;
     }
 }
-
 void Kitchen::startPowerOutage() {
     screenFade.start(0,0,0,255,2.0f);
     blackoutImage = IMG_LoadTexture(renderer,"../assets/textures/wall.png");
@@ -426,7 +424,7 @@ void Kitchen::render(SDL_Renderer *renderer, bool debugMode) {
     if (showCreditsCard) {
         SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
         SDL_SetRenderDrawColor(renderer, 0,0,0,255);
-        SDL_Rect fullscreen = {0,0,1280,720};
+        SDL_Rect fullscreen = {0,0,800,600};
         SDL_RenderFillRect(renderer, &fullscreen);
 
         drawCenteredText(renderer, creditsFont, "Made by Lou", 300);

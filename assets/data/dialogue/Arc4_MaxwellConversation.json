@@ -16,13 +16,13 @@
     {
       "id": "mxF3",
       "speaker": "Maxwell",
-      "text": "I.. ehh ",
+      "text": "I.. ehh",
       "next": "mxF4"
     },
     {
       "id": "mxF4",
       "speaker": "Player",
-      "text": "It's ok. You don't need to tell me everything here, but I am here for you. ",
+      "text": "It's ok. You don't need to tell me everything here, but I am here for you.",
       "next": "mxF5"
     },
     {
@@ -76,7 +76,7 @@
     {
       "id": "mxF13",
       "speaker": "Player",
-      "text": "Allowing myself to me. I was still scared, but I saw hope",
+      "text": "Allowing myself to be me. I was still scared, but I saw hope",
       "next": "mxF14"
     },
     {
@@ -100,31 +100,31 @@
     {
       "id": "mxF17",
       "speaker": "Player",
-      "text": "Of course, but worrying. Stopping myself from living is a harsher punishment for being myself.",
+      "text": "Of course, but worrying and stopping myself from living is a harsher punishment for being myself.",
       "next": "mxF18"
     },
     {
       "id": "mxF18",
       "speaker": "Player",
-      "text": "There is a quote I heard, not religious, but I stuck with me.",
+      "text": "There is a quote I heard, not religious, but it stuck with me.",
       "next": "mxF19"
     },
     {
       "id": "mxF19",
       "speaker": "Player",
-      "text": "It’s your road…and yours alone… Others may walk it with you, but no one can walk it for you. No matter what path you choose, really walk it.",
+      "text": "It's your road... and yours alone... Others may walk it with you, but no one can walk it for you. No matter what path you choose, really walk it.",
       "next": "mxF20"
     },
     {
       "id": "mxF20",
       "speaker": "Player",
-      "text": "I can't walk your path, and no one can force you, but I can tell you. Being yourself will make you happy.",
+      "text": "I can't walk your path, and no one can force you, but I can tell you this: being yourself will make you happy.",
       "next": "mxF21"
     },
     {
       "id": "mxF21",
       "speaker": "Maxwell",
-      "text": "I  don't feel confident telling you everything, but I will walk down my path",
+      "text": "I don't feel confident telling you everything, but I will walk down my path",
       "next": "mxF22"
     },
     {

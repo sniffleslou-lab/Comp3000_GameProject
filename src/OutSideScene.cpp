@@ -193,12 +193,14 @@ void OutsideScene::render(SDL_Renderer *renderer, bool debugMode) {
     if (showChapter5Card) {
         SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 180);
-        SDL_Rect fullscreen = {0,0,1280,180};
+
+        SDL_Rect fullscreen = {0,0,1280,720};
         SDL_RenderFillRect(renderer, &fullscreen);
 
-        drawCenteredText(renderer, chapterFont, "CHAPTER 5",500);
-        drawCenteredText(renderer, chapterFont, "Honestly",450);
+        drawCenteredText(renderer, chapterFont, "CHAPTER 5", 500);
+        drawCenteredText(renderer, chapterFont, "Honestly", 450);
     }
+
     //debug
     if (debugMode) {
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
