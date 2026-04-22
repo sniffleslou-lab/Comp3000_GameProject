@@ -1,15 +1,25 @@
 {
   "npc": "MaxwellHall",
   "dialogue": [
-    {"id": "mx1","speaker": "Maxwell","text": "Rough night?","next": "mx2"},
-    {"id": "mx2","speaker": "Player","text": "Seems like it..","next": "mx3"},
+    {
+      "id": "mx1",
+      "speaker": "Maxwell",
+      "text": "Rough night?",
+      "next": "mx2"
+    },
+    {
+      "id": "mx2",
+      "speaker": "Player",
+      "text": "Seems like it..",
+      "next": "mx3"
+    },
     {
       "id": "mx3",
       "speaker": "Maxwell",
       "text": "Want to hang out..? I've got something to show you.",
       "choices": [
-        {"text": "Sure.","flag": "EnterMaxwellRoom","next":"mx4"},
-        {"text": "Maybe later.","flag": "DeclineMaxwell","next":"mx5"}
+        {"text": "Sure.", "flag": "EnterMaxwellRoom", "next": "mx4"},
+        {"text": "Maybe later.", "flag": "DeclineMaxwell", "next": "mx5"}
       ]
     },
     {

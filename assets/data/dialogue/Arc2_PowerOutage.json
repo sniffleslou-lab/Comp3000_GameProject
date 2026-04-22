@@ -16,10 +16,9 @@
     {
       "id": "pwr3",
       "speaker": "Narrator",
-      "text": "Room is frozen. Now one moves until the lights flicker back on.",
+      "text": "Room is frozen. No one moves until the lights flicker back on.",
       "flag": "PowerOutage1Done",
       "next": ""
-
     }
   ]
 }

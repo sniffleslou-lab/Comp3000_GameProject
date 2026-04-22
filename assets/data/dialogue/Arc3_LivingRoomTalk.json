@@ -16,7 +16,7 @@
     {
       "id": "gl3",
       "speaker": "Garret",
-      "text": "Do you ever think about the future? Like… what it even looks like anymore?",
+      "text": "Do you ever think about the future? Like... what it even looks like anymore?",
       "next": "gl4"
     },
     {
@@ -25,7 +25,7 @@
       "text": "What do you think?",
       "choices": [
         {
-          "text": "I'm scared ",
+          "text": "I'm scared",
           "flag": "PlayerOpenedUp",
           "next": "gl5"
         },
@@ -42,6 +42,5 @@
       "text": "Yeah.... I get that.",
       "flag": "GarretTalkDone"
     }
-
   ]
 }

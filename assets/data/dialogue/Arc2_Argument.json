@@ -32,7 +32,7 @@
       "choices": [
         {"text": "both okay?", "flag": "SideNeutral", "next": "ret6"},
         {"text": "ehhh?", "flag": "SideAvoid", "next": "ret6"}
-        ]
+      ]
     },
     {
       "id": "ret6",
@@ -40,7 +40,6 @@
       "text": "Both fall silent, embarrassed.",
       "flag": "Arc2ArgumentSeen",
       "next": ""
-
     }
   ]
 }

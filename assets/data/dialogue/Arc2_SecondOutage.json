@@ -1,32 +1,32 @@
 {
-"npc": "PostBrGroupArc2",
-"dialogue": [
-{
-"id": "pwr5",
-"speaker": "Anna",
-"text": "Okay! That one was not caused by me.",
-"next": "pwr6"
-},
-{
-"id": "pwr6",
-"speaker": "Garret",
-"text": "*sigh* we should check the breaker",
-"next": "pwr7"
-},
-  {
-    "id":"pwr7",
-    "speaker": "Garret",
-    "text":"You coming with me?",
-    "choices": [
-      {"text": "Sure", "flag":"GoWithGarret", "next": "pwr8"},
-      {"text": "Really?", "flag":  "ReluctantGarret", "next": "pwr8"}
-    ]
-  },
-{
-"id": "pwr8",
-"speaker": "Narrator",
-"text": "You head into the hallway",
-"flag": "StartBreakerQuest"
-}
-]
+  "npc": "PostBrGroupArc2",
+  "dialogue": [
+    {
+      "id": "pwr5",
+      "speaker": "Anna",
+      "text": "Okay! That one was not caused by me.",
+      "next": "pwr6"
+    },
+    {
+      "id": "pwr6",
+      "speaker": "Garret",
+      "text": "*sigh* we should check the breaker",
+      "next": "pwr7"
+    },
+    {
+      "id": "pwr7",
+      "speaker": "Garret",
+      "text": "You coming with me?",
+      "choices": [
+        {"text": "Sure", "flag": "GoWithGarret", "next": "pwr8"},
+        {"text": "Really?", "flag": "ReluctantGarret", "next": "pwr8"}
+      ]
+    },
+    {
+      "id": "pwr8",
+      "speaker": "Narrator",
+      "text": "You head into the hallway",
+      "flag": "StartBreakerQuest"
+    }
+  ]
 }
